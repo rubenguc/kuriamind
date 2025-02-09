@@ -15,3 +15,8 @@ export const getBlockedApps = async (): Promise<string[]> => {
 export const saveBlockedApps = async (apps: string[]): Promise<void> => {
   await MyAppModule.saveBlockedApps(apps);
 };
+
+export const checkAccessibilityServiceStatus = async (): Promise<void> => {
+  const result = await MyAppModule.checkAccessibilityServiceStatus();
+  console.log(result);
+};

@@ -2,9 +2,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
-    <!-- <uses-permission
-      android:name="android.permission.PACKAGE_USAGE_STATS"
-      tools:ignore="ProtectedPermissions" /> -->
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
       android:name=".MainApplication"
@@ -14,6 +14,18 @@
       android:allowBackup="false"
       android:theme="@style/AppTheme"
       android:supportsRtl="true">
+      <service
+          android:name=".AppMonitorService"
+          android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+           android:exported="true">
+          <intent-filter>
+              <action android:name="android.accessibilityservice.AccessibilityService"/>
+          </intent-filter>
+          <meta-data
+              android:name="android.accessibilityservice"
+              android:resource="@xml/accessibility_service_config"/>
+      </service>
+
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"
@@ -26,5 +38,19 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
+
+      <activity
+          android:name=".BlockActivity"
+          android:theme="@style/Theme.AppCompat.Dialog"
+          android:exported="false"
+          android:taskAffinity=""
+          android:excludeFromRecents="true"
+          android:launchMode="singleInstance"
+          android:finishOnTaskLaunch="true"
+          android:showWhenLocked="true"
+          android:turnScreenOn="true">
+      </activity>
+
+
     </application>
 </manifest>

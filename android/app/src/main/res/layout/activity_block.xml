@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    >
+
+    <!-- Mensaje de advertencia -->
+    <TextView
+        android:id="@+id/block_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¡Esta aplicación está bloqueada!"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"/>
+
+    <!-- Botón para cerrar la app bloqueada -->
+    <Button
+        android:id="@+id/close_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cerrar App"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>

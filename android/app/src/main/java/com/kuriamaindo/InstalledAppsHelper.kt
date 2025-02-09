@@ -7,6 +7,7 @@ import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.Base64
+import android.util.Log
 import com.facebook.react.bridge.*
 import java.io.ByteArrayOutputStream
 

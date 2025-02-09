@@ -5,7 +5,10 @@ import {
   getInstalledApps,
   getBlockedApps,
   saveBlockedApps,
+  checkAccessibilityServiceStatus
 } from '../../native-modules/MyAppBridge';
+import { startMonitoring, stopMonitoring } from "../../native-modules/AppMonitor"
+import { disableMonitoring, enableMonitoring, isMonitoringEnabled } from "../../native-modules/MonitorService"
 import { Button } from '../../components/ui/button';
 import {
   Checkbox,
@@ -45,6 +48,18 @@ const Welcome = () => {
 
   return (
     <View className="relative">
+      <Button className="absolute z-50 bottom-5 left-5" onPress={checkAccessibilityServiceStatus}>
+        <Text>stop</Text>
+      </Button>
+
+      <Button className="absolute z-50 bottom-5 right-1/3" onPress={disableMonitoring}>
+        <Text>stop</Text>
+      </Button>
+
+      <Button className="absolute z-50 bottom-5 right-1/2" onPress={enableMonitoring}>
+        <Text>start</Text>
+      </Button>
+
       <Button className="absolute z-50 bottom-5 right-5" onPress={saveConfig}>
         <Text>save</Text>
       </Button>

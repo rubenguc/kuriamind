@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">kuriamaindo</string>
+    <string name="accessibility_service_description">Este servicio permite monitorear las
+        aplicaciones en uso.</string>
 </resources>
