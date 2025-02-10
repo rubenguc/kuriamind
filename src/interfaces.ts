@@ -8,3 +8,9 @@ export interface Block {
 }
 
 export type BlockToSave = Omit<Block, 'id'>;
+
+export interface InstalledApp {
+  packageName: string;
+  appName: string;
+  icon: string;
+}

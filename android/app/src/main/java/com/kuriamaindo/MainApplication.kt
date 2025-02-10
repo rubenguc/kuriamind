@@ -12,13 +12,17 @@ import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.react.soloader.OpenSourceMergedSoMapping
 import com.facebook.soloader.SoLoader
 import com.kuriamaindo.modules.blocks.BlockPackage
+import com.kuriamaindo.modules.installedApps.InstalledAppsPackage
 
 class MainApplication : Application(), ReactApplication {
 
     override val reactNativeHost: ReactNativeHost =
             object : DefaultReactNativeHost(this) {
                 override fun getPackages(): List<ReactPackage> =
-                        PackageList(this).packages.apply { add(BlockPackage()) }
+                        PackageList(this).packages.apply {
+                            add(BlockPackage())
+                            add(InstalledAppsPackage())
+                        }
 
                 override fun getJSMainModuleName(): String = "index"
 
