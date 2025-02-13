@@ -44,7 +44,7 @@ class BlockModule(reactContext: ReactApplicationContext) :
                             data.blockedApps,
                             data.blockApps,
                             data.blockNotifications,
-                            data.isActive
+                            true
                     )
 
             storage.addItem(block)
