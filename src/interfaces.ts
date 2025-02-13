@@ -7,7 +7,7 @@ export interface Block {
   isActive: boolean;
 }
 
-export type BlockToSave = Omit<Block, 'id'>;
+export type BlockToSave = Omit<Block, 'id' | 'isActive'>;
 
 export interface InstalledApp {
   packageName: string;
