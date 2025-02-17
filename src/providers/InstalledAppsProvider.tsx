@@ -23,7 +23,6 @@ export const InstalledAppsProvider: FC<PropsWithChildren> = ({children}) => {
   const loadInstalledApps = async () => {
     try {
       const installedApps = await getInstalledApps();
-      console.log(installedApps.map(app => app.appName));
       setInstalledApps(installedApps);
     } catch (error) {
       console.log(error);
