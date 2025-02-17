@@ -1,37 +1,58 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Home } from './screens/home';
-import { Welcome } from './screens/welcome';
-import {
-  createStaticNavigation,
-  StaticParamList,
-} from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Welcome} from './screens/welcome';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {Blocks} from './screens/blocks';
+import {Block} from './screens/block';
+import {Block as IBlock} from './interfaces';
+import {NavigatorScreenParams} from '@react-navigation/native';
 
-const HomeTabs = createBottomTabNavigator({
-  screenOptions: {
-    headerShown: false,
-  },
-  screens: {
-    Home,
-  },
-});
+const BottomStack = createBottomTabNavigator();
 
-const RootStack = createNativeStackNavigator({
-  screenOptions: {
-    headerShown: false,
-  },
-  screens: {
-    Welcome,
-    HomeTabs,
-  },
-});
+export type BottomStackParamList = {
+  Blocks: {
+    shouldRefresh?: boolean;
+  };
+};
 
-export const Navigation = createStaticNavigation(RootStack);
+export const BottomStackNavigation = () => {
+  return (
+    <BottomStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          height: 40,
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,
+        },
+      }}>
+      <BottomStack.Screen name="Blocks" component={Blocks} />
+    </BottomStack.Navigator>
+  );
+};
 
-type RootStackParamList = StaticParamList<typeof RootStack>;
+const Stack = createNativeStackNavigator();
 
-declare global {
-  namespace ReactNavigation {
-    interface RootParamList extends RootStackParamList { }
-  }
-}
+export type RootStackParamList = {
+  Home: NavigatorScreenParams<BottomStackParamList>;
+  Block: {block?: IBlock};
+  Welcome: undefined;
+};
+
+export const RooStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name="Home" component={BottomStackNavigation} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+        }}
+        name="Block"
+        component={Block}
+      />
+      <Stack.Screen name="Welcome" component={Welcome} />
+    </Stack.Navigator>
+  );
+};
