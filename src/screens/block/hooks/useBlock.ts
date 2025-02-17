@@ -1,5 +1,6 @@
 import {useCustomToast} from '@/hooks';
-import {saveBlock} from '@/native-modules';
+import {Block} from '@/interfaces';
+import {saveBlock, updateBlock} from '@/native-modules';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useForm, Controller} from 'react-hook-form';
 import z from 'zod';
@@ -22,7 +23,12 @@ const DEFAULT_VALUES = {
   blockNotifications: true,
 };
 
-export const useBlock = () => {
+interface useBlockProps {
+  defaultBlock: Block | undefined;
+  onFinishSubmit: () => void;
+}
+
+export const useBlock = ({defaultBlock, onFinishSubmit}: useBlockProps) => {
   const {showSuccessToast, showErrorToast} = useCustomToast();
 
   const {
@@ -31,28 +37,53 @@ export const useBlock = () => {
     reset,
     formState: {errors},
   } = useForm<blockToSaveSchemaType>({
-    defaultValues: DEFAULT_VALUES,
+    defaultValues: defaultBlock
+      ? {
+          name: defaultBlock.name,
+          blockedApps: defaultBlock.blockedApps,
+          blockApps: defaultBlock.blockApps,
+          blockNotifications: defaultBlock.blockNotifications,
+        }
+      : DEFAULT_VALUES,
     resolver: zodResolver(blockToSaveSchema),
   });
 
   const onSubmit = handleSubmit(async (data: blockToSaveSchemaType) => {
     try {
-      await saveBlock(data);
-      showSuccessToast({
-        description: 'El bloque se ha creado correctamente',
-      });
+      if (isEditing) {
+        await updateBlock({
+          ...data,
+          id: defaultBlock!.id,
+          isActive: defaultBlock!.isActive,
+        });
+        showSuccessToast({
+          description: 'El bloque se ha actualizado correctamente',
+        });
+      } else {
+        await saveBlock(data);
+        showSuccessToast({
+          description: 'El bloque se ha creado correctamente',
+        });
+      }
       reset(DEFAULT_VALUES);
+      onFinishSubmit();
     } catch (error) {
+      console.log({
+        error,
+      });
       showErrorToast({
         description: 'Error al crear el bloque',
       });
     }
   });
 
+  const isEditing = !!defaultBlock;
+
   return {
     control,
     onSubmit,
     handleSubmit,
     errors,
+    isEditing,
   };
 };
