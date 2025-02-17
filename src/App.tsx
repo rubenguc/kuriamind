@@ -1,13 +1,21 @@
 import './global.css';
 
-import React from 'react';
-import { GluestackUIProvider } from './components/ui/gluestack-ui-provider';
-import { Navigation } from './router';
+import {GluestackUIProvider} from '@/components/ui/gluestack-ui-provider';
+import {RooStack} from '@/router';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {InstalledAppsProvider} from './providers';
+import {NavigationContainer} from '@react-navigation/native';
 
-function App(): React.JSX.Element {
+function App() {
   return (
     <GluestackUIProvider>
-      <Navigation />
+      <SafeAreaProvider>
+        <InstalledAppsProvider>
+          <NavigationContainer>
+            <RooStack />
+          </NavigationContainer>
+        </InstalledAppsProvider>
+      </SafeAreaProvider>
     </GluestackUIProvider>
   );
 }
