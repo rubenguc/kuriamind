@@ -15,15 +15,26 @@ import {CheckIcon, PlusIcon} from 'lucide-react-native';
 import {VStack} from '@/components/ui/vstack';
 import {useToggle} from 'react-use';
 import {AppsToSelect} from './components/AppsToSelect';
-import {getSelectedApps} from '@/utils/block-utils';
 import {useInstalledApps} from '@/providers';
-import {HStack} from '@/components/ui/hstack';
-import {Image} from '@/components/ui/image';
 import {SelectedAppsInBlock} from '@/components/shared';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '@/router';
 
-export const Block = () => {
+interface BlocksProps
+  extends NativeStackScreenProps<RootStackParamList, 'Block'> {}
+
+export const Block = ({route, navigation}: BlocksProps) => {
   const {installedApps} = useInstalledApps();
-  const {control, onSubmit, handleSubmit, errors} = useBlock();
+  const {control, onSubmit, handleSubmit, errors, isEditing} = useBlock({
+    defaultBlock: route.params.block,
+    onFinishSubmit: () =>
+      navigation.navigate('Home', {
+        screen: 'Blocks',
+        params: {
+          shouldRefresh: true,
+        },
+      }),
+  });
 
   const [isOpen, toggleOpen] = useToggle(false);
 
@@ -119,7 +130,7 @@ export const Block = () => {
         />
 
         <Button className="top-10 rounded-2xl" onPress={onSubmit}>
-          <ButtonText>Create block</ButtonText>
+          <ButtonText>{isEditing ? 'Update block' : 'Create block'}</ButtonText>
         </Button>
       </Box>
     </ScrollView>

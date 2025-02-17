@@ -12,6 +12,7 @@
   "dependencies": {
     "@expo/html-elements": "0.4.2",
     "@gluestack-ui/actionsheet": "^0.2.46",
+    "@gluestack-ui/alert-dialog": "^0.1.32",
     "@gluestack-ui/button": "^1.0.8",
     "@gluestack-ui/checkbox": "^0.1.33",
     "@gluestack-ui/icon": "^0.1.25",
