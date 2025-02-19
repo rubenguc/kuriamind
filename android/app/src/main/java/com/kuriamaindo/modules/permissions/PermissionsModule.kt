@@ -14,17 +14,15 @@ class PermissionsModule(reactContext: ReactApplicationContext) :
         return "PermissionsModule"
     }
 
-    // Método para abrir la configuración de accesibilidad
     @ReactMethod
-    fun openNotificationSettings() {
+    fun openNotificationListenerSettings() {
         val intent = Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         reactApplicationContext.startActivity(intent)
     }
 
-    // Método para verificar si el servicio de accesibilidad está habilitado
     @ReactMethod
-    fun isNotificationServiceEnabled(promise: Promise) {
+    fun checkNotificationListenerServiceEnabled(promise: Promise) {
         try {
             val contentResolver = reactApplicationContext.contentResolver
             val enabledListeners =
@@ -33,6 +31,32 @@ class PermissionsModule(reactContext: ReactApplicationContext) :
             promise.resolve(isEnabled)
         } catch (e: Exception) {
             promise.reject("ERROR", "No se pudo verificar el permiso de notificación: ${e.message}")
+        }
+    }
+
+    @ReactMethod
+    fun openAccessibilitySettings() {
+        val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        reactApplicationContext.startActivity(intent)
+    }
+
+    @ReactMethod
+    fun checkAccessibilityServiceEnabled(promise: Promise) {
+        try {
+            val contentResolver = reactApplicationContext.contentResolver
+            val enabledServices =
+                    Settings.Secure.getString(
+                            contentResolver,
+                            Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
+                    )
+            val isEnabled = enabledServices?.contains(reactApplicationContext.packageName) == true
+            promise.resolve(isEnabled)
+        } catch (e: Exception) {
+            promise.reject(
+                    "ERROR",
+                    "No se pudo verificar el permiso de accesibilidad: ${e.message}"
+            )
         }
     }
 }
