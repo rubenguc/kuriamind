@@ -13,6 +13,7 @@ import com.facebook.react.soloader.OpenSourceMergedSoMapping
 import com.facebook.soloader.SoLoader
 import com.kuriamaindo.modules.blocks.BlockPackage
 import com.kuriamaindo.modules.installedApps.InstalledAppsPackage
+import com.kuriamaindo.modules.permissions.PermissionsPackage
 
 class MainApplication : Application(), ReactApplication {
 
@@ -22,6 +23,7 @@ class MainApplication : Application(), ReactApplication {
                         PackageList(this).packages.apply {
                             add(BlockPackage())
                             add(InstalledAppsPackage())
+                            add(PermissionsPackage())
                         }
 
                 override fun getJSMainModuleName(): String = "index"
