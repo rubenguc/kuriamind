@@ -63,7 +63,7 @@ class AppMonitorService : AccessibilityService() {
 
     private fun getActiveBlocks(): List<Block> {
         val blockStorage = ServiceLocator.provideBlockStorage(applicationContext)
-        return blockStorage.getItems().filter { block -> block.isActive }
+        return blockStorage.getItems().filter { block -> block.isActive && block.blockApps }
     }
 
     private fun isPackageNameInList(packageName: String, list: List<String>): Boolean {
