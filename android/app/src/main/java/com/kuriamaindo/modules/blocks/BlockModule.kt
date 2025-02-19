@@ -47,6 +47,13 @@ class BlockModule(reactContext: ReactApplicationContext) :
                             true
                     )
 
+            // Check if the block with the given name exists
+            val existingBlock = storage.getItems().find { it.name == block.name }
+            if (existingBlock != null) {
+                promise.reject("ERROR_SAVE_BLOCK", "Block with name ${block.name} already exists")
+                return
+            }
+
             storage.addItem(block)
 
             promise.resolve("Block ${block.name} saved successfully")
@@ -67,7 +74,8 @@ class BlockModule(reactContext: ReactApplicationContext) :
             val blockId = updatedBlock.id
 
             // Check if the block with the given name exists
-            val existingBlock = storage.getItems().find { it.name == updatedBlock.name }
+            val existingBlock =
+                    storage.getItems().find { it.name == updatedBlock.name && it.id != blockId }
             if (existingBlock != null) {
                 promise.reject(
                         "ERROR_UPDATE_BLOCK",
