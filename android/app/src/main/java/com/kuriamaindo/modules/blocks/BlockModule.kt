@@ -97,4 +97,16 @@ class BlockModule(reactContext: ReactApplicationContext) :
             promise.reject("ERROR_DELETE_BLOCK", "Failed to delete block data", e)
         }
     }
+
+    fun getAllActiveBlocks(): List<Block> {
+        try {
+            var blocks = storage.getItems()
+            val activeBlocks = blocks.filter { it.isActive }
+
+            return activeBlocks
+        } catch (e: Exception) {
+            Log.d("DEBUG", "error getAllActiveBlocks: $e")
+            return emptyList()
+        }
+    }
 }
