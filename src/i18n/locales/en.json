@@ -1,0 +1,23 @@
+{
+  "welcome": {
+    "title": "Welcome to Kuriamaindo",
+    "description": "Explore our website and discover the best products and services.",
+    "permissions_message": "We only need a few permissions to monitor apps and their notifications in order to close any unnecessary background processes. Your privacy is important and this apps DO NOT collect or share any personal data."
+  },
+  "permissions": {
+    "post_notifications": {
+      "title": "Post Notifications",
+      "description": "Allow apps to post notifications in order to keep you informed about apps blocked"
+    },
+    "accesibility_services": {
+      "title": "Accessibility Services",
+      "description": "This permission is required to monitor apps in order to close them"
+    },
+    "notification_listener": {
+      "title": "Notification Listener",
+      "description": "This permission is required to monitor notifications in order to close them"
+    }
+  },
+  "blocks": {},
+  "block": {}
+}
