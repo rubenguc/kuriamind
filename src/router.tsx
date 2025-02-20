@@ -5,6 +5,10 @@ import {Blocks} from './screens/blocks';
 import {Block} from './screens/block';
 import {Block as IBlock} from './interfaces';
 import {NavigatorScreenParams} from '@react-navigation/native';
+import {storage} from './App';
+import {House, Info as InfoIcon} from 'lucide-react-native';
+import {Info} from './screens/info';
+import {Settings} from './screens/settings';
 
 const BottomStack = createBottomTabNavigator();
 
@@ -25,7 +29,20 @@ export const BottomStackNavigation = () => {
           borderBottomWidth: 0,
         },
       }}>
-      <BottomStack.Screen name="Blocks" component={Blocks} />
+      <BottomStack.Screen
+        name="Blocks"
+        component={Blocks}
+        options={{
+          tabBarIcon: ({color}) => <House color={color} />,
+        }}
+      />
+      <BottomStack.Screen
+        name="More"
+        component={Info}
+        options={{
+          tabBarIcon: ({color}) => <InfoIcon color={color} />,
+        }}
+      />
     </BottomStack.Navigator>
   );
 };
@@ -36,14 +53,18 @@ export type RootStackParamList = {
   Home: NavigatorScreenParams<BottomStackParamList>;
   Block: {block?: IBlock};
   Welcome: undefined;
+  Settings: undefined;
 };
 
 export const RooStack = () => {
+  const isFirstTime = storage.getBoolean('isFirstTime') ?? true;
+
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
       }}>
+      {isFirstTime && <Stack.Screen name="Welcome" component={Welcome} />}
       <Stack.Screen name="Home" component={BottomStackNavigation} />
       <Stack.Screen
         options={{
@@ -52,7 +73,13 @@ export const RooStack = () => {
         name="Block"
         component={Block}
       />
-      <Stack.Screen name="Welcome" component={Welcome} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+        }}
+        name="Settings"
+        component={Settings}
+      />
     </Stack.Navigator>
   );
 };
