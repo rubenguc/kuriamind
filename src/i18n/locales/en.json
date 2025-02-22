@@ -29,8 +29,16 @@
     "edit": "Edit",
     "delete": "Delete",
     "active": "Active",
+    "disabled": "Disabled",
     "apps": "Apps",
-    "notifications": "Notifications"
+    "notifications": "Notifications",
+    "error_fetching_blocks": "Error fetching blocks",
+    "block_deleted_successfully": "Block deleted successfully",
+    "block_deleted_error": "Error deleting block",
+    "block_activated_successfully": "Block activated successfully",
+    "block_activated_error": "Error activating block",
+    "block_disabled_successfully": "Block disabled successfully",
+    "block_disabled_error": "Error disabling block"
   },
   "delete_block": {
     "title": "Are you sure you want to delete this block?",
