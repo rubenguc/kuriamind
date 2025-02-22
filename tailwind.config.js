@@ -13,6 +13,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        custom: {
+          green: '#9bec8f',
+          pink: '#f08bc3',
+          violent: '#9981f1',
+          aqua: '#8cd7e6',
+        },
         primary: {
           0: 'rgb(var(--color-primary-0)/<alpha-value>)',
           50: 'rgb(var(--color-primary-50)/<alpha-value>)',
@@ -169,10 +175,13 @@ module.exports = {
         },
       },
       fontFamily: {
-        heading: undefined,
-        body: undefined,
-        mono: undefined,
-        roboto: ['Roboto', 'sans-serif'],
+        body: ['HelveticaNeueCyrUltraLigth'],
+        sans: ['HelveticaNeueCyrMedium'],
+        bold: ['HelveticaNeueCyrBold'],
+        light: ['HelveticaNeueCyrLight'],
+        roman: ['HelveticaNeueCyrRoman'],
+        thin: ['HelveticaNeueCyrThin'],
+        ultraLigth: ['HelveticaNeueCyrUltraLigth'],
       },
       fontWeight: {
         extrablack: '950',
