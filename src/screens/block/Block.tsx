@@ -1,34 +1,33 @@
-import {ScrollView} from 'react-native';
-import {Controller} from 'react-hook-form';
-import {useBlock} from './hooks';
-import {Box} from '@/components/ui/box';
-import {Input, InputField} from '@/components/ui/input';
-import {Text} from '@/components/ui/text';
-import {Button, ButtonIcon, ButtonText} from '@/components/ui/button';
+import { ScrollView } from 'react-native';
+import { Controller } from 'react-hook-form';
+import { useBlock } from './hooks';
+import { Box } from '@/components/ui/box';
+import { Input, InputField } from '@/components/ui/input';
+import { Text } from '@/components/ui/text';
+import { Button, ButtonIcon, ButtonText } from '@/components/ui/button';
 import {
   Checkbox,
   CheckboxIcon,
   CheckboxIndicator,
   CheckboxLabel,
 } from '@/components/ui/checkbox';
-import {CheckIcon, PlusIcon} from 'lucide-react-native';
-import {VStack} from '@/components/ui/vstack';
-import {useToggle} from 'react-use';
-import {AppsToSelect} from './components/AppsToSelect';
-import {useInstalledApps} from '@/providers';
-import {SelectedAppsInBlock} from '@/components/shared';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from '@/router';
-import {useTranslation} from 'react-i18next';
+import { CheckIcon, PlusIcon } from 'lucide-react-native';
+import { VStack } from '@/components/ui/vstack';
+import { useToggle } from 'react-use';
+import { AppsToSelect } from './components/AppsToSelect';
+import { useInstalledApps } from '@/providers';
+import { SelectedAppsInBlock } from '@/components/shared';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useTranslation } from 'react-i18next';
+import { RootStackParamList } from '@/interfaces';
 
-interface BlocksProps
-  extends NativeStackScreenProps<RootStackParamList, 'Block'> {}
+type BlocksProps = NativeStackScreenProps<RootStackParamList, 'Block'>
 
-export const Block = ({route, navigation}: BlocksProps) => {
-  const {t} = useTranslation('block');
-  const {installedApps} = useInstalledApps();
-  const {control, onSubmit, handleSubmit, errors, isEditing} = useBlock({
-    defaultBlock: route.params.block,
+export const Block = ({ route, navigation }: BlocksProps) => {
+  const { t } = useTranslation('block');
+  const { installedApps } = useInstalledApps();
+  const { control, onSubmit, errors, isEditing } = useBlock({
+    defaultBlock: route.params?.block || undefined,
     onFinishSubmit: () =>
       navigation.navigate('Home', {
         screen: 'Blocks',
@@ -46,7 +45,7 @@ export const Block = ({route, navigation}: BlocksProps) => {
         <Box className="gap-6">
           <Controller
             control={control}
-            render={({field: {onChange, onBlur, value}}) => (
+            render={({ field: { onChange, onBlur, value } }) => (
               <VStack>
                 <Text>{t('name')}</Text>
                 <Input variant="outline" size="md" isInvalid={!!errors.name}>
@@ -58,7 +57,7 @@ export const Block = ({route, navigation}: BlocksProps) => {
                   />
                 </Input>
                 {errors.name && (
-                  <Text className="text-error-500 font-light">
+                  <Text className="font-light text-error-500">
                     {t(errors.name.message!)}
                   </Text>
                 )}
@@ -69,7 +68,7 @@ export const Block = ({route, navigation}: BlocksProps) => {
 
           <Controller
             control={control}
-            render={({field: {onChange, value}}) => (
+            render={({ field: { onChange, value } }) => (
               <VStack>
                 <Button
                   className="w-32 rounded-2xl bg-custom-pink"
@@ -86,7 +85,7 @@ export const Block = ({route, navigation}: BlocksProps) => {
                   }}
                   toggle={toggleOpen}
                 />
-                <Box className="mt-2 p-3 border border-gray-200/20 rounded-xl">
+                <Box className="p-3 mt-2 border border-gray-200/20 rounded-xl">
                   {value?.length === 0 ? (
                     <Text>{t('no_apps_selected')}</Text>
                   ) : (
@@ -97,7 +96,7 @@ export const Block = ({route, navigation}: BlocksProps) => {
                   )}
                 </Box>
                 {errors.blockedApps && (
-                  <Text className="text-error-500  font-light">
+                  <Text className="font-light text-error-500">
                     {t(errors.blockedApps.message!)}
                   </Text>
                 )}
@@ -108,7 +107,7 @@ export const Block = ({route, navigation}: BlocksProps) => {
 
           <Controller
             control={control}
-            render={({field: {onChange, value}}) => (
+            render={({ field: { onChange, value } }) => (
               <Checkbox
                 isInvalid={false}
                 isDisabled={false}
@@ -126,7 +125,7 @@ export const Block = ({route, navigation}: BlocksProps) => {
 
           <Controller
             control={control}
-            render={({field: {onChange, value}}) => (
+            render={({ field: { onChange, value } }) => (
               <VStack>
                 <Checkbox
                   isInvalid={false}
@@ -140,7 +139,7 @@ export const Block = ({route, navigation}: BlocksProps) => {
                   <CheckboxLabel>{t('block_Notifications')}</CheckboxLabel>
                 </Checkbox>
                 {errors.blockApps && (
-                  <Text className="text-error-500 font-light mt-2">
+                  <Text className="mt-2 font-light text-error-500">
                     {t(errors.blockApps.message!)}
                   </Text>
                 )}
@@ -150,7 +149,7 @@ export const Block = ({route, navigation}: BlocksProps) => {
           />
         </Box>
       </ScrollView>
-      <Box className="p-3 border-t-black/10 border-t shadow-lg">
+      <Box className="p-3 border-t shadow-lg border-t-black/10">
         <Button className="rounded-2xl bg-custom-green" onPress={onSubmit}>
           <ButtonText>
             {t(isEditing ? 'update_block' : 'create_block')}

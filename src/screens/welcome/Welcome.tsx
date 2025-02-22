@@ -1,36 +1,42 @@
-import {ScrollView} from 'react-native';
-import {Button, ButtonText} from '@/components/ui/button';
-import {Step, useWelcome} from './hooks/useWelcome';
-import {Box} from '@/components/ui/box';
-import {Text} from '@/components/ui/text';
-import {useTranslation} from 'react-i18next';
-import {Heading} from '@/components/ui/heading';
-import {Permissions} from './components';
-import {VStack} from '@/components/ui/vstack';
+import { ScrollView } from 'react-native';
+import { Button, ButtonText } from '@/components/ui/button';
+import { Step, useWelcome } from './hooks/useWelcome';
+import { Box } from '@/components/ui/box';
+import { Text } from '@/components/ui/text';
+import { useTranslation } from 'react-i18next';
+import { Heading } from '@/components/ui/heading';
+import { Permissions } from './components';
+import { VStack } from '@/components/ui/vstack';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '@/interfaces';
 
-const Welcome = ({navigation}) => {
-  const {t} = useTranslation('welcome');
+type WelcomeProps = NativeStackScreenProps<RootStackParamList, 'Welcome'>
+
+
+const Welcome = ({ navigation }: WelcomeProps) => {
+  const { t } = useTranslation('welcome');
 
   const {
-    allPermissionsGranted,
     handleNext,
     setAllPermissionsGranted,
     step,
     canGoNext,
   } = useWelcome({
-    navigation,
+    onFinish: () => navigation.navigate('Home', {
+      screen: 'Blocks'
+    }),
   });
 
   return (
     <Box className="flex h-full">
       <ScrollView className="flex-1 px-10 py-5">
         {step === Step.WELCOME ? (
-          <VStack className="mt-10 gap-10">
-            <Heading className="text-center mb-3 text-3xl font-bold">
+          <VStack className="gap-10 mt-10">
+            <Heading className="mb-3 text-3xl font-bold text-center">
               {t('title')}
             </Heading>
-            <Text className="text-white text-lg">{t('description_1')}</Text>
-            <Text className="text-white text-lg">{t('description_2')}</Text>
+            <Text className="text-lg text-white">{t('description_1')}</Text>
+            <Text className="text-lg text-white">{t('description_2')}</Text>
           </VStack>
         ) : (
           <Permissions
@@ -38,7 +44,7 @@ const Welcome = ({navigation}) => {
           />
         )}
       </ScrollView>
-      <Box className="p-3 border-t-black/10 border-t shadow-lg">
+      <Box className="p-3 border-t shadow-lg border-t-black/10">
         <Button
           className="rounded-2xl"
           size="xl"

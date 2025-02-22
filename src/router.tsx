@@ -1,37 +1,35 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Welcome} from './screens/welcome';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Blocks} from './screens/blocks';
-import {Block} from './screens/block';
-import {Block as IBlock} from './interfaces';
-import {NavigatorScreenParams} from '@react-navigation/native';
-import {storage} from './App';
+import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
+import { Welcome } from './screens/welcome';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Blocks } from './screens/blocks';
+import { Block } from './screens/block';
+import { BottomStackParamList, RootStackParamList } from './interfaces';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { storage } from './App';
 import {
-  EditIcon,
   House,
-  Info as InfoIcon,
   Plus,
   SettingsIcon,
 } from 'lucide-react-native';
-import {TouchableOpacity, View} from 'react-native';
-import {Box} from './components/ui/box';
-import {Settings} from './screens/settings';
-import {useTranslation} from 'react-i18next';
+import { TouchableOpacity, View } from 'react-native';
+import { Box } from './components/ui/box';
+import { Settings } from './screens/settings';
+import { useTranslation } from 'react-i18next';
+import type { StackScreenProps } from '@react-navigation/stack';
 
-const BottomStack = createBottomTabNavigator();
-
-export type BottomStackParamList = {
-  Blocks: {
-    shouldRefresh?: boolean;
-  };
-};
+const BottomStack = createBottomTabNavigator<BottomStackParamList>();
 
 const EmptyScreen = () => {
   return null;
 };
 
-export const BottomStackNavigation = ({navigation}) => {
-  const {t} = useTranslation('screens');
+type BottomStackNavigationProps = CompositeScreenProps<
+  NativeStackScreenProps<RootStackParamList, 'Home'>,
+  StackScreenProps<BottomStackParamList>
+>
+
+export const BottomStackNavigation = ({ navigation }: BottomStackNavigationProps) => {
+  const { t } = useTranslation('screens');
 
   return (
     <BottomStack.Navigator
@@ -49,10 +47,11 @@ export const BottomStackNavigation = ({navigation}) => {
         tabBarInactiveTintColor: 'gray',
       }}>
       <BottomStack.Screen
-        name={t('blocks')}
+        name="Blocks"
         component={Blocks}
         options={{
-          tabBarIcon: ({color}) => <House color={color} />,
+          tabBarIcon: ({ color }) => <House color={color} />,
+          title: t('blocks'),
         }}
       />
       <BottomStack.Screen
@@ -64,16 +63,14 @@ export const BottomStackNavigation = ({navigation}) => {
             <TouchableOpacity
               activeOpacity={0.95}
               onPress={() =>
-                navigation.navigate('Block', {
-                  block: undefined,
-                })
+                navigation.navigate('Block')
               }>
-              <Box className="bg-custom-green p-4 rounded-2xl">
+              <Box className="p-4 bg-custom-green rounded-2xl">
                 <Plus />
               </Box>
             </TouchableOpacity>
           ),
-          tabBarButton: ({children}) => <>{children}</>,
+          tabBarButton: ({ children }) => <>{children}</>,
           tabBarItemStyle: {
             width: 41,
             flex: 0,
@@ -82,27 +79,20 @@ export const BottomStackNavigation = ({navigation}) => {
         }}
       />
       <BottomStack.Screen
-        name={t('settings')}
+        name={t('settings') as 'Settings'}
         component={Settings}
         options={{
-          tabBarIcon: ({color}) => <SettingsIcon color={color} />,
+          tabBarIcon: ({ color }) => <SettingsIcon color={color} />,
         }}
       />
     </BottomStack.Navigator>
   );
 };
 
-const Stack = createNativeStackNavigator();
-
-export type RootStackParamList = {
-  Home: NavigatorScreenParams<BottomStackParamList>;
-  Block: {block?: IBlock};
-  Welcome: undefined;
-  Settings: undefined;
-};
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const RooStack = () => {
-  const {t} = useTranslation('screens');
+  const { t } = useTranslation('screens');
   const isFirstTime = storage.getBoolean('isFirstTime') ?? true;
 
   return (
@@ -116,7 +106,7 @@ export const RooStack = () => {
         options={{
           headerShown: true,
         }}
-        name={t('block')}
+        name={t('block') as 'Block'}
         component={Block}
       />
     </Stack.Navigator>
