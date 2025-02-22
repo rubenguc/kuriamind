@@ -34,7 +34,7 @@ yarn android
 ```
 &nbsp;
 
-📌 Project Status
+## 📌 Project Status
 Currently in development. Improvements are being made to monitoring features and performance optimization.
 
 &nbsp;
