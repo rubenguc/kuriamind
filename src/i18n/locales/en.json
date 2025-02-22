@@ -3,7 +3,9 @@
     "title": "Welcome to Kuria mind",
     "description_1": "Welcome to our app! Create custom blocks to disable app access and notifications, so you can keep distractions at bay.",
     "description_2": "Boost your productivity by limiting interruptions. Stay focused on your tasks and achieve your goals with a distraction-free digital space.",
-    "permissions_message": "We only need a few permissions to monitor apps and their notifications in order to close any unnecessary background processes. Your privacy is important and this apps DO NOT collect or share any personal data."
+    "permissions_message": "We only need a few permissions to monitor apps and their notifications in order to close any unnecessary background processes. Your privacy is important and this apps DO NOT collect or share any personal data.",
+    "next": "Next",
+    "start_app": "Start App"
   },
   "permissions": {
     "post_notifications": {

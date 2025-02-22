@@ -36,7 +36,9 @@ export const Permissions = ({onAllPermissionsGranted}: PermissionsProps) => {
 
   return (
     <View>
-      <Text className="mb-5">{t('permissions_message')}</Text>
+      <Text className="mb-10 text-white text-lg">
+        {t('permissions_message')}
+      </Text>
 
       <VStack className="gap-5">
         <RequestPermissionOption
@@ -44,14 +46,14 @@ export const Permissions = ({onAllPermissionsGranted}: PermissionsProps) => {
           onRequestPermission={requestNotificationPermission}
           title={tPermissions('post_notifications.title')}
           description={tPermissions('post_notifications.description')}
-          Icon={<Bell size={18} />}
+          Icon={<Bell size={18} color="#fff" />}
         />
         <RequestPermissionOption
           isActive={isNotificationListenerServiceEnabled}
           onRequestPermission={requestNotificationListenerPermission}
           title={tPermissions('notification_listener.title')}
           description={tPermissions('notification_listener.description')}
-          Icon={<Bell size={18} />}
+          Icon={<Bell size={18} color="#fff" />}
         />
 
         <RequestPermissionOption
@@ -59,7 +61,7 @@ export const Permissions = ({onAllPermissionsGranted}: PermissionsProps) => {
           onRequestPermission={requestAccessibilityPermission}
           title={tPermissions('accesibility_services.title')}
           description={tPermissions('accesibility_services.description')}
-          Icon={<PersonStanding size={18} />}
+          Icon={<PersonStanding size={18} color="#fff" />}
         />
       </VStack>
     </View>
