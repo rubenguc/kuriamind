@@ -18,6 +18,10 @@ export const updateBlock = async (block: Block) => {
   await BlockModule.updateBlock(data);
 };
 
+export const changeBlockStatus = async (blockId: string) => {
+  await BlockModule.changeBlockStatus(blockId);
+};
+
 export const deleteBlock = async (blockId: string) => {
   await BlockModule.deleteBlock(blockId);
 };
