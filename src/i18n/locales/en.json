@@ -25,7 +25,18 @@
     "error_loading_apps": "Error loading apps"
   },
 
-  "blocks": {},
+  "blocks": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "active": "Active",
+    "apps": "Apps",
+    "notifications": "Notifications"
+  },
+  "delete_block": {
+    "title": "Are you sure you want to delete this block?",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
   "block": {
     "name": "Name",
     "add_apps": "Add Apps",
@@ -43,7 +54,9 @@
     "block_updated_error": "Error updating block",
     "cancel": "Cancel",
     "save": "Save",
-    "search_placeholder": "search app"
+    "search_placeholder": "search app",
+    "active": "Active",
+    "inactive": "Inactive"
   },
   "info": {
     "settings": "Settings"

@@ -1,16 +1,14 @@
-import {Button, ButtonIcon} from '@/components/ui/button';
+import {useCallback} from 'react';
+import {FlatList, Linking, ScrollView} from 'react-native';
+import {useFocusEffect} from '@react-navigation/native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useBlocks} from './hooks';
-import {PlusIcon} from 'lucide-react-native';
-import {FlatList, ScrollView} from 'react-native';
 import {useInstalledApps} from '@/providers';
 import {BlockSaved} from './components/BlockSaved';
 import {Box} from '@/components/ui/box';
 import {ConfirmDeleteBlock} from './components/ConfirmDeleteBlock';
 import {Block} from '@/interfaces';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList, BottomStackParamList} from '@/router';
-import {useFocusEffect} from '@react-navigation/native';
-import {useCallback} from 'react';
+import {BottomStackParamList} from '@/router';
 
 interface BlocksProps
   extends NativeStackScreenProps<BottomStackParamList, 'Blocks'> {}
@@ -37,7 +35,6 @@ export const Blocks = ({navigation, route}: BlocksProps) => {
     useCallback(() => {
       if (route.params?.shouldRefresh) {
         getBlocks();
-        // Limpia el parámetro para que no vuelva a ejecutar el fetch si regresas a Blocks sin necesidad
         navigation.setParams({shouldRefresh: false});
       }
     }, [route.params?.shouldRefresh]),
@@ -45,17 +42,6 @@ export const Blocks = ({navigation, route}: BlocksProps) => {
 
   return (
     <>
-      <Button
-        size="lg"
-        className="rounded-full p-3 absolute bottom-8 right-8 shadow-xl z-30"
-        onPress={() =>
-          navigation.navigate('Block', {
-            block: undefined,
-          })
-        }>
-        <ButtonIcon as={PlusIcon} />
-      </Button>
-
       <ConfirmDeleteBlock
         isOpen={!!blockToDelete}
         onClose={() => setBlockToDelete(null)}
