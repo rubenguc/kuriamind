@@ -11,6 +11,7 @@ import {HStack} from '@/components/ui/hstack';
 import {Text} from '@/components/ui/text';
 import {TouchableOpacity} from 'react-native';
 import {useToggle} from 'react-use';
+import {SettingOptionWrapper} from './SettingOptionWrapper';
 
 interface SelectableOptionSettingProps<T> {
   text: string;
@@ -37,12 +38,12 @@ export const SelectableOptionSetting = <T,>({
 
   return (
     <>
-      <TouchableOpacity onPress={toggle}>
+      <SettingOptionWrapper onPress={toggle}>
         <HStack className="items-center justify-between">
-          <Text>{text}</Text>
-          <Text>{actualValue}</Text>
+          <Text className="text-white">{text}</Text>
+          <Text className="text-custom-pink">{actualValue}</Text>
         </HStack>
-      </TouchableOpacity>
+      </SettingOptionWrapper>
 
       <Actionsheet isOpen={isOpen} onClose={toggle}>
         <ActionsheetBackdrop />
