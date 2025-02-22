@@ -1,4 +1,4 @@
-package com.kuriamaindo.core
+package com.kuriamind.core
 
 import java.util.UUID
 

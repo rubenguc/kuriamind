@@ -1,4 +1,4 @@
-package com.kuriamaindo.services
+package com.kuriamind.services
 
 import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.AccessibilityServiceInfo
@@ -10,9 +10,9 @@ import android.content.Intent
 import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
-import com.kuriamaindo.MainActivity
-import com.kuriamaindo.activities.BlockScreenActivity
-import com.kuriamaindo.modules.blocks.Block
+import com.kuriamind.MainActivity
+import com.kuriamind.activities.BlockScreenActivity
+import com.kuriamind.modules.blocks.Block
 
 class AppMonitorService : AccessibilityService() {
 

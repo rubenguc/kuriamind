@@ -1,4 +1,4 @@
-package com.kuriamaindo.modules.installedApps
+package com.kuriamind.modules.installedApps
 
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule

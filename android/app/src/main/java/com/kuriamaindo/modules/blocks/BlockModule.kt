@@ -1,4 +1,4 @@
-package com.kuriamaindo.modules.blocks
+package com.kuriamind.modules.blocks
 
 import android.util.Log
 import com.facebook.react.bridge.Promise
