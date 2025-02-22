@@ -6,14 +6,17 @@ import {Block} from './screens/block';
 import {Block as IBlock} from './interfaces';
 import {NavigatorScreenParams} from '@react-navigation/native';
 import {storage} from './App';
-import {EditIcon, House, Info as InfoIcon, Plus} from 'lucide-react-native';
-import {Info} from './screens/info';
-import {Settings} from './screens/settings';
-import {HStack} from './components/ui/hstack';
+import {
+  EditIcon,
+  House,
+  Info as InfoIcon,
+  Plus,
+  SettingsIcon,
+} from 'lucide-react-native';
 import {TouchableOpacity, View} from 'react-native';
-import {Button, ButtonIcon} from './components/ui/button';
-import {Text} from './components/ui/text';
 import {Box} from './components/ui/box';
+import {Settings} from './screens/settings';
+import {useTranslation} from 'react-i18next';
 
 const BottomStack = createBottomTabNavigator();
 
@@ -28,6 +31,8 @@ const EmptyScreen = () => {
 };
 
 export const BottomStackNavigation = ({navigation}) => {
+  const {t} = useTranslation('screens');
+
   return (
     <BottomStack.Navigator
       screenOptions={{
@@ -44,7 +49,7 @@ export const BottomStackNavigation = ({navigation}) => {
         tabBarInactiveTintColor: 'gray',
       }}>
       <BottomStack.Screen
-        name="Blocks"
+        name={t('blocks')}
         component={Blocks}
         options={{
           tabBarIcon: ({color}) => <House color={color} />,
@@ -70,7 +75,6 @@ export const BottomStackNavigation = ({navigation}) => {
           ),
           tabBarButton: ({children}) => <>{children}</>,
           tabBarItemStyle: {
-            // backgroundColor: 'green',
             width: 41,
             flex: 0,
             alignItems: 'center',
@@ -78,10 +82,10 @@ export const BottomStackNavigation = ({navigation}) => {
         }}
       />
       <BottomStack.Screen
-        name="More"
-        component={Info}
+        name={t('settings')}
+        component={Settings}
         options={{
-          tabBarIcon: ({color}) => <InfoIcon color={color} />,
+          tabBarIcon: ({color}) => <SettingsIcon color={color} />,
         }}
       />
     </BottomStack.Navigator>
@@ -98,6 +102,7 @@ export type RootStackParamList = {
 };
 
 export const RooStack = () => {
+  const {t} = useTranslation('screens');
   const isFirstTime = storage.getBoolean('isFirstTime') ?? true;
 
   return (
@@ -111,15 +116,8 @@ export const RooStack = () => {
         options={{
           headerShown: true,
         }}
-        name="Block"
+        name={t('block')}
         component={Block}
-      />
-      <Stack.Screen
-        options={{
-          headerShown: true,
-        }}
-        name="Settings"
-        component={Settings}
       />
     </Stack.Navigator>
   );
