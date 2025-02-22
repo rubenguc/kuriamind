@@ -6,7 +6,11 @@ export enum Step {
   PERMISSIONS = 'Permissions',
 }
 
-export const useWelcome = ({navigation}) => {
+interface UseWelcomeProps {
+  onFinish: () => void;
+}
+
+export const useWelcome = ({onFinish}: UseWelcomeProps) => {
   const [step, setStep] = useState(Step.WELCOME);
   const [allPermissionsGranted, setAllPermissionsGranted] = useState(false);
 
@@ -16,7 +20,7 @@ export const useWelcome = ({navigation}) => {
     }
 
     storage.set('isFirstTime', false);
-    navigation.navigate('Home');
+    onFinish();
   };
 
   const canGoNext = () => {
@@ -30,7 +34,7 @@ export const useWelcome = ({navigation}) => {
   return {
     step,
     handleNext,
-    allPermissionsGranted,
+
     setAllPermissionsGranted,
     canGoNext,
   };
