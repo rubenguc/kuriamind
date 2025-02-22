@@ -1,9 +1,4 @@
-import {
-  useToast,
-  Toast,
-  ToastTitle,
-  ToastDescription,
-} from '@/components/ui/toast';
+import {useToast, Toast, ToastDescription} from '@/components/ui/toast';
 
 interface ToastConfig {
   description: string;

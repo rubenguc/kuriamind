@@ -1,3 +1,4 @@
+import {useToggle} from 'react-use';
 import {
   Actionsheet,
   ActionsheetBackdrop,
@@ -9,8 +10,6 @@ import {
 } from '@/components/ui/actionsheet';
 import {HStack} from '@/components/ui/hstack';
 import {Text} from '@/components/ui/text';
-import {TouchableOpacity} from 'react-native';
-import {useToggle} from 'react-use';
 import {SettingOptionWrapper} from './SettingOptionWrapper';
 
 interface SelectableOptionSettingProps<T> {

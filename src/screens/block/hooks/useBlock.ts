@@ -2,7 +2,7 @@ import {useCustomToast} from '@/hooks';
 import {Block} from '@/interfaces';
 import {saveBlock, updateBlock} from '@/native-modules';
 import {zodResolver} from '@hookform/resolvers/zod';
-import {useForm, Controller} from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 import {useTranslation} from 'react-i18next';
 import z from 'zod';
 

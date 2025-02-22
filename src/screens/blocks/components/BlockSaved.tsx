@@ -41,7 +41,7 @@ export const BlockSaved = ({
           variant="solid"
           action={isActive ? 'success' : 'muted'}>
           <BadgeIcon as={Check} className="mr-2" />
-          <BadgeText className={isActive ? `text-custom-green` : ''}>
+          <BadgeText className={isActive ? 'text-custom-green' : ''}>
             {t('active')}
           </BadgeText>
         </Badge>
@@ -51,7 +51,7 @@ export const BlockSaved = ({
           variant="solid"
           action={isAppsBlocked ? 'success' : 'muted'}>
           <BadgeIcon as={Check} className="mr-2" />
-          <BadgeText className={isAppsBlocked ? `text-custom-green` : ''}>
+          <BadgeText className={isAppsBlocked ? 'text-custom-green' : ''}>
             {t('apps')}
           </BadgeText>
         </Badge>
@@ -62,7 +62,7 @@ export const BlockSaved = ({
           action={isNotificationsBlocked ? 'success' : 'muted'}>
           <BadgeIcon as={Check} className="mr-2" />
           <BadgeText
-            className={isNotificationsBlocked ? `text-custom-green` : ''}>
+            className={isNotificationsBlocked ? 'text-custom-green' : ''}>
             {t('notifications')}
           </BadgeText>
         </Badge>
@@ -79,6 +79,7 @@ export const BlockSaved = ({
           return (
             <TouchableOpacity
               activeOpacity={0.95}
+              x
               {...triggerProps}
               style={{
                 position: 'absolute',

@@ -26,8 +26,8 @@ export const InstalledAppsProvider: FC<PropsWithChildren> = ({children}) => {
 
   const loadInstalledApps = async () => {
     try {
-      const installedApps = await getInstalledApps();
-      setInstalledApps(installedApps);
+      const data = await getInstalledApps();
+      setInstalledApps(data);
     } catch (error) {
       showErrorToast({description: t('error_loading_apps')});
     }
@@ -35,6 +35,7 @@ export const InstalledAppsProvider: FC<PropsWithChildren> = ({children}) => {
 
   useEffect(() => {
     loadInstalledApps();
+
   }, []);
 
   return (

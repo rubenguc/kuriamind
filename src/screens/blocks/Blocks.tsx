@@ -1,27 +1,22 @@
-import { useCallback } from 'react';
-import { FlatList, } from 'react-native';
-import {
-  CompositeScreenProps,
-  useFocusEffect,
-} from '@react-navigation/native';
-import { useBlocks } from './hooks';
-import { useInstalledApps } from '@/providers';
-import { BlockSaved } from './components/BlockSaved';
-import { Box } from '@/components/ui/box';
-import { ConfirmDeleteBlock } from './components/ConfirmDeleteBlock';
-import { Block, BottomStackParamList, RootStackParamList } from '@/interfaces';
-import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import type { StackScreenProps } from '@react-navigation/stack';
-
+import {useCallback} from 'react';
+import {FlatList} from 'react-native';
+import {CompositeScreenProps, useFocusEffect} from '@react-navigation/native';
+import {useBlocks} from './hooks';
+import {useInstalledApps} from '@/providers';
+import {BlockSaved} from './components/BlockSaved';
+import {Box} from '@/components/ui/box';
+import {ConfirmDeleteBlock} from './components/ConfirmDeleteBlock';
+import {Block, BottomStackParamList, RootStackParamList} from '@/interfaces';
+import type {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import type {StackScreenProps} from '@react-navigation/stack';
 
 type BlocksProps = CompositeScreenProps<
   BottomTabScreenProps<BottomStackParamList, 'Blocks'>,
   StackScreenProps<RootStackParamList>
 >;
 
-
-export const Blocks = ({ navigation, route }: BlocksProps) => {
-  const { installedApps } = useInstalledApps();
+export const Blocks = ({navigation, route}: BlocksProps) => {
+  const {installedApps} = useInstalledApps();
 
   const {
     blocks,
@@ -43,8 +38,9 @@ export const Blocks = ({ navigation, route }: BlocksProps) => {
     useCallback(() => {
       if (route.params?.shouldRefresh) {
         getBlocks();
-        navigation.setParams({ shouldRefresh: false });
+        navigation.setParams({shouldRefresh: false});
       }
+
     }, [route.params?.shouldRefresh]),
   );
 
@@ -65,7 +61,7 @@ export const Blocks = ({ navigation, route }: BlocksProps) => {
         }}
         data={blocks}
         keyExtractor={block => block.id}
-        renderItem={({ item }) => (
+        renderItem={({item}) => (
           <BlockSaved
             block={item}
             allApps={installedApps}

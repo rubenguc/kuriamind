@@ -1,6 +1,6 @@
-import {useFocusEffect} from '@react-navigation/native';
 import {useCallback, useState} from 'react';
 import {AppState} from 'react-native';
+import {useFocusEffect} from '@react-navigation/native';
 
 interface useRequestNativePermissionsProps {
   checkPermission: () => Promise<boolean>;
@@ -33,6 +33,7 @@ export const useRequestNativePermissions = ({
       });
 
       return () => subscription.remove();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []),
   );
 

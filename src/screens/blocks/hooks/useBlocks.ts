@@ -15,13 +15,12 @@ export const useBlocks = () => {
   const [isLoading, toggleLoading] = useToggle(false);
 
   const [blocks, setBlocks] = useState<Block[]>([]);
-
   const [blockToDelete, setBlockToDelete] = useState<Block | null>(null);
 
   const getBlocks = async () => {
     try {
-      const blocks = await fetchBlockData();
-      setBlocks(blocks);
+      const blocksData = await fetchBlockData();
+      setBlocks(blocksData);
     } catch (error) {
       showErrorToast({
         description: t('error_fetching_blocks'),
@@ -31,6 +30,7 @@ export const useBlocks = () => {
 
   useEffect(() => {
     getBlocks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onConfirmDelete = async () => {
