@@ -45,7 +45,7 @@ const Welcome = ({navigation}) => {
           isDisabled={!canGoNext()}
           onPress={handleNext}>
           <ButtonText>
-            {t(step === Step.PERMISSIONS ? 'next' : 'start_apps')}
+            {t(step === Step.WELCOME ? 'next' : 'start_app')}
           </ButtonText>
         </Button>
       </Box>
