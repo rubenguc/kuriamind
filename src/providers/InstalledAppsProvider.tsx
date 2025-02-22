@@ -8,6 +8,8 @@ import {
 } from 'react';
 import {InstalledApp} from '@/interfaces';
 import {getInstalledApps} from '@/native-modules/installed-apps';
+import {useTranslation} from 'react-i18next';
+import {useCustomToast} from '@/hooks';
 
 const InstalledAppsContext = createContext<{
   installedApps: InstalledApp[];
@@ -18,6 +20,8 @@ const InstalledAppsContext = createContext<{
 });
 
 export const InstalledAppsProvider: FC<PropsWithChildren> = ({children}) => {
+  const {t} = useTranslation('shared');
+  const {showErrorToast} = useCustomToast();
   const [installedApps, setInstalledApps] = useState<InstalledApp[]>([]);
 
   const loadInstalledApps = async () => {
@@ -25,7 +29,7 @@ export const InstalledAppsProvider: FC<PropsWithChildren> = ({children}) => {
       const installedApps = await getInstalledApps();
       setInstalledApps(installedApps);
     } catch (error) {
-      console.log(error);
+      showErrorToast({description: t('error_loading_apps')});
     }
   };
 

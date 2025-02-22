@@ -3,16 +3,20 @@ import {Block} from '@/interfaces';
 import {saveBlock, updateBlock} from '@/native-modules';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useForm, Controller} from 'react-hook-form';
+import {useTranslation} from 'react-i18next';
 import z from 'zod';
 
-const blockToSaveSchema = z.object({
-  name: z.string().min(1, 'El nombre es obligatorio'),
-  blockedApps: z
-    .array(z.string())
-    .nonempty('Debe haber al menos una app bloqueada'),
-  blockApps: z.boolean(),
-  blockNotifications: z.boolean(),
-});
+const blockToSaveSchema = z
+  .object({
+    name: z.string().min(1, 'name_error'),
+    blockedApps: z.array(z.string()).nonempty('blocked_apps_error'),
+    blockApps: z.boolean(),
+    blockNotifications: z.boolean(),
+  })
+  .refine(data => data.blockApps || data.blockNotifications, {
+    message: 'options_error',
+    path: ['blockApps'],
+  });
 
 type blockToSaveSchemaType = z.infer<typeof blockToSaveSchema>;
 
@@ -29,6 +33,7 @@ interface useBlockProps {
 }
 
 export const useBlock = ({defaultBlock, onFinishSubmit}: useBlockProps) => {
+  const {t} = useTranslation('block');
   const {showSuccessToast, showErrorToast} = useCustomToast();
 
   const {
@@ -56,23 +61,20 @@ export const useBlock = ({defaultBlock, onFinishSubmit}: useBlockProps) => {
           id: defaultBlock!.id,
           isActive: defaultBlock!.isActive,
         });
-        showSuccessToast({
-          description: 'El bloque se ha actualizado correctamente',
-        });
       } else {
         await saveBlock(data);
-        showSuccessToast({
-          description: 'El bloque se ha creado correctamente',
-        });
       }
+
+      showSuccessToast({
+        description: t(
+          isEditing ? 'block_updated_successfully' : 'block_saved_successfully',
+        ),
+      });
       reset(DEFAULT_VALUES);
       onFinishSubmit();
     } catch (error) {
-      console.log({
-        error,
-      });
       showErrorToast({
-        description: 'Error al crear el bloque',
+        description: isEditing ? 'block_updated_error' : 'block_saved_error',
       });
     }
   });

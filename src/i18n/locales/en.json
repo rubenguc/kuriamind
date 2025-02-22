@@ -1,7 +1,8 @@
 {
   "welcome": {
-    "title": "Welcome to Kuriamaindo",
-    "description": "Explore our website and discover the best products and services.",
+    "title": "Welcome to Kuria mind",
+    "description_1": "Welcome to our app! Create custom blocks to disable app access and notifications, so you can keep distractions at bay.",
+    "description_2": "Boost your productivity by limiting interruptions. Stay focused on your tasks and achieve your goals with a distraction-free digital space.",
     "permissions_message": "We only need a few permissions to monitor apps and their notifications in order to close any unnecessary background processes. Your privacy is important and this apps DO NOT collect or share any personal data."
   },
   "permissions": {
@@ -18,6 +19,33 @@
       "description": "This permission is required to monitor notifications in order to close them"
     }
   },
+  "shared": {
+    "error_loading_apps": "Error loading apps"
+  },
+
   "blocks": {},
-  "block": {}
+  "block": {
+    "name": "Name",
+    "add_apps": "Add Apps",
+    "block_apps": "Block Apps",
+    "block_Notifications": "Block Notifications",
+    "no_apps_selected": "No apps selected",
+    "create_block": "Create Block",
+    "update_block": "Update Block",
+    "name_error": "Name is required",
+    "blocked_apps_error": "At least one app must be blocked",
+    "options_error": "At least one option must be selected",
+    "block_saved_successfully": "Block saved successfully",
+    "block_updated_successfully": "Block updated successfully",
+    "block_saved_error": "Error saving block",
+    "block_updated_error": "Error updating block"
+  },
+  "info": {
+    "settings": "Settings"
+  },
+  "settings": {
+    "language": "Language",
+    "en": "English",
+    "es": "Spanish"
+  }
 }
