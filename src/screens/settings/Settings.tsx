@@ -1,5 +1,4 @@
 import {ScrollView, View} from 'react-native';
-import {Text} from '@/components/ui/text';
 import {useTranslation} from 'react-i18next';
 import {SelectableOptionSetting} from './components';
 
@@ -7,9 +6,9 @@ const Settings = () => {
   const {t, i18n} = useTranslation('settings');
 
   return (
-    <ScrollView>
+    <ScrollView className="px-5 py-8">
       <SelectableOptionSetting
-        actualValue={i18n.language}
+        actualValue={t(i18n.language)}
         options={[
           {label: t('en'), value: 'en'},
           {label: t('es'), value: 'es'},
