@@ -1,6 +1,6 @@
 {
-  "name": "kuriamaindo",
-  "version": "0.0.1",
+  "name": "kuria-mind",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",

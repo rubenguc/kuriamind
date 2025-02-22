@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Permission, PermissionsAndroid, PermissionStatus} from 'react-native';
+import {Permission, PermissionsAndroid} from 'react-native';
 
 export const useRequestAndroidPermission = ({
   permission,
@@ -15,12 +15,15 @@ export const useRequestAndroidPermission = ({
   useEffect(() => {
     (async () => {
       try {
-        const isPermissionGranted = await PermissionsAndroid.check(permission);
-        setIsPermissionGranted(isPermissionGranted);
+        const isPermissionGrantedResult = await PermissionsAndroid.check(
+          permission,
+        );
+        setIsPermissionGranted(isPermissionGrantedResult);
       } catch (e) {
         console.log(e);
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const requestPermission = async () => {

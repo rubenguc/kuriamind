@@ -23,7 +23,7 @@ const Welcome = ({ navigation }: WelcomeProps) => {
     canGoNext,
   } = useWelcome({
     onFinish: () => navigation.navigate('Home', {
-      screen: 'Blocks'
+      screen: 'Blocks',
     }),
   });
 
