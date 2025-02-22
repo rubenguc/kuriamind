@@ -94,6 +94,25 @@ class BlockModule(reactContext: ReactApplicationContext) :
     }
 
     @ReactMethod
+    fun changeBlockStatus(blockId: String, promise: Promise) {
+        try {
+            val block = storage.getItems().find { it.id == blockId }
+            if (block == null) {
+                promise.reject("ERROR_CHANGE_BLOCK_STATUS", "Block not found")
+                return
+            }
+
+            val updatedBlock = block.copy(isActive = !block.isActive)
+            storage.updateItem(updatedBlock, { block -> block.id == blockId })
+
+            promise.resolve("Block ${updatedBlock.name} status changed successfully")
+        } catch (e: Exception) {
+            Log.d("DEBUG", "error changeBlockStatus: $e")
+            promise.reject("ERROR_CHANGE_BLOCK_STATUS", "Failed to change block status", e)
+        }
+    }
+
+    @ReactMethod
     fun deleteBlock(blockId: String, promise: Promise) {
         try {
             Log.d("DEBUG", "deleteBlock: $blockId")
