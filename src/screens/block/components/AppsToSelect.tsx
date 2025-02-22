@@ -16,6 +16,7 @@ import {useInstalledApps} from '@/providers';
 import {Image} from '@/components/ui/image';
 import {ScrollView} from 'react-native';
 import {Input, InputField} from '@/components/ui/input';
+import {useTranslation} from 'react-i18next';
 
 interface AppsToSelectProps {
   isOpen: boolean;
@@ -30,6 +31,7 @@ export const AppsToSelect = ({
   toggle,
   selectedApps,
 }: AppsToSelectProps) => {
+  const {t} = useTranslation('block');
   const {installedApps} = useInstalledApps();
 
   const [apps, setApps] = useState<string[]>([]);
@@ -65,7 +67,7 @@ export const AppsToSelect = ({
         <Box className="mt-3 px-2 w-full">
           <Input variant="outline" size="md">
             <InputField
-              placeholder="search..."
+              placeholder={t('search_placeholder')}
               onChangeText={setSearchText}
               value={searchText}
             />
@@ -91,7 +93,9 @@ export const AppsToSelect = ({
                       className="h-10 w-10"
                       alt={app.appName}
                     />
-                    <Text numberOfLines={1} className="text-wrap text-sm">
+                    <Text
+                      numberOfLines={1}
+                      className="text-wrap text-sm text-white">
                       {app.appName}
                     </Text>
                   </VStack>
@@ -102,13 +106,13 @@ export const AppsToSelect = ({
         </ScrollView>
         <HStack className="gap-5">
           <Button onPress={toggle} variant="outline">
-            <ButtonText>Cancel</ButtonText>
+            <ButtonText>{t('cancel')}</ButtonText>
           </Button>
           <Button
             onPress={() => {
               onSave(apps);
             }}>
-            <ButtonText>Save</ButtonText>
+            <ButtonText>{t('save')}</ButtonText>
           </Button>
         </HStack>
       </ActionsheetContent>

@@ -40,7 +40,10 @@
     "block_saved_successfully": "Block saved successfully",
     "block_updated_successfully": "Block updated successfully",
     "block_saved_error": "Error saving block",
-    "block_updated_error": "Error updating block"
+    "block_updated_error": "Error updating block",
+    "cancel": "Cancel",
+    "save": "Save",
+    "search_placeholder": "search app"
   },
   "info": {
     "settings": "Settings"
