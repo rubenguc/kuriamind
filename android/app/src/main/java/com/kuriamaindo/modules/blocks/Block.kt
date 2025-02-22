@@ -1,6 +1,6 @@
-package com.kuriamaindo.modules.blocks
+package com.kuriamind.modules.blocks
 
-import com.kuriamaindo.core.HasIdBase
+import com.kuriamind.core.HasIdBase
 
 data class Block(
         val name: String,

@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface kuriamaindoTests : XCTestCase
+@interface kuriamindTests : XCTestCase
 
 @end
 
-@implementation kuriamaindoTests
+@implementation kuriamindTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *view))test
 {

@@ -1,4 +1,4 @@
-package com.kuriamaindo.modules.permissions
+package com.kuriamind.modules.permissions
 
 import android.content.Intent
 import android.provider.Settings

@@ -1,4 +1,4 @@
-package com.kuriamaindo
+package com.kuriamind
 
 import android.app.Application
 import com.facebook.react.PackageList
@@ -11,9 +11,9 @@ import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.react.soloader.OpenSourceMergedSoMapping
 import com.facebook.soloader.SoLoader
-import com.kuriamaindo.modules.blocks.BlockPackage
-import com.kuriamaindo.modules.installedApps.InstalledAppsPackage
-import com.kuriamaindo.modules.permissions.PermissionsPackage
+import com.kuriamind.modules.blocks.BlockPackage
+import com.kuriamind.modules.installedApps.InstalledAppsPackage
+import com.kuriamind.modules.permissions.PermissionsPackage
 
 class MainApplication : Application(), ReactApplication {
 

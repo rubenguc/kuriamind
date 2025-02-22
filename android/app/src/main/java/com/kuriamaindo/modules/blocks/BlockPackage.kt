@@ -1,4 +1,4 @@
-package com.kuriamaindo.modules.blocks
+package com.kuriamind.modules.blocks
 
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule

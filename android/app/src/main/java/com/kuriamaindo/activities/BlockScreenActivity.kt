@@ -1,4 +1,4 @@
-package com.kuriamaindo.activities
+package com.kuriamind.activities
 
 import android.app.ActivityManager
 import android.content.Context
@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.kuriamaindo.R
+import com.kuriamind.R
 
 class BlockScreenActivity : AppCompatActivity() {
 

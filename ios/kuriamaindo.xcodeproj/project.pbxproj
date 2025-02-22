@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* kuriamaindoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* kuriamaindoTests.m */; };
-		0C80B921A6F3F58F76C31292 /* libPods-kuriamaindo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-kuriamaindo.a */; };
+		00E356F31AD99517003FC87E /* kuriamindTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* kuriamindTests.m */; };
+		0C80B921A6F3F58F76C31292 /* libPods-kuriamind.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-kuriamind.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		7699B88040F8A987B510C191 /* libPods-kuriamaindo-kuriamaindoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-kuriamaindo-kuriamaindoTests.a */; };
+		7699B88040F8A987B510C191 /* libPods-kuriamind-kuriamindTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-kuriamind-kuriamindTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		BFF66FDE756B4DE39CE19A12 /* HelveticaNeueCyrBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B6945000D3547E8B5EEAD83 /* HelveticaNeueCyrBold.ttf */; };
 		925841311DFE4C55A4939C56 /* HelveticaNeueCyrLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90B02D8D4B5043E9B760B921 /* HelveticaNeueCyrLight.ttf */; };
@@ -28,28 +28,28 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = kuriamaindo;
+			remoteInfo = kuriamind;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* kuriamaindoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = kuriamaindoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* kuriamindTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = kuriamindTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* kuriamaindoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = kuriamaindoTests.m; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* kuriamaindo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kuriamaindo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = kuriamaindo/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = kuriamaindo/AppDelegate.mm; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = kuriamaindo/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = kuriamaindo/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = kuriamaindo/main.m; sourceTree = "<group>"; };
-		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = kuriamaindo/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-kuriamaindo-kuriamaindoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-kuriamaindo-kuriamaindoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B4392A12AC88292D35C810B /* Pods-kuriamaindo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kuriamaindo.debug.xcconfig"; path = "Target Support Files/Pods-kuriamaindo/Pods-kuriamaindo.debug.xcconfig"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-kuriamaindo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kuriamaindo.release.xcconfig"; path = "Target Support Files/Pods-kuriamaindo/Pods-kuriamaindo.release.xcconfig"; sourceTree = "<group>"; };
-		5B7EB9410499542E8C5724F5 /* Pods-kuriamaindo-kuriamaindoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kuriamaindo-kuriamaindoTests.debug.xcconfig"; path = "Target Support Files/Pods-kuriamaindo-kuriamaindoTests/Pods-kuriamaindo-kuriamaindoTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-kuriamaindo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-kuriamaindo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = kuriamaindo/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		89C6BE57DB24E9ADA2F236DE /* Pods-kuriamaindo-kuriamaindoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kuriamaindo-kuriamaindoTests.release.xcconfig"; path = "Target Support Files/Pods-kuriamaindo-kuriamaindoTests/Pods-kuriamaindo-kuriamaindoTests.release.xcconfig"; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* kuriamindTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = kuriamindTests.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* kuriamind.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kuriamind.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = kuriamind/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = kuriamind/AppDelegate.mm; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = kuriamind/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = kuriamind/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = kuriamind/main.m; sourceTree = "<group>"; };
+		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = kuriamind/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		19F6CBCC0A4E27FBF8BF4A61 /* libPods-kuriamind-kuriamindTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-kuriamind-kuriamindTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B4392A12AC88292D35C810B /* Pods-kuriamind.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kuriamind.debug.xcconfig"; path = "Target Support Files/Pods-kuriamind/Pods-kuriamind.debug.xcconfig"; sourceTree = "<group>"; };
+		5709B34CF0A7D63546082F79 /* Pods-kuriamind.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kuriamind.release.xcconfig"; path = "Target Support Files/Pods-kuriamind/Pods-kuriamind.release.xcconfig"; sourceTree = "<group>"; };
+		5B7EB9410499542E8C5724F5 /* Pods-kuriamind-kuriamindTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kuriamind-kuriamindTests.debug.xcconfig"; path = "Target Support Files/Pods-kuriamind-kuriamindTests/Pods-kuriamind-kuriamindTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5DCACB8F33CDC322A6C60F78 /* libPods-kuriamind.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-kuriamind.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = kuriamind/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		89C6BE57DB24E9ADA2F236DE /* Pods-kuriamind-kuriamindTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kuriamind-kuriamindTests.release.xcconfig"; path = "Target Support Files/Pods-kuriamind-kuriamindTests/Pods-kuriamind-kuriamindTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		9B6945000D3547E8B5EEAD83 /* HelveticaNeueCyrBold.ttf */ = {isa = PBXFileReference; name = "HelveticaNeueCyrBold.ttf"; path = "../src/assets/fonts/HelveticaNeueCyrBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		90B02D8D4B5043E9B760B921 /* HelveticaNeueCyrLight.ttf */ = {isa = PBXFileReference; name = "HelveticaNeueCyrLight.ttf"; path = "../src/assets/fonts/HelveticaNeueCyrLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
@@ -64,7 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-kuriamaindo-kuriamaindoTests.a in Frameworks */,
+				7699B88040F8A987B510C191 /* libPods-kuriamind-kuriamindTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,20 +72,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-kuriamaindo.a in Frameworks */,
+				0C80B921A6F3F58F76C31292 /* libPods-kuriamind.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* kuriamaindoTests */ = {
+		00E356EF1AD99517003FC87E /* kuriamindTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* kuriamaindoTests.m */,
+				00E356F21AD99517003FC87E /* kuriamindTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = kuriamaindoTests;
+			path = kuriamindTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -96,7 +96,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* kuriamaindo */ = {
+		13B07FAE1A68108700A75B9A /* kuriamind */ = {
 			isa = PBXGroup;
 			children = (
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -107,15 +107,15 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
 			);
-			name = kuriamaindo;
+			name = kuriamind;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-kuriamaindo.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-kuriamaindo-kuriamaindoTests.a */,
+				5DCACB8F33CDC322A6C60F78 /* libPods-kuriamind.a */,
+				19F6CBCC0A4E27FBF8BF4A61 /* libPods-kuriamind-kuriamindTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -130,9 +130,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* kuriamaindo */,
+				13B07FAE1A68108700A75B9A /* kuriamind */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* kuriamaindoTests */,
+				00E356EF1AD99517003FC87E /* kuriamindTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
@@ -146,8 +146,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* kuriamaindo.app */,
-				00E356EE1AD99517003FC87E /* kuriamaindoTests.xctest */,
+				13B07F961A680F5B00A75B9A /* kuriamind.app */,
+				00E356EE1AD99517003FC87E /* kuriamindTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -155,10 +155,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-kuriamaindo.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-kuriamaindo.release.xcconfig */,
-				5B7EB9410499542E8C5724F5 /* Pods-kuriamaindo-kuriamaindoTests.debug.xcconfig */,
-				89C6BE57DB24E9ADA2F236DE /* Pods-kuriamaindo-kuriamaindoTests.release.xcconfig */,
+				3B4392A12AC88292D35C810B /* Pods-kuriamind.debug.xcconfig */,
+				5709B34CF0A7D63546082F79 /* Pods-kuriamind.release.xcconfig */,
+				5B7EB9410499542E8C5724F5 /* Pods-kuriamind-kuriamindTests.debug.xcconfig */,
+				89C6BE57DB24E9ADA2F236DE /* Pods-kuriamind-kuriamindTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -180,9 +180,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* kuriamaindoTests */ = {
+		00E356ED1AD99517003FC87E /* kuriamindTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "kuriamaindoTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "kuriamindTests" */;
 			buildPhases = (
 				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -196,14 +196,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = kuriamaindoTests;
-			productName = kuriamaindoTests;
-			productReference = 00E356EE1AD99517003FC87E /* kuriamaindoTests.xctest */;
+			name = kuriamindTests;
+			productName = kuriamindTests;
+			productReference = 00E356EE1AD99517003FC87E /* kuriamindTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* kuriamaindo */ = {
+		13B07F861A680F5B00A75B9A /* kuriamind */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "kuriamaindo" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "kuriamind" */;
 			buildPhases = (
 				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
@@ -217,9 +217,9 @@
 			);
 			dependencies = (
 			);
-			name = kuriamaindo;
-			productName = kuriamaindo;
-			productReference = 13B07F961A680F5B00A75B9A /* kuriamaindo.app */;
+			name = kuriamind;
+			productName = kuriamind;
+			productReference = 13B07F961A680F5B00A75B9A /* kuriamind.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -239,7 +239,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "kuriamaindo" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "kuriamind" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -252,8 +252,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* kuriamaindo */,
-				00E356ED1AD99517003FC87E /* kuriamaindoTests */,
+				13B07F861A680F5B00A75B9A /* kuriamind */,
+				00E356ED1AD99517003FC87E /* kuriamindTests */,
 			);
 		};
 /* End PBXProject section */
@@ -306,15 +306,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-kuriamaindo/Pods-kuriamaindo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-kuriamind/Pods-kuriamind-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-kuriamaindo/Pods-kuriamaindo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-kuriamind/Pods-kuriamind-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-kuriamaindo/Pods-kuriamaindo-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-kuriamind/Pods-kuriamind-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
@@ -332,7 +332,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-kuriamaindo-kuriamaindoTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-kuriamind-kuriamindTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -354,7 +354,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-kuriamaindo-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-kuriamind-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -367,15 +367,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-kuriamaindo-kuriamaindoTests/Pods-kuriamaindo-kuriamaindoTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-kuriamind-kuriamindTests/Pods-kuriamind-kuriamindTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-kuriamaindo-kuriamaindoTests/Pods-kuriamaindo-kuriamaindoTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-kuriamind-kuriamindTests/Pods-kuriamind-kuriamindTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-kuriamaindo-kuriamaindoTests/Pods-kuriamaindo-kuriamaindoTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-kuriamind-kuriamindTests/Pods-kuriamind-kuriamindTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
@@ -384,15 +384,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-kuriamaindo/Pods-kuriamaindo-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-kuriamind/Pods-kuriamind-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-kuriamaindo/Pods-kuriamaindo-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-kuriamind/Pods-kuriamind-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-kuriamaindo/Pods-kuriamaindo-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-kuriamind/Pods-kuriamind-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
@@ -401,15 +401,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-kuriamaindo-kuriamaindoTests/Pods-kuriamaindo-kuriamaindoTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-kuriamind-kuriamindTests/Pods-kuriamind-kuriamindTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-kuriamaindo-kuriamaindoTests/Pods-kuriamaindo-kuriamaindoTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-kuriamind-kuriamindTests/Pods-kuriamind-kuriamindTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-kuriamaindo-kuriamaindoTests/Pods-kuriamaindo-kuriamaindoTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-kuriamind-kuriamindTests/Pods-kuriamind-kuriamindTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -419,7 +419,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* kuriamaindoTests.m in Sources */,
+				00E356F31AD99517003FC87E /* kuriamindTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,7 +437,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* kuriamaindo */;
+			target = 13B07F861A680F5B00A75B9A /* kuriamind */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -445,14 +445,14 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-kuriamaindo-kuriamaindoTests.debug.xcconfig */;
+			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-kuriamind-kuriamindTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = kuriamaindoTests/Info.plist;
+				INFOPLIST_FILE = kuriamindTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -466,17 +466,17 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/kuriamaindo.app/kuriamaindo";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/kuriamind.app/kuriamind";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-kuriamaindo-kuriamaindoTests.release.xcconfig */;
+			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-kuriamind-kuriamindTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = kuriamaindoTests/Info.plist;
+				INFOPLIST_FILE = kuriamindTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -490,19 +490,19 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/kuriamaindo.app/kuriamaindo";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/kuriamind.app/kuriamind";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-kuriamaindo.debug.xcconfig */;
+			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-kuriamind.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = kuriamaindo/Info.plist;
+				INFOPLIST_FILE = kuriamind/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -515,7 +515,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = kuriamaindo;
+				PRODUCT_NAME = kuriamind;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -524,12 +524,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-kuriamaindo.release.xcconfig */;
+			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-kuriamind.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = kuriamaindo/Info.plist;
+				INFOPLIST_FILE = kuriamind/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -542,7 +542,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = kuriamaindo;
+				PRODUCT_NAME = kuriamind;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -690,7 +690,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "kuriamaindoTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "kuriamindTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -699,7 +699,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "kuriamaindo" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "kuriamind" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -708,7 +708,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "kuriamaindo" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "kuriamind" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

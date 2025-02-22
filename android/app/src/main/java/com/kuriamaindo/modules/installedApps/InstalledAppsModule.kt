@@ -1,4 +1,4 @@
-package com.kuriamaindo.modules.installedApps
+package com.kuriamind.modules.installedApps
 
 import android.content.Intent
 import android.graphics.Bitmap

@@ -1,7 +1,7 @@
-package com.kuriamaindo.services
+package com.kuriamind.services
 
 import android.content.Context
-import com.kuriamaindo.modules.blocks.BlockStorage
+import com.kuriamind.modules.blocks.BlockStorage
 
 object ServiceLocator {
     private var blockStorage: BlockStorage? = null

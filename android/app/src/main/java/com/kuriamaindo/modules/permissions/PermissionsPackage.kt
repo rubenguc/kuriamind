@@ -1,4 +1,4 @@
-package com.kuriamaindo.modules.permissions
+package com.kuriamind.modules.permissions
 
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule
