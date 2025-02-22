@@ -15,6 +15,7 @@ interface BlockSavedProps {
   allApps: InstalledApp[];
   onEdit: () => void;
   onDelete: () => void;
+  onChangeStatus: () => void;
 }
 
 export const BlockSaved = ({
@@ -22,6 +23,7 @@ export const BlockSaved = ({
   block,
   onEdit,
   onDelete,
+  onChangeStatus,
 }: BlockSavedProps) => {
   const {t} = useTranslation('blocks');
 
@@ -40,7 +42,7 @@ export const BlockSaved = ({
           action={isActive ? 'success' : 'muted'}>
           <BadgeIcon as={Check} className="mr-2" />
           <BadgeText className={isActive ? `text-custom-green` : ''}>
-            {t(isActive ? 'active' : 'inactive')}
+            {t('active')}
           </BadgeText>
         </Badge>
         <Badge
@@ -104,6 +106,16 @@ export const BlockSaved = ({
           textValue="Delete">
           <Trash size={15} color="white" />
           <MenuItemLabel size="sm">{t('delete')}</MenuItemLabel>
+        </MenuItem>
+        <MenuItem
+          key="changeStatus"
+          className="gap-3"
+          onPress={onChangeStatus}
+          textValue="changeStatus">
+          <Check size={15} color="white" />
+          <MenuItemLabel size="sm">
+            {t(isActive ? 'disabled' : 'active')}
+          </MenuItemLabel>
         </MenuItem>
       </Menu>
     </VStack>

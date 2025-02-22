@@ -23,6 +23,7 @@ export const Blocks = ({navigation, route}: BlocksProps) => {
     isLoading,
     onConfirmDelete,
     getBlocks,
+    onChangeStatus,
   } = useBlocks();
 
   const onEdit = (block: Block) => {
@@ -63,6 +64,7 @@ export const Blocks = ({navigation, route}: BlocksProps) => {
             allApps={installedApps}
             onEdit={() => onEdit(item)}
             onDelete={() => setBlockToDelete(item)}
+            onChangeStatus={() => onChangeStatus(item)}
           />
         )}
         ItemSeparatorComponent={() => <Box className="h-4" />}

@@ -1,10 +1,16 @@
 import {useEffect, useState} from 'react';
 import {Block} from '@/interfaces';
-import {deleteBlock, fetchBlockData} from '@/native-modules/block-module';
+import {
+  changeBlockStatus,
+  deleteBlock,
+  fetchBlockData,
+} from '@/native-modules/block-module';
 import {useCustomToast} from '@/hooks';
 import {useToggle} from 'react-use';
+import {useTranslation} from 'react-i18next';
 
 export const useBlocks = () => {
+  const {t} = useTranslation('blocks');
   const {showSuccessToast, showErrorToast} = useCustomToast();
   const [isLoading, toggleLoading] = useToggle(false);
 
@@ -18,7 +24,7 @@ export const useBlocks = () => {
       setBlocks(blocks);
     } catch (error) {
       showErrorToast({
-        description: 'Error al obtener los bloques',
+        description: t('error_fetching_blocks'),
       });
     }
   };
@@ -33,14 +39,39 @@ export const useBlocks = () => {
       await deleteBlock(blockToDelete!.id);
 
       showSuccessToast({
-        description: 'Block deleted',
+        description: t('block_deleted_successfully'),
       });
 
       setBlockToDelete(null);
       await getBlocks();
     } catch (e) {
       showErrorToast({
-        description: 'Something went wrong',
+        description: t('block_deleted_error'),
+      });
+    }
+    toggleLoading();
+  };
+
+  const onChangeStatus = async (block: Block) => {
+    toggleLoading();
+    const isActive = block.isActive;
+    try {
+      await changeBlockStatus(block.id);
+
+      showSuccessToast({
+        description: t(
+          isActive
+            ? 'block_disabled_successfully'
+            : 'block_activated_successfully',
+        ),
+      });
+
+      await getBlocks();
+    } catch (e) {
+      showErrorToast({
+        description: t(
+          isActive ? 'block_disabled_error' : 'block_activated_error',
+        ),
       });
     }
     toggleLoading();
@@ -53,5 +84,6 @@ export const useBlocks = () => {
     onConfirmDelete,
     isLoading,
     getBlocks,
+    onChangeStatus,
   };
 };
