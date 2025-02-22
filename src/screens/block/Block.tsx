@@ -71,7 +71,9 @@ export const Block = ({route, navigation}: BlocksProps) => {
             control={control}
             render={({field: {onChange, value}}) => (
               <VStack>
-                <Button className="w-32 rounded-2xl" onPress={toggleOpen}>
+                <Button
+                  className="w-32 rounded-2xl bg-custom-pink"
+                  onPress={toggleOpen}>
                   <ButtonIcon as={PlusIcon} />
                   <ButtonText>{t('add_apps')}</ButtonText>
                 </Button>
@@ -114,7 +116,7 @@ export const Block = ({route, navigation}: BlocksProps) => {
                 onChange={onChange}
                 isChecked={value}>
                 <CheckboxIndicator>
-                  <CheckboxIcon as={CheckIcon} />
+                  <CheckboxIcon as={CheckIcon} className="bg-custom-green " />
                 </CheckboxIndicator>
                 <CheckboxLabel>{t('block_apps')}</CheckboxLabel>
               </Checkbox>
@@ -133,7 +135,7 @@ export const Block = ({route, navigation}: BlocksProps) => {
                   onChange={onChange}
                   isChecked={value}>
                   <CheckboxIndicator>
-                    <CheckboxIcon as={CheckIcon} />
+                    <CheckboxIcon as={CheckIcon} className="bg-custom-green" />
                   </CheckboxIndicator>
                   <CheckboxLabel>{t('block_Notifications')}</CheckboxLabel>
                 </Checkbox>
@@ -149,7 +151,7 @@ export const Block = ({route, navigation}: BlocksProps) => {
         </Box>
       </ScrollView>
       <Box className="p-3 border-t-black/10 border-t shadow-lg">
-        <Button className=" rounded-2xl" onPress={onSubmit}>
+        <Button className="rounded-2xl bg-custom-green" onPress={onSubmit}>
           <ButtonText>
             {t(isEditing ? 'update_block' : 'create_block')}
           </ButtonText>
