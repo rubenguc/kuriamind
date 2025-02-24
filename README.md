@@ -47,3 +47,12 @@ Currently in development. Improvements are being made to monitoring features and
 
 
 Made with ❤️ using React Native.
+
+## Screenshots
+
+<img src="./.images/Screenshot_1.png" width="300" />
+<img src="./.images/Screenshot_2.png" width="300" />
+<img src="./.images/Screenshot_3.png" width="300" />
+<img src="./.images/Screenshot_4.png" width="300" />
+<img src="./.images/Screenshot_5.png" width="300" />
+
