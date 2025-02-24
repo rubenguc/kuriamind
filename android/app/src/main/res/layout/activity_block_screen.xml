@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:gravity="center"
-            android:text="¡Esta aplicación está bloqueada!"
+            android:text="¡This app is blocked!"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
 
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:background="@color/customGreen"
             android:padding="10dp"
-            android:text="CERRAR APP"
+            android:text="CLOSE"
             android:textAllCaps="true"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
