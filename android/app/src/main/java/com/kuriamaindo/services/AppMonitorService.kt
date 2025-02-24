@@ -11,9 +11,9 @@ import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import com.kuriamind.MainActivity
+import com.kuriamind.R
 import com.kuriamind.activities.BlockScreenActivity
 import com.kuriamind.modules.blocks.Block
-import com.kuriamind.R
 
 class AppMonitorService : AccessibilityService() {
 
@@ -113,8 +113,8 @@ class AppMonitorService : AccessibilityService() {
 
             val notification: Notification =
                     Notification.Builder(this, CHANNEL_ID)
-                            .setContentTitle("Monitorizando aplicaciones")
-                            .setContentText("El servicio está activo")
+                            .setContentTitle("Monitoring")
+                            // .setContentText("")
                             .setSmallIcon(R.drawable.ic_icon)
                             .setContentIntent(pendingIntent)
                             .build()
