@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Permission, PermissionsAndroid} from 'react-native';
+import {Permission, PermissionsAndroid, Platform} from 'react-native';
 
 export const useRequestAndroidPermission = ({
   permission,
@@ -15,6 +15,12 @@ export const useRequestAndroidPermission = ({
   useEffect(() => {
     (async () => {
       try {
+        if (permission === PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS) {
+          const androidVersionIsUnder13 = Number(Platform.Version) < 33;
+
+          if (androidVersionIsUnder13) return setIsPermissionGranted(true);
+        }
+
         const isPermissionGrantedResult = await PermissionsAndroid.check(
           permission,
         );
