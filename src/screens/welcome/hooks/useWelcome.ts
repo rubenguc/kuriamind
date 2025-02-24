@@ -19,8 +19,10 @@ export const useWelcome = ({onFinish}: UseWelcomeProps) => {
       return setStep(Step.PERMISSIONS);
     }
 
-    storage.set('isFirstTime', false);
-    onFinish();
+    if (allPermissionsGranted) {
+      storage.set('isFirstTime', false);
+      onFinish();
+    }
   };
 
   const canGoNext = () => {
