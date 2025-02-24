@@ -1,3 +1,8 @@
+
+<div align="center">
+    <img src="./.images/app-icon.png" width="300" />
+</div>
+
 # Kuria Mind
 
 Kuria Mind is an Android application that allows users to manage app usage on their device. By creating blocks, users can select specific apps to restrict their execution and receive notifications about their activity.
