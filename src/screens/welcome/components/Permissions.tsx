@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import {View} from 'react-native';
+import {Platform, View} from 'react-native';
 import {RequestPermissionOption} from './RequestPermissionOption';
 import {usePermissions} from '../hooks';
 import {useTranslation} from 'react-i18next';
@@ -41,13 +41,15 @@ export const Permissions = ({onAllPermissionsGranted}: PermissionsProps) => {
       </Text>
 
       <VStack className="gap-5">
-        <RequestPermissionOption
-          isActive={isNotificationPermissionGranted}
-          onRequestPermission={requestNotificationPermission}
-          title={tPermissions('post_notifications.title')}
-          description={tPermissions('post_notifications.description')}
-          Icon={<Bell size={18} color="#fff" />}
-        />
+        {Number(Platform.Version) >= 33 && (
+          <RequestPermissionOption
+            isActive={isNotificationPermissionGranted}
+            onRequestPermission={requestNotificationPermission}
+            title={tPermissions('post_notifications.title')}
+            description={tPermissions('post_notifications.description')}
+            Icon={<Bell size={18} color="#fff" />}
+          />
+        )}
         <RequestPermissionOption
           isActive={isNotificationListenerServiceEnabled}
           onRequestPermission={requestNotificationListenerPermission}
