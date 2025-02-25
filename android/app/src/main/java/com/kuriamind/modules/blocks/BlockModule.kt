@@ -6,6 +6,7 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.google.gson.Gson
+import com.facebook.react.BuildConfig
 
 class BlockModule(reactContext: ReactApplicationContext) :
         ReactContextBaseJavaModule(reactContext) {
@@ -25,7 +26,9 @@ class BlockModule(reactContext: ReactApplicationContext) :
 
             promise.resolve(json)
         } catch (e: Exception) {
-            Log.d("DEBUG", "error getAllBlocks: $e")
+            if (BuildConfig.DEBUG) {
+                Log.d("DEBUG", "error getAllBlocks: $e")
+            }
             promise.reject("ERROR_GET_BLOCK", "Failed to get block data", e)
         }
     }
@@ -35,8 +38,6 @@ class BlockModule(reactContext: ReactApplicationContext) :
         try {
             val gson = Gson()
             val data = gson.fromJson(blockJson, Block::class.java)
-
-            Log.d("DEBUG", "saving block: $data")
 
             var block =
                     Block(
@@ -58,7 +59,9 @@ class BlockModule(reactContext: ReactApplicationContext) :
 
             promise.resolve("Block ${block.name} saved successfully")
         } catch (e: Exception) {
-            Log.d("DEBUG", "error saveBlock: $e")
+            if (BuildConfig.DEBUG) {
+                Log.d("DEBUG", "error saveBlock: $e")
+            }
             promise.reject("ERROR_SAVE_BLOCK", "Failed to save block data", e)
         }
     }
@@ -68,8 +71,6 @@ class BlockModule(reactContext: ReactApplicationContext) :
         try {
             val gson = Gson()
             val updatedBlock = gson.fromJson(updatedBlockJson, Block::class.java)
-
-            Log.d("DEBUG", "updateBlock: $updatedBlockJson")
 
             val blockId = updatedBlock.id
 
@@ -88,7 +89,9 @@ class BlockModule(reactContext: ReactApplicationContext) :
 
             promise.resolve("Block ${updatedBlock.name} updated successfully")
         } catch (e: Exception) {
-            Log.d("DEBUG", "error updateBlock: $e")
+            if (BuildConfig.DEBUG) {
+                Log.d("DEBUG", "error updateBlock: $e")
+            }
             promise.reject("ERROR_UPDATE_BLOCK", "Failed to update block data", e)
         }
     }
@@ -103,11 +106,13 @@ class BlockModule(reactContext: ReactApplicationContext) :
             }
 
             val updatedBlock = block.copy(isActive = !block.isActive)
-            storage.updateItem(updatedBlock, { block -> block.id == blockId })
+            storage.updateItem(updatedBlock, { b -> b.id == blockId })
 
             promise.resolve("Block ${updatedBlock.name} status changed successfully")
         } catch (e: Exception) {
-            Log.d("DEBUG", "error changeBlockStatus: $e")
+            if (BuildConfig.DEBUG) {
+                Log.d("DEBUG", "error changeBlockStatus: $e")
+            }
             promise.reject("ERROR_CHANGE_BLOCK_STATUS", "Failed to change block status", e)
         }
     }
@@ -115,12 +120,13 @@ class BlockModule(reactContext: ReactApplicationContext) :
     @ReactMethod
     fun deleteBlock(blockId: String, promise: Promise) {
         try {
-            Log.d("DEBUG", "deleteBlock: $blockId")
             storage.deleteItem({ block -> block.id == blockId })
 
             promise.resolve("Block with ID $blockId deleted successfully")
         } catch (e: Exception) {
-            Log.d("DEBUG", "error deleteBlock: $e")
+            if (BuildConfig.DEBUG) {
+                Log.d("DEBUG", "error deleteBlock: $e")
+            }
             promise.reject("ERROR_DELETE_BLOCK", "Failed to delete block data", e)
         }
     }
@@ -132,7 +138,9 @@ class BlockModule(reactContext: ReactApplicationContext) :
 
             return activeBlocks
         } catch (e: Exception) {
-            Log.d("DEBUG", "error getAllActiveBlocks: $e")
+            if (BuildConfig.DEBUG) {
+                Log.d("DEBUG", "error getAllActiveBlocks: $e")
+            }
             return emptyList()
         }
     }

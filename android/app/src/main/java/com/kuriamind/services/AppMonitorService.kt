@@ -14,6 +14,7 @@ import com.kuriamind.MainActivity
 import com.kuriamind.R
 import com.kuriamind.activities.BlockScreenActivity
 import com.kuriamind.modules.blocks.Block
+import com.facebook.react.BuildConfig
 
 class AppMonitorService : AccessibilityService() {
 
@@ -35,15 +36,13 @@ class AppMonitorService : AccessibilityService() {
                     notificationTimeout = 100
                 }
         this.serviceInfo = info
-        Log.d("AppMonitorService", "Servicio de monitoreo conectado")
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
         event?.let {
             if (it.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
                 val packageName = it.packageName?.toString()
-                val className = it.className?.toString()
-                Log.d("AppMonitorService", "App abierta: $packageName - $className")
+
 
                 val activeBlocks = getActiveBlocks()
 
@@ -52,8 +51,6 @@ class AppMonitorService : AccessibilityService() {
                 activeBlocks.forEach { b ->
                     val appIsBlocked = isPackageNameInList(packageName, b.blockedApps)
                     if (appIsBlocked) {
-                        // performGlobalAction(GLOBAL_ACTION_BACK)
-                        Log.d("AppMonitorService", "App cerrada: $packageName")
                         showBlockScreen(packageName)
                         return@forEach
                     }
@@ -72,7 +69,6 @@ class AppMonitorService : AccessibilityService() {
     }
 
     private fun showBlockScreen(packageName: String) {
-        Log.d("DEBUG", "showBlockScreen")
         val intent =
                 Intent(this, BlockScreenActivity::class.java).apply {
                     putExtra("BLOCKED_PACKAGE", packageName)
@@ -82,10 +78,8 @@ class AppMonitorService : AccessibilityService() {
     }
 
     override fun onInterrupt() {
-        Log.d("AppMonitorService", "Servicio de monitoreo interrumpido")
     }
     private fun createNotificationChannel() {
-        Log.d("DEBUG", "Creating notification channel")
         val serviceChannel =
                 NotificationChannel(
                                 CHANNEL_ID,
@@ -121,10 +115,10 @@ class AppMonitorService : AccessibilityService() {
 
             startForeground(NOTIFICATION_ID, notification, FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
 
-            Log.d("DEBUG", "Foreground service started")
         } catch (e: Exception) {
-            Log.d("DEBUG", "Error starting foreground service")
-            Log.d("DEBUG", e.toString())
+            if (BuildConfig.DEBUG) {
+                Log.d("DEBUG", e.toString())
+            }
         }
     }
 }

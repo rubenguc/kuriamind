@@ -16,7 +16,6 @@ abstract class StorageManager<T>(
 
     fun getItems(): List<T> {
         val json = prefs.getString(key, "[]") ?: "[]"
-        // Log.d("DEBUG", json)
         return gson.fromJson(json, typeToken.type)
     }
 
