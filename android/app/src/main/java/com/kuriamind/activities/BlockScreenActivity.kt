@@ -15,13 +15,11 @@ class BlockScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("DEBUG", "onCreate")
 
         setContentView(R.layout.activity_block_screen)
 
         blockedPackage = intent.getStringExtra("BLOCKED_PACKAGE")
 
-        Log.d("DEBUG", "blockedPackage: $blockedPackage")
 
         val closeButton = findViewById<Button>(R.id.close_button)
         closeButton.setOnClickListener {
@@ -38,7 +36,6 @@ class BlockScreenActivity : AppCompatActivity() {
 
     private fun forceStopApp(packageName: String) {
         try {
-            Log.d("DEBUG", "forceStopApp")
             val am = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
             am.killBackgroundProcesses(packageName)
 
