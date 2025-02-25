@@ -7,6 +7,8 @@ on:
 jobs:
   validate-and-build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
     - name: Checkout code
@@ -79,18 +81,29 @@ jobs:
       
     - name: Build APK and AAB
       run: |
-        yarn install && yarn release
+        yarn install && yarn release && yarn generate-apk
 
-    # - name: Create Release
-    #   id: create_release
-    #   uses: actions/create-release@v1
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #   with:
-    #     tag_name: v${{ steps.gradle_versions.outputs.version_name }}
-    #     release_name: v${{ steps.gradle_versions.outputs.version_name }}
-    #     body: |
-    #       Version: ${{ steps.gradle_versions.outputs.version_name }}
-    #       VersionCode: ${{ steps.gradle_versions.outputs.version_code }}
-    #     draft: false
-    #     prerelease: false
+    - name: Organize Artifacts
+      run: |
+        mkdir -p artifacts
+        
+        VERSION="${{ steps.gradle_versions.outputs.version_name }}"
+        
+        mv android/app/build/outputs/apk/release/*.apk "artifacts/kuriamind-apk-$VERSION.apk"
+        
+        mv android/app/build/outputs/bundle/release/*.aab "artifacts/kuriamind-abb-$VERSION.aab"
+        
+        ls -lah artifacts/
+
+    - name: publish to release
+      uses: softprops/action-gh-release@v2.2.1
+      if: success()
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        files: |
+          artifacts/kuriamind-abb-${{ steps.gradle_versions.outputs.version_name }}.aab
+          artifacts/kuriamind-apk-${{ steps.gradle_versions.outputs.version_name }}.apk
+        tag_name: v${{ steps.gradle_versions.outputs.version_name }}
+        name: Kuriamind v${{ steps.gradle_versions.outputs.version_name }}
+        draft: false
