@@ -74,7 +74,7 @@ export const useBlock = ({defaultBlock, onFinishSubmit}: useBlockProps) => {
       onFinishSubmit();
     } catch (error) {
       showErrorToast({
-        description: isEditing ? 'block_updated_error' : 'block_saved_error',
+        description: t(isEditing ? 'block_updated_error' : 'block_saved_error'),
       });
     }
   });
