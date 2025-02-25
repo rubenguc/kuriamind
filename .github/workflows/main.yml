@@ -1,0 +1,87 @@
+name: Android Build and Release
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  validate-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: '11'
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
+
+    - name: Get package.json version
+      id: package_version
+      run: |
+        VERSION=$(grep '"version"' package.json | awk -F: '{print $2}' | sed 's/[", ]//g')
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+    - name: Get Gradle versions
+      id: gradle_versions
+      run: |
+        cd android/app
+        VERSION_NAME=$(grep 'versionName' build.gradle | awk '{print $2}' | tr -d '"')
+        VERSION_CODE=$(grep 'versionCode' build.gradle | awk '{print $2}')
+        echo "version_name=$VERSION_NAME" >> $GITHUB_OUTPUT
+        echo "version_code=$VERSION_CODE" >> $GITHUB_OUTPUT
+
+    - name: Verify version match
+      run: |
+        if [ "${{ steps.package_version.outputs.version }}" != "${{ steps.gradle_versions.outputs.version_name }}" ]; then
+          echo "❌ Version mismatch: package.json (${{ steps.package_version.outputs.version }}) vs build.gradle (${{ steps.gradle_versions.outputs.version_name }})"
+          exit 1
+        fi
+
+    - name: Check existing releases
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        # Check existing version name
+        RESPONSE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+          "https://api.github.com/repos/${{ github.repository }}/releases?per_page=100")
+        
+        # Check version in tags
+        EXISTING_TAG=$(echo "$RESPONSE" | jq -r --arg tag "v${{ steps.gradle_versions.outputs.version_name }}" '.[] | .tag_name | select(. == $tag)')
+        if [ -n "$EXISTING_TAG" ]; then
+          echo "❌ Version ${{ steps.gradle_versions.outputs.version_name }} already exists in releases"
+          exit 1
+        fi
+
+        # Check version code in release bodies
+        EXISTING_CODE=$(echo "$RESPONSE" | jq -r --arg code "VersionCode: ${{ steps.gradle_versions.outputs.version_code }}" '.[] | select(.body | contains($code)) | .tag_name')
+        if [ -n "$EXISTING_CODE" ]; then
+          echo "❌ VersionCode ${{ steps.gradle_versions.outputs.version_code }} already exists in release: $EXISTING_CODE"
+          exit 1
+        fi
+
+    - name: Build APK and AAB
+      run: |
+        cd android
+        ./gradlew assembleRelease bundleRelease
+        cd ..
+
+    # - name: Create Release
+    #   id: create_release
+    #   uses: actions/create-release@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     tag_name: v${{ steps.gradle_versions.outputs.version_name }}
+    #     release_name: v${{ steps.gradle_versions.outputs.version_name }}
+    #     body: |
+    #       Version: ${{ steps.gradle_versions.outputs.version_name }}
+    #       VersionCode: ${{ steps.gradle_versions.outputs.version_code }}
+    #     draft: false
+    #     prerelease: false
