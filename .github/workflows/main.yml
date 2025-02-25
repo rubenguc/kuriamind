@@ -68,9 +68,7 @@ jobs:
 
     - name: Build APK and AAB
       run: |
-        cd android
-        ./gradlew assembleRelease bundleRelease
-        cd ..
+        yarn install && yarn release
 
     # - name: Create Release
     #   id: create_release
