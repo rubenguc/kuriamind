@@ -68,10 +68,10 @@ jobs:
 
     - name: Configure Gradle Properties
       run: |
-        echo "MYAPP_RELEASE_STORE_FILE=my-upload-key.keystore" >> android/gradle.properties
-        echo "MYAPP_RELEASE_KEY_ALIAS=${{ secrets.MYAPP_RELEASE_KEY_ALIAS }}" >> android/gradle.properties
-        echo "MYAPP_RELEASE_STORE_PASSWORD=${{ secrets.MYAPP_UPLOAD_KEY_PASSWORD }}" >> android/gradle.properties
-        echo "MYAPP_RELEASE_KEY_PASSWORD=${{ secrets.MYAPP_UPLOAD_STORE_PASSWORD }}" >> android/gradle.properties
+        echo "MYAPP_UPLOAD_STORE_FILE=my-upload-key.keystore" >> android/gradle.properties
+        echo "MYAPP_UPLOAD_KEY_ALIAS=${{ secrets.MYAPP_RELEASE_KEY_ALIAS }}" >> android/gradle.properties
+        echo "MYAPP_UPLOAD_STORE_PASSWORD=${{ secrets.MYAPP_UPLOAD_KEY_PASSWORD }}" >> android/gradle.properties
+        echo "MYAPP_UPLOAD_KEY_PASSWORD=${{ secrets.MYAPP_UPLOAD_STORE_PASSWORD }}" >> android/gradle.properties
       
     - name: Setup Android Keystore
       run: |
