@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "release": "react-native build-android --mode=release"
+    "release": "react-native build-android --mode=release",
+    "generate-apk": "cd android && ./gradlew assembleRelease"
   },
   "dependencies": {
     "@expo/html-elements": "0.4.2",
