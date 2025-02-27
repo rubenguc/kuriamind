@@ -6,22 +6,22 @@ import {
   useEffect,
   useState,
 } from 'react';
-import {InstalledApp} from '@/interfaces';
-import {getInstalledApps} from '@/native-modules/installed-apps';
-import {useTranslation} from 'react-i18next';
-import {useCustomToast} from '@/hooks';
+import { InstalledApp } from '@/interfaces';
+import { getInstalledApps } from '@/native-modules/installed-apps';
+import { useTranslation } from 'react-i18next';
+import { useCustomToast } from '@/hooks';
 
 const InstalledAppsContext = createContext<{
   installedApps: InstalledApp[];
   loadInstalledApps: () => void;
 }>({
   installedApps: [],
-  loadInstalledApps: () => {},
+  loadInstalledApps: () => { },
 });
 
-export const InstalledAppsProvider: FC<PropsWithChildren> = ({children}) => {
-  const {t} = useTranslation('shared');
-  const {showErrorToast} = useCustomToast();
+export const InstalledAppsProvider: FC<PropsWithChildren> = ({ children }) => {
+  const { t } = useTranslation('shared');
+  const { showErrorToast } = useCustomToast();
   const [installedApps, setInstalledApps] = useState<InstalledApp[]>([]);
 
   const loadInstalledApps = async () => {
@@ -29,7 +29,7 @@ export const InstalledAppsProvider: FC<PropsWithChildren> = ({children}) => {
       const data = await getInstalledApps();
       setInstalledApps(data);
     } catch (error) {
-      showErrorToast({description: t('error_loading_apps')});
+      showErrorToast({ description: t('error_loading_apps') });
     }
   };
 
