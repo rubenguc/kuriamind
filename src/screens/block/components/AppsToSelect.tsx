@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import {
   Actionsheet,
   ActionsheetBackdrop,
@@ -6,17 +6,14 @@ import {
   ActionsheetDragIndicator,
   ActionsheetDragIndicatorWrapper,
 } from '@/components/ui/actionsheet';
-import {Box} from '@/components/ui/box';
-import {Button, ButtonText} from '@/components/ui/button';
-import {HStack} from '@/components/ui/hstack';
-import {Pressable} from '@/components/ui/pressable';
-import {Text} from '@/components/ui/text';
-import {VStack} from '@/components/ui/vstack';
-import {useInstalledApps} from '@/providers';
-import {Image} from '@/components/ui/image';
-import {ScrollView} from 'react-native';
-import {Input, InputField} from '@/components/ui/input';
-import {useTranslation} from 'react-i18next';
+import { Box } from '@/components/ui/box';
+import { Button, ButtonText } from '@/components/ui/button';
+import { HStack } from '@/components/ui/hstack';
+import { useInstalledApps } from '@/providers';
+import { FlatList } from 'react-native';
+import { Input, InputField } from '@/components/ui/input';
+import { useTranslation } from 'react-i18next';
+import { AppItem } from './AppItem';
 
 interface AppsToSelectProps {
   isOpen: boolean;
@@ -31,8 +28,8 @@ export const AppsToSelect = ({
   toggle,
   selectedApps,
 }: AppsToSelectProps) => {
-  const {t} = useTranslation('block');
-  const {installedApps} = useInstalledApps();
+  const { t } = useTranslation('block');
+  const { installedApps } = useInstalledApps();
 
   const [apps, setApps] = useState<string[]>([]);
   const [searchText, setSearchText] = useState('');
@@ -58,13 +55,13 @@ export const AppsToSelect = ({
   }, [selectedApps]);
 
   return (
-    <Actionsheet isOpen={isOpen} onClose={toggle}>
+    <Actionsheet isOpen={isOpen} onClose={toggle} snapPoints={[80]}>
       <ActionsheetBackdrop />
-      <ActionsheetContent>
+      <ActionsheetContent className="flex flex-col w-full h-full ">
         <ActionsheetDragIndicatorWrapper>
           <ActionsheetDragIndicator />
         </ActionsheetDragIndicatorWrapper>
-        <Box className="mt-3 px-2 w-full">
+        <Box className="w-full px-2 mt-3">
           <Input variant="outline" size="md">
             <InputField
               placeholder={t('search_placeholder')}
@@ -73,38 +70,25 @@ export const AppsToSelect = ({
             />
           </Input>
         </Box>
-        <ScrollView>
-          <Box className="py-6">
-            <HStack className="flex-wrap gap-4 justify-center w-full">
-              {filteredApps.map(app => (
-                <Pressable
-                  key={app.packageName}
-                  className={`p-2 w-1/5 ${
-                    isAppSelected(app.packageName)
-                      ? 'bg-gray-500/20 rounded-xl'
-                      : 'opacity-50'
-                  }`}
-                  onPress={() => onSelectApp(app.packageName)}>
-                  <VStack className="items-center gap-1">
-                    <Image
-                      source={{
-                        uri: app.icon,
-                      }}
-                      className="h-10 w-10"
-                      alt={app.appName}
-                    />
-                    <Text
-                      numberOfLines={1}
-                      className="text-wrap text-sm text-white">
-                      {app.appName}
-                    </Text>
-                  </VStack>
-                </Pressable>
-              ))}
-            </HStack>
-          </Box>
-        </ScrollView>
-        <HStack className="gap-5">
+        <Box className="w-full  h-[70%]">
+          <FlatList
+            data={filteredApps}
+            keyExtractor={(item) => item.packageName}
+            numColumns={5}
+            columnWrapperStyle={{ justifyContent: 'center' }}
+            contentContainerStyle={{ paddingVertical: 24 }}
+            initialNumToRender={20}
+            maxToRenderPerBatch={10}
+            windowSize={7}
+            removeClippedSubviews={true}
+            renderItem={({ item: app }) => <AppItem
+              app={app}
+              isSelected={isAppSelected(app.packageName)}
+              onSelect={onSelectApp}
+            />}
+          />
+        </Box>
+        <HStack className="gap-5 py-5">
           <Button onPress={toggle} variant="outline">
             <ButtonText>{t('cancel')}</ButtonText>
           </Button>

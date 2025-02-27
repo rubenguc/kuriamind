@@ -73,7 +73,6 @@ class PermissionsModule(reactContext: ReactApplicationContext) :
     @ReactMethod
     fun requestDisplayPopupPermission(promise: Promise) {
         try {
-            // Intent para dispositivos Xiaomi (MIUI)
             try {
                 val miuiIntent = Intent("miui.intent.action.APP_PERM_EDITOR").apply {
                     setClassName(

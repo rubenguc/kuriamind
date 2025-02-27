@@ -40,6 +40,7 @@
     "react-hook-form": "^7.54.2",
     "react-i18next": "^15.4.1",
     "react-native": "0.76.5",
+    "react-native-fast-image": "^8.6.3",
     "react-native-localize": "^3.4.1",
     "react-native-mmkv": "^3.2.0",
     "react-native-reanimated": "^3.16.6",
