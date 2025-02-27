@@ -59,4 +59,43 @@ class PermissionsModule(reactContext: ReactApplicationContext) :
             )
         }
     }
+
+    @ReactMethod
+    fun checkDisplayPopupPermission(promise: Promise) {
+        try {
+            val isGranted = Settings.canDrawOverlays(reactApplicationContext)
+            promise.resolve(isGranted)
+        } catch (e: Exception) {
+            promise.reject("ERROR", "No se pudo verificar el permiso de superposición: ${e.message}")
+        }
+    }
+
+    @ReactMethod
+    fun requestDisplayPopupPermission(promise: Promise) {
+        try {
+            try {
+                val miuiIntent = Intent("miui.intent.action.APP_PERM_EDITOR").apply {
+                    setClassName(
+                        "com.miui.securitycenter",
+                        "com.miui.permcenter.permissions.PermissionsEditorActivity"
+                    )
+                    putExtra("extra_pkgname", reactApplicationContext.packageName)
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+                reactApplicationContext.startActivity(miuiIntent)
+            } catch (e: Exception) {
+                val standardIntent = Intent(
+                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    android.net.Uri.parse("package:" + reactApplicationContext.packageName)
+                ).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+                reactApplicationContext.startActivity(standardIntent)
+            }
+            promise.resolve(null)
+        } catch (e: Exception) {
+            promise.reject("ERROR", "No se pudo solicitar el permiso de superposición: ${e.message}")
+        }
+    }
+
 }

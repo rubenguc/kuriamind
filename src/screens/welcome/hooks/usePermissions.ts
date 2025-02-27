@@ -6,6 +6,8 @@ import {
   openNotificationListenerSettings,
   checkAccessibilityServiceEnabled,
   openAccessibilitySettings,
+  checkDisplayPopupPermission,
+  openDisplayPopupPermissionSettings,
 } from '@/native-modules/permissions-module';
 
 export const usePermissions = () => {
@@ -30,6 +32,12 @@ export const usePermissions = () => {
       requestPermission: openAccessibilitySettings,
     });
 
+  const [isDisplayPopupEnabled, requestDisplayPopupEnabled] =
+    useRequestNativePermissions({
+      checkPermission: checkDisplayPopupPermission,
+      requestPermission: openDisplayPopupPermissionSettings,
+    });
+
   const allPermissionsGranted =
     isNotificationPermissionGranted &&
     isNotificationListenerServiceEnabled &&
@@ -43,5 +51,7 @@ export const usePermissions = () => {
     isAccessibilityServiceEnabled,
     requestAccessibilityPermission,
     allPermissionsGranted,
+    isDisplayPopupEnabled,
+    requestDisplayPopupEnabled,
   };
 };
