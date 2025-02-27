@@ -138,7 +138,7 @@ class AppMonitorService : AccessibilityService() {
                 }
         startActivity(homeIntent)
         Handler(Looper.getMainLooper())
-                .postDelayed({ isRedirectingToHome = false }, 1000) // Retraso de 1 segundo
+                .postDelayed({ isRedirectingToHome = false }, 1000) 
     }
 
     override fun onInterrupt() {}
