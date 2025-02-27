@@ -19,3 +19,12 @@ export const openAccessibilitySettings = (): void => {
 export const checkAccessibilityServiceEnabled = (): Promise<boolean> => {
   return PermissionsModule.checkAccessibilityServiceEnabled();
 };
+
+// DisplayPopupPermissions
+export const checkDisplayPopupPermission = (): Promise<boolean> => {
+  return PermissionsModule.checkDisplayPopupPermission();
+};
+
+export const openDisplayPopupPermissionSettings = (): void => {
+  PermissionsModule.requestDisplayPopupPermission();
+};

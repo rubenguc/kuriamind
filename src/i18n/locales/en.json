@@ -19,6 +19,10 @@
     "notification_listener": {
       "title": "Notification Listener",
       "description": "This permission is required to monitor notifications in order to close them"
+    },
+    "displayPopup": {
+      "title": "Display over other apps",
+      "description": "This permission is required to show the block screen"
     }
   },
   "shared": {

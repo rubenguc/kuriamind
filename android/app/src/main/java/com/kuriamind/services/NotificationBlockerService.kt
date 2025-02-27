@@ -37,12 +37,4 @@ class NotificationBlockerService : NotificationListenerService() {
     private fun isPackageNameInList(packageName: String, list: List<String>): Boolean {
         return list.contains(packageName)
     }
-
-    override fun onNotificationRemoved(sbn: StatusBarNotification?) {
-        sbn?.let { it ->            
-            if (BuildConfig.DEBUG) {
-                Log.d("DEBUG", "Notificación eliminada: ${it.packageName}") 
-            }
-        }
-    }
 }

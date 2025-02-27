@@ -52,16 +52,5 @@
             <action android:name="android.service.notification.NotificationListenerService" />
         </intent-filter>
     </service>
-
-    <activity
-        android:name=".activities.BlockScreenActivity"
-        android:exported="false"
-        android:taskAffinity=""
-        android:excludeFromRecents="true"
-        android:launchMode="singleInstance"
-        android:finishOnTaskLaunch="true"
-        android:showWhenLocked="true"
-        android:turnScreenOn="true">
-    </activity>
   </application>
 </manifest>
