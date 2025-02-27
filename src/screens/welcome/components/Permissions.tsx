@@ -1,19 +1,19 @@
-import {useEffect} from 'react';
-import {Platform, View} from 'react-native';
-import {RequestPermissionOption} from './RequestPermissionOption';
-import {usePermissions} from '../hooks';
-import {useTranslation} from 'react-i18next';
-import {Text} from '@/components/ui/text';
-import {VStack} from '@/components/ui/vstack';
-import {Bell, PersonStanding} from 'lucide-react-native';
+import { useEffect } from 'react';
+import { Platform, View } from 'react-native';
+import { RequestPermissionOption } from './RequestPermissionOption';
+import { usePermissions } from '../hooks';
+import { useTranslation } from 'react-i18next';
+import { Text } from '@/components/ui/text';
+import { VStack } from '@/components/ui/vstack';
+import { Bell, PersonStanding, ShieldBan } from 'lucide-react-native';
 
 interface PermissionsProps {
   onAllPermissionsGranted: () => void;
 }
 
-export const Permissions = ({onAllPermissionsGranted}: PermissionsProps) => {
-  const {t} = useTranslation('welcome');
-  const {t: tPermissions} = useTranslation('permissions');
+export const Permissions = ({ onAllPermissionsGranted }: PermissionsProps) => {
+  const { t } = useTranslation('welcome');
+  const { t: tPermissions } = useTranslation('permissions');
 
   const {
     isNotificationPermissionGranted,
@@ -24,6 +24,9 @@ export const Permissions = ({onAllPermissionsGranted}: PermissionsProps) => {
     //
     isAccessibilityServiceEnabled,
     requestAccessibilityPermission,
+    //
+    isDisplayPopupEnabled,
+    requestDisplayPopupEnabled,
     //
     allPermissionsGranted,
   } = usePermissions();
@@ -36,7 +39,7 @@ export const Permissions = ({onAllPermissionsGranted}: PermissionsProps) => {
 
   return (
     <View>
-      <Text className="mb-10 text-white text-lg">
+      <Text className="mb-10 text-lg text-white">
         {t('permissions_message')}
       </Text>
 
@@ -65,6 +68,15 @@ export const Permissions = ({onAllPermissionsGranted}: PermissionsProps) => {
           description={tPermissions('accesibility_services.description')}
           Icon={<PersonStanding size={18} color="#fff" />}
         />
+
+        <RequestPermissionOption
+          isActive={isDisplayPopupEnabled}
+          onRequestPermission={requestDisplayPopupEnabled}
+          title={tPermissions('displayPopup.title')}
+          description={tPermissions('displayPopup.description')}
+          Icon={<ShieldBan size={18} color="#fff" />}
+        />
+
       </VStack>
     </View>
   );
