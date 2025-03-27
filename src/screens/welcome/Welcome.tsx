@@ -19,7 +19,7 @@ const Welcome = ({navigation}: WelcomeProps) => {
 
   const {handleNext, setAllPermissionsGranted, step, canGoNext} = useWelcome({
     onFinish: () =>
-      navigation.navigate('Home', {
+      navigation.replace('Home', {
         screen: 'Blocks',
       }),
   });
