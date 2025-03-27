@@ -1,19 +1,19 @@
-import { useEffect } from 'react';
-import { Platform, View } from 'react-native';
-import { RequestPermissionOption } from './RequestPermissionOption';
-import { usePermissions } from '../hooks';
-import { useTranslation } from 'react-i18next';
-import { Text } from '@/components/ui/text';
-import { VStack } from '@/components/ui/vstack';
-import { Bell, PersonStanding, ShieldBan } from 'lucide-react-native';
+import {useEffect} from 'react';
+import {Platform, View} from 'react-native';
+import {RequestPermissionOption} from './RequestPermissionOption';
+import {usePermissions} from '../hooks';
+import {useTranslation} from 'react-i18next';
+import {Text} from '@/components/ui/text';
+import {VStack} from '@/components/ui/vstack';
+import {Bell, PersonStanding, ShieldBan} from 'lucide-react-native';
 
 interface PermissionsProps {
   onAllPermissionsGranted: () => void;
 }
 
-export const Permissions = ({ onAllPermissionsGranted }: PermissionsProps) => {
-  const { t } = useTranslation('welcome');
-  const { t: tPermissions } = useTranslation('permissions');
+export const Permissions = ({onAllPermissionsGranted}: PermissionsProps) => {
+  const {t} = useTranslation('welcome');
+  const {t: tPermissions} = useTranslation('permissions');
 
   const {
     isNotificationPermissionGranted,
@@ -43,7 +43,7 @@ export const Permissions = ({ onAllPermissionsGranted }: PermissionsProps) => {
         {t('permissions_message')}
       </Text>
 
-      <VStack className="gap-5">
+      <VStack className="gap-5 pb-5">
         {Number(Platform.Version) >= 33 && (
           <RequestPermissionOption
             isActive={isNotificationPermissionGranted}
@@ -76,7 +76,6 @@ export const Permissions = ({ onAllPermissionsGranted }: PermissionsProps) => {
           description={tPermissions('displayPopup.description')}
           Icon={<ShieldBan size={18} color="#fff" />}
         />
-
       </VStack>
     </View>
   );
