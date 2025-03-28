@@ -24,9 +24,7 @@ import com.facebook.react.BuildConfig
 import com.kuriamind.MainActivity
 import com.kuriamind.R
 import com.kuriamind.modules.blocks.Block
-import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import java.time.LocalTime
 
 class AppMonitorService : AccessibilityService() {
 
@@ -94,34 +92,43 @@ class AppMonitorService : AccessibilityService() {
 
     private fun showBlockPopup(packageName: String) {
         if (isPopupActive) return
-        isPopupActive = true
 
-        val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        blockPopupView = inflater.inflate(R.layout.popup_block_screen, null)
+        try {
 
-        (blockPopupView as TextView).text =
-                SettingsLocator.provideSettingsStorage(applicationContext)
-                        .getValue("blockMessage", "App Blocked")
+            isPopupActive = true
 
-        val layoutParams =
-                WindowManager.LayoutParams(
-                        WindowManager.LayoutParams.MATCH_PARENT,
-                        WindowManager.LayoutParams.MATCH_PARENT,
-                        WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
-                                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
-                                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
-                        PixelFormat.TRANSLUCENT
-                )
+            val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            blockPopupView = inflater.inflate(R.layout.popup_block_screen, null)
 
-        val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        windowManager.addView(blockPopupView, layoutParams)
+            val blockMessageTextView: TextView? = blockPopupView?.findViewById(R.id.block_message)
 
-        val closeButton = blockPopupView?.findViewById<Button>(R.id.close_button)
-        closeButton?.setOnClickListener {
-            isRedirectingToHome = true
-            redirectToHome()
-            removeBlockPopup()
+            val blockedMessage =
+                    SettingsLocator.provideSettingsStorage(applicationContext)
+                            .getValue("blockMessage", "App Blocked")
+            blockMessageTextView?.text = blockedMessage
+
+            val layoutParams =
+                    WindowManager.LayoutParams(
+                            WindowManager.LayoutParams.MATCH_PARENT,
+                            WindowManager.LayoutParams.MATCH_PARENT,
+                            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+                            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
+                                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
+                                    WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+                            PixelFormat.TRANSLUCENT
+                    )
+
+            val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            windowManager.addView(blockPopupView, layoutParams)
+
+            val closeButton = blockPopupView?.findViewById<Button>(R.id.close_button)
+            closeButton?.setOnClickListener {
+                isRedirectingToHome = true
+                redirectToHome()
+                removeBlockPopup()
+            }
+        } catch (e: Exception) {
+            Log.e("DEBUG", "Error showing block popup", e)
         }
     }
 
@@ -195,28 +202,41 @@ class AppMonitorService : AccessibilityService() {
         }
     }
 
-    fun isTimeWithinWindow(block: Block, currentTime: Long): Boolean {
+    fun isTimeWithinWindow(block: Block, currentTimeMinutes: Long): Boolean {
         if (block.startTime.isEmpty() && block.endTime.isEmpty()) {
             return true
         }
 
-        val blockStartTime = parseTimeStringToMillis(block.startTime)
-        val blockEndTime = parseTimeStringToMillis(block.endTime)
+        val blockStartTime = parseTimeStringToMinutes(block.startTime)
+        val blockEndTime = parseTimeStringToMinutes(block.endTime)
 
-        return currentTime >= blockStartTime && currentTime <= blockEndTime
+        val adjustedCurrentTime =
+                if (blockStartTime > blockEndTime) {
+                    currentTimeMinutes + 1440L // 24 hours in minutes
+                } else {
+                    currentTimeMinutes
+                }
+
+        if (BuildConfig.DEBUG) {
+            Log.d("DEBUG", "blockStartTime: $blockStartTime")
+            Log.d("DEBUG", "adjustedCurrentTime: $adjustedCurrentTime")
+            Log.d("DEBUG", "blockEndTime: $blockEndTime")
+        }
+
+        return adjustedCurrentTime >= blockStartTime && adjustedCurrentTime <= blockEndTime
     }
 
     fun getCurrentTimeInMinutes(): Long {
-        var currentDateTime = LocalDateTime.now()
-        var time = currentDateTime.format(DateTimeFormatter.ofPattern("HH:mm"))
-        return parseTimeStringToMillis(time)
+        val currentDateTime = LocalTime.now()
+        return (currentDateTime.hour * 60 + currentDateTime.minute).toLong()
     }
 
-    fun parseTimeStringToMillis(timeString: String): Long {
+    private fun parseTimeStringToMinutes(timeString: String): Long {
         try {
-            val dateFormat = SimpleDateFormat("HH:mm")
-            val date = dateFormat.parse(timeString)
-            return date.time
+            val parts = timeString.split(":")
+            val hours = parts[0].toInt()
+            val minutes = parts[1].toInt()
+            return hours * 60L + minutes
         } catch (e: Exception) {
             if (BuildConfig.DEBUG) {
                 Log.d("DEBUG", e.toString())
