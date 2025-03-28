@@ -2,9 +2,7 @@ package com.kuriamind.services
 
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
-import android.util.Log
 import com.kuriamind.modules.blocks.Block
-import com.facebook.react.BuildConfig
 
 class NotificationBlockerService : NotificationListenerService() {
 
@@ -28,7 +26,7 @@ class NotificationBlockerService : NotificationListenerService() {
     }
 
     private fun getActiveBlocks(): List<Block> {
-        val blockStorage = ServiceLocator.provideBlockStorage(applicationContext)
+        val blockStorage = BlockLocator.provideBlockStorage(applicationContext)
         return blockStorage.getItems().filter { block ->
             block.isActive && block.blockNotifications
         }

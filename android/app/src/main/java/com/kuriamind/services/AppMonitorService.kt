@@ -19,10 +19,14 @@ import android.view.View
 import android.view.WindowManager
 import android.view.accessibility.AccessibilityEvent
 import android.widget.Button
+import android.widget.TextView
 import com.facebook.react.BuildConfig
 import com.kuriamind.MainActivity
 import com.kuriamind.R
 import com.kuriamind.modules.blocks.Block
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class AppMonitorService : AccessibilityService() {
 
@@ -56,14 +60,21 @@ class AppMonitorService : AccessibilityService() {
 
                 if (isRedirectingToHome) return
 
-
                 val activeBlocks = getActiveBlocks()
 
                 activeBlocks.forEach { b ->
                     if (BuildConfig.DEBUG) {
-                        Log.d("DEBUG", "package name: $packageName, isRedirectingToHome: $isRedirectingToHome")
+                        Log.d(
+                                "DEBUG",
+                                "package name: $packageName, isRedirectingToHome: $isRedirectingToHome"
+                        )
                     }
-                    if (isPackageNameInList(packageName, b.blockedApps)) {
+
+                    var shouldBlock =
+                            isPackageNameInList(packageName, b.blockedApps) &&
+                                    isTimeWithinWindow(b, getCurrentTimeInMinutes())
+
+                    if (shouldBlock) {
                         showBlockPopup(packageName)
                         return@forEach
                     }
@@ -73,7 +84,7 @@ class AppMonitorService : AccessibilityService() {
     }
 
     private fun getActiveBlocks(): List<Block> {
-        val blockStorage = ServiceLocator.provideBlockStorage(applicationContext)
+        val blockStorage = BlockLocator.provideBlockStorage(applicationContext)
         return blockStorage.getItems().filter { block -> block.isActive && block.blockApps }
     }
 
@@ -87,6 +98,10 @@ class AppMonitorService : AccessibilityService() {
 
         val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         blockPopupView = inflater.inflate(R.layout.popup_block_screen, null)
+
+        (blockPopupView as TextView).text =
+                SettingsLocator.provideSettingsStorage(applicationContext)
+                        .getValue("blockMessage", "App Blocked")
 
         val layoutParams =
                 WindowManager.LayoutParams(
@@ -137,8 +152,7 @@ class AppMonitorService : AccessibilityService() {
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 }
         startActivity(homeIntent)
-        Handler(Looper.getMainLooper())
-                .postDelayed({ isRedirectingToHome = false }, 1000) 
+        Handler(Looper.getMainLooper()).postDelayed({ isRedirectingToHome = false }, 1000)
     }
 
     override fun onInterrupt() {}
@@ -149,9 +163,7 @@ class AppMonitorService : AccessibilityService() {
                                 "App Monitor Service Channel",
                                 NotificationManager.IMPORTANCE_DEFAULT
                         )
-                        .apply {
-                            description = "Channel for application monitoring service"
-                        }
+                        .apply { description = "Channel for application monitoring service" }
 
         val manager = getSystemService(NotificationManager::class.java)
         manager.createNotificationChannel(serviceChannel)
@@ -180,6 +192,36 @@ class AppMonitorService : AccessibilityService() {
             if (BuildConfig.DEBUG) {
                 Log.d("DEBUG", e.toString())
             }
+        }
+    }
+
+    fun isTimeWithinWindow(block: Block, currentTime: Long): Boolean {
+        if (block.startTime.isEmpty() && block.endTime.isEmpty()) {
+            return true
+        }
+
+        val blockStartTime = parseTimeStringToMillis(block.startTime)
+        val blockEndTime = parseTimeStringToMillis(block.endTime)
+
+        return currentTime >= blockStartTime && currentTime <= blockEndTime
+    }
+
+    fun getCurrentTimeInMinutes(): Long {
+        var currentDateTime = LocalDateTime.now()
+        var time = currentDateTime.format(DateTimeFormatter.ofPattern("HH:mm"))
+        return parseTimeStringToMillis(time)
+    }
+
+    fun parseTimeStringToMillis(timeString: String): Long {
+        try {
+            val dateFormat = SimpleDateFormat("HH:mm")
+            val date = dateFormat.parse(timeString)
+            return date.time
+        } catch (e: Exception) {
+            if (BuildConfig.DEBUG) {
+                Log.d("DEBUG", e.toString())
+            }
+            return 0L
         }
     }
 }
