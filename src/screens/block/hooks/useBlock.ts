@@ -125,6 +125,20 @@ export const useBlock = ({defaultBlock, onFinishSubmit}: useBlockProps) => {
     return format(time, 'HH:mm');
   };
 
+  const getDefaultTime = (time: string) => {
+    if (time === '') return new Date();
+    const [hours, minutes] = time.split(':').map(Number); // [1]
+    const now = new Date();
+    // Crea una fecha con la hora local [[9]]
+    return new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      hours,
+      minutes,
+    );
+  };
+
   const isAddTimerActive = watch('addTimer');
 
   const isEditing = !!defaultBlock;
@@ -137,5 +151,6 @@ export const useBlock = ({defaultBlock, onFinishSubmit}: useBlockProps) => {
     isEditing,
     formatTime,
     isAddTimerActive,
+    getDefaultTime,
   };
 };

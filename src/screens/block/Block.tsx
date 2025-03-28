@@ -29,17 +29,24 @@ type BlocksProps = NativeStackScreenProps<RootStackParamList, 'Block'>;
 export const Block = ({route, navigation}: BlocksProps) => {
   const {t} = useTranslation('block');
   const {installedApps} = useInstalledApps();
-  const {control, onSubmit, errors, isEditing, formatTime, isAddTimerActive} =
-    useBlock({
-      defaultBlock: route.params?.block || undefined,
-      onFinishSubmit: () =>
-        navigation.navigate('Home', {
-          screen: 'Blocks',
-          params: {
-            shouldRefresh: true,
-          },
-        }),
-    });
+  const {
+    control,
+    onSubmit,
+    errors,
+    isEditing,
+    formatTime,
+    isAddTimerActive,
+    getDefaultTime,
+  } = useBlock({
+    defaultBlock: route.params?.block || undefined,
+    onFinishSubmit: () =>
+      navigation.navigate('Home', {
+        screen: 'Blocks',
+        params: {
+          shouldRefresh: true,
+        },
+      }),
+  });
 
   const [isOpen, toggleOpen] = useToggle(false);
 
@@ -180,7 +187,7 @@ export const Block = ({route, navigation}: BlocksProps) => {
                       onPress={() =>
                         DateTimePickerAndroid.open({
                           mode: 'time',
-                          value: new Date(),
+                          value: getDefaultTime(value),
                           onChange: (_, date) => {
                             onChange(formatTime(date!.toISOString()));
                           },
@@ -205,7 +212,7 @@ export const Block = ({route, navigation}: BlocksProps) => {
                         onPress={() =>
                           DateTimePickerAndroid.open({
                             mode: 'time',
-                            value: new Date(),
+                            value: getDefaultTime(value),
                             onChange: (_, date) => {
                               onChange(formatTime(date!.toISOString()));
                             },
