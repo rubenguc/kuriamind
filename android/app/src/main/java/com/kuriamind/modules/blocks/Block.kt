@@ -7,5 +7,7 @@ data class Block(
         val blockedApps: List<String>,
         val blockApps: Boolean,
         val blockNotifications: Boolean,
-        val isActive: Boolean
+        val isActive: Boolean,
+        val startTime: String,
+        val endTime: String
 ) : HasIdBase()
