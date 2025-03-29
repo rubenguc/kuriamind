@@ -41,7 +41,8 @@ export const usePermissions = () => {
   const allPermissionsGranted =
     isNotificationPermissionGranted &&
     isNotificationListenerServiceEnabled &&
-    isAccessibilityServiceEnabled;
+    isAccessibilityServiceEnabled &&
+    isDisplayPopupEnabled;
 
   return {
     isNotificationPermissionGranted,
