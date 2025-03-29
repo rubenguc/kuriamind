@@ -1,12 +1,12 @@
 package com.kuriamind.modules.blocks
 
 import android.util.Log
+import com.facebook.react.BuildConfig
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.google.gson.Gson
-import com.facebook.react.BuildConfig
 
 class BlockModule(reactContext: ReactApplicationContext) :
         ReactContextBaseJavaModule(reactContext) {
@@ -45,7 +45,9 @@ class BlockModule(reactContext: ReactApplicationContext) :
                             data.blockedApps,
                             data.blockApps,
                             data.blockNotifications,
-                            true
+                            true,
+                            data.startTime,
+                            data.endTime
                     )
 
             val existingBlock = storage.getItems().find { it.name == block.name }
@@ -126,20 +128,6 @@ class BlockModule(reactContext: ReactApplicationContext) :
                 Log.d("DEBUG", "error deleteBlock: $e")
             }
             promise.reject("ERROR_DELETE_BLOCK", "Failed to delete block data", e)
-        }
-    }
-
-    fun getAllActiveBlocks(): List<Block> {
-        try {
-            var blocks = storage.getItems()
-            val activeBlocks = blocks.filter { it.isActive }
-
-            return activeBlocks
-        } catch (e: Exception) {
-            if (BuildConfig.DEBUG) {
-                Log.d("DEBUG", "error getAllActiveBlocks: $e")
-            }
-            return emptyList()
         }
     }
 }

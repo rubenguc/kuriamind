@@ -7,6 +7,8 @@ export interface Block {
   blockApps: boolean;
   blockNotifications: boolean;
   isActive: boolean;
+  startTime: string;
+  endTime: string;
 }
 
 export type BlockToSave = Omit<Block, 'id' | 'isActive'>;
@@ -33,3 +35,7 @@ export type RootStackParamList = {
   Welcome: undefined;
   Settings: undefined;
 };
+
+export interface Settings {
+  blockMessage: string;
+}

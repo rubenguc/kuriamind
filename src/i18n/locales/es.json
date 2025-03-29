@@ -1,46 +1,50 @@
 {
   "welcome": {
     "title": "Bienvenido a Kuria mind",
-    "description_1": "¡Bienvenido a nuestra aplicación! Crea bloques personalizados para deshabilitar el acceso a aplicaciones y notificaciones, evitando distracciones.",
-    "description_2": "Aumenta tu productividad limitando interrupciones. Mantente enfocado en tus tareas y alcanza tus objetivos libre de distracciones.",
-    "permissions_message": "Solo necesitamos algunos permisos para monitorear las aplicaciones y sus notificaciones con el fin de cerrar procesos en segundo plano innecesarios. Tu privacidad es importante y esta aplicación NO recopila ni comparte ningún dato personal.",
+    "description_1": "Bienvenidos a nuestra app! Crea bloques personalizados para deshabilitar el acceso y las notificaciones de apps, así podrás mantenerte alejado de las distracciones.",
+    "description_2": "Mejora tu productividad limitando interrupciones. Mántenete concentrado en tus tareas y logra tus metas en un espacio libre de interferencias.",
+    "permissions_message": "Necesitamos poquías permitidas para monitorizar apps y sus notificaciones, con el fin de cerrar procesos de fondo innecesarios. Su privacidad es importante y esta aplicación NO recolectan ni comparten datos personales.",
     "next": "Siguiente",
-    "start_app": "Iniciar aplicación"
+    "start_app": "Iniciar App"
   },
   "permissions": {
     "post_notifications": {
-      "title": "Publicar Notificaciones",
-      "description": "Permitir que las aplicaciones publiquen notificaciones para mantenerte informado sobre las aplicaciones bloqueadas"
+      "title": "Notificaciones posteriores",
+      "description": "Permitir que apps publiquen notificaciones para mantenerte informado sobre las aplicaciones bloqueadas"
     },
     "accesibility_services": {
-      "title": "Servicios de Accesibilidad",
-      "description": "Este permiso es necesario para monitorear las aplicaciones y poder cerrarlas"
+      "title": "Servicios de accesibilidad",
+      "description": "Esta permiso es requerido para monitorizar apps y cerrarlas"
     },
     "notification_listener": {
-      "title": "Escucha de Notificaciones",
-      "description": "Este permiso es necesario para monitorear las notificaciones y poder cerrarlas"
+      "title": "Escuchar notificaciones",
+      "description": "Esta permiso es requerido para monitorizar notificaciones y cerrarlas"
+    },
+    "displayPopup": {
+      "title": "Mostrar sobre otras aplicaciones",
+      "description": "Este permiso es necesario para mostrar la pantalla del bloque"
     }
   },
   "shared": {
-    "error_loading_apps": "Error al cargar aplicaciones"
+    "error_loading_apps": "Error cargando aplicaciones"
   },
   "blocks": {
     "edit": "Editar",
     "delete": "Eliminar",
     "active": "Activo",
-    "disabled": "Desactivado",
+    "disabled": "Deshabilitado",
     "apps": "Aplicaciones",
     "notifications": "Notificaciones",
-    "error_fetching_blocks": "Error al obtener bloques",
-    "block_deleted_successfully": "Bloque eliminado con éxito",
+    "error_fetching_blocks": "Error-fetching bloques",
+    "block_deleted_successfully": "Bloque eliminado exitosamente",
     "block_deleted_error": "Error al eliminar bloque",
-    "block_activated_successfully": "Bloque activado con éxito",
+    "block_activated_successfully": "Bloque activado exitosamente",
     "block_activated_error": "Error al activar bloque",
-    "block_disabled_successfully": "Bloque desactivado con éxito",
-    "block_disabled_error": "Error al desactivar bloque"
+    "block_disabled_successfully": "Bloque deshabilitado exitosamente",
+    "block_disabled_error": "Error al deshabilitar bloque"
   },
   "delete_block": {
-    "title": "¿Estás seguro de que deseas eliminar este bloque?",
+    "title": "¿Estás seguro de eliminar este bloque?",
     "cancel": "Cancelar",
     "confirm": "Confirmar"
   },
@@ -49,33 +53,41 @@
     "add_apps": "Agregar Aplicaciones",
     "block_apps": "Bloquear Aplicaciones",
     "block_Notifications": "Bloquear Notificaciones",
-    "no_apps_selected": "No se han seleccionado aplicaciones",
+    "no_apps_selected": "Ninguna aplicación seleccionada",
     "create_block": "Crear Bloque",
     "update_block": "Actualizar Bloque",
-    "name_error": "El nombre es obligatorio",
-    "blocked_apps_error": "Se debe bloquear al menos una aplicación",
-    "options_error": "Se debe seleccionar al menos una opción",
-    "block_saved_successfully": "Bloque guardado con éxito",
-    "block_updated_successfully": "Bloque actualizado con éxito",
+    "name_error": "El nombre es requerido",
+    "blocked_apps_error": "Debes bloquear al menos una aplicación",
+    "options_error": "Debe seleccionar al menos una opción",
+    "time_error": "Hora final debe ser mayor que hora inicial",
+    "block_saved_successfully": "Bloque guardado exitosamente",
+    "block_updated_successfully": "Bloque actualizado exitosamente",
     "block_saved_error": "Error al guardar bloque",
     "block_updated_error": "Error al actualizar bloque",
     "cancel": "Cancelar",
     "save": "Guardar",
-    "search_placeholder": "Buscar aplicación",
+    "search_placeholder": "buscar aplicación",
     "active": "Activo",
-    "inactive": "Inactivo"
+    "inactive": "Inactivo",
+    "start_time": "Hora de inicio",
+    "end_time": "Hora de fin",
+    "add_timer": "Agregar Temporizador"
   },
   "info": {
-    "settings": "Configuraciónes"
+    "settings": "Ajustes"
   },
   "settings": {
     "language": "Idioma",
     "en": "Inglés",
-    "es": "Español"
+    "es": "Español",
+    "block_message": "Mensaje de bloqueo",
+    "modify": "Modificar",
+    "error_fetching_settings": "Error al obtener ajustes",
+    "error_updating_block_message": "Error al actualizar mensaje del bloqueo"
   },
   "screens": {
     "blocks": "Bloques",
-    "settings": "Configuraciónes",
+    "settings": "Ajustes",
     "block": "Bloque"
   }
 }

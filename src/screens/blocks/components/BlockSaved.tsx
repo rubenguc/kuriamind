@@ -6,7 +6,13 @@ import {Menu, MenuItem, MenuItemLabel} from '@/components/ui/menu';
 import {Text} from '@/components/ui/text';
 import {VStack} from '@/components/ui/vstack';
 import {Block, InstalledApp} from '@/interfaces';
-import {Check, EditIcon, EllipsisVertical, Trash} from 'lucide-react-native';
+import {
+  Check,
+  EditIcon,
+  EllipsisVertical,
+  Trash,
+  Timer,
+} from 'lucide-react-native';
 import {useTranslation} from 'react-i18next';
 import {TouchableOpacity} from 'react-native';
 
@@ -30,6 +36,7 @@ export const BlockSaved = ({
   const isActive = block.isActive;
   const isAppsBlocked = block.blockApps;
   const isNotificationsBlocked = block.blockNotifications;
+  const hasTimers = block.startTime !== '' && block.endTime !== '';
 
   return (
     <VStack className="p-4 bg-gray-950 border border-custom-pink/50 rounded-2xl">
@@ -67,6 +74,15 @@ export const BlockSaved = ({
           </BadgeText>
         </Badge>
       </HStack>
+      {hasTimers && (
+        <HStack className="items-center gap-1 mb-3">
+          <Timer color="white" size={18} />
+          <Text>
+            {block.startTime} - {block.endTime}
+          </Text>
+        </HStack>
+      )}
+
       <SelectedAppsInBlock
         packageNames={block.blockedApps}
         installedApps={allApps}

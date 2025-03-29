@@ -14,6 +14,7 @@ import com.facebook.soloader.SoLoader
 import com.kuriamind.modules.blocks.BlockPackage
 import com.kuriamind.modules.installedApps.InstalledAppsPackage
 import com.kuriamind.modules.permissions.PermissionsPackage
+import com.kuriamind.modules.settings.SettingsPackage
 
 class MainApplication : Application(), ReactApplication {
 
@@ -24,6 +25,7 @@ class MainApplication : Application(), ReactApplication {
                             add(BlockPackage())
                             add(InstalledAppsPackage())
                             add(PermissionsPackage())
+                            add(SettingsPackage())
                         }
 
                 override fun getJSMainModuleName(): String = "index"

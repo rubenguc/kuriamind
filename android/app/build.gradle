@@ -82,8 +82,8 @@ android {
         applicationId "com.kuriamind"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 3
-        versionName "0.2.1"
+        versionCode 4
+        versionName "0.3.0"
     }
     signingConfigs {
         debug {
@@ -105,7 +105,7 @@ android {
         abi {
             enable true
             reset()
-            include 'armeabi-v7a', 'arm64-v8a', 'x86'
+            include 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
             universalApk false
         }
     }
@@ -133,6 +133,7 @@ dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
     implementation("com.google.code.gson:gson:2.12.1")
+    implementation("androidx.preference:preference-ktx:1.2.1")
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")

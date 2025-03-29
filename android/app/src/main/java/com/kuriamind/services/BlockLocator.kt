@@ -3,7 +3,7 @@ package com.kuriamind.services
 import android.content.Context
 import com.kuriamind.modules.blocks.BlockStorage
 
-object ServiceLocator {
+object BlockLocator {
     private var blockStorage: BlockStorage? = null
 
     fun provideBlockStorage(context: Context): BlockStorage {

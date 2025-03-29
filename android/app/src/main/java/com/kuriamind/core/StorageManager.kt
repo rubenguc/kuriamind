@@ -7,20 +7,21 @@ import com.google.gson.reflect.TypeToken
 
 abstract class StorageManager<T>(
         context: Context,
-        private val key: String,
-        private val typeToken: TypeToken<List<T>>
+        private val storageKey: String,
+        private val dataKey: String = "data",
+        private val typeToken: TypeToken<List<T>>,
 ) {
     private val prefs: SharedPreferences =
-            context.getSharedPreferences("kuria_prefs", Context.MODE_PRIVATE)
+            context.applicationContext.getSharedPreferences(storageKey, Context.MODE_PRIVATE)
     private val gson = Gson()
 
     fun getItems(): List<T> {
-        val json = prefs.getString(key, "[]") ?: "[]"
+        val json = prefs.getString(dataKey, "[]") ?: "[]"
         return gson.fromJson(json, typeToken.type)
     }
 
     fun saveItems(items: List<T>) {
-        prefs.edit().putString(key, gson.toJson(items)).apply()
+        prefs.edit().putString(dataKey, gson.toJson(items)).apply()
     }
 
     fun addItem(item: T) {
