@@ -6,6 +6,7 @@ import {useTranslation} from 'react-i18next';
 import {Text} from '@/components/ui/text';
 import {VStack} from '@/components/ui/vstack';
 import {Bell, PersonStanding, ShieldBan} from 'lucide-react-native';
+import {RequestPermissionAcceptOption} from './RequestPermissionOptionWithAccept';
 
 interface PermissionsProps {
   onAllPermissionsGranted: () => void;
@@ -61,12 +62,22 @@ export const Permissions = ({onAllPermissionsGranted}: PermissionsProps) => {
           Icon={<Bell size={18} color="#fff" />}
         />
 
-        <RequestPermissionOption
+        <RequestPermissionAcceptOption
           isActive={isAccessibilityServiceEnabled}
           onRequestPermission={requestAccessibilityPermission}
           title={tPermissions('accesibility_services.title')}
           description={tPermissions('accesibility_services.description')}
           Icon={<PersonStanding size={18} color="#fff" />}
+          acceptTitle={tPermissions('accesibility_services.accept_title')}
+          acceptDescription={tPermissions(
+            'accesibility_services.accept_description',
+          )}
+          cancelButtonText={tPermissions(
+            'accesibility_services.cancel_button_text',
+          )}
+          acceptButtonText={tPermissions(
+            'accesibility_services.accept_button_text',
+          )}
         />
 
         <RequestPermissionOption
