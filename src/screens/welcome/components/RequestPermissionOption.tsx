@@ -1,3 +1,4 @@
+import {JSX} from 'react';
 import {TouchableOpacity} from 'react-native';
 import {HStack} from '@/components/ui/hstack';
 import {Text} from '@/components/ui/text';
