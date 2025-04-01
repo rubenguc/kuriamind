@@ -14,7 +14,11 @@
     },
     "accesibility_services": {
       "title": "Servicios de accesibilidad",
-      "description": "Esta permiso es requerido para monitorizar apps y cerrarlas"
+      "description": "Esta permiso es requerido para monitorizar apps y cerrarlas",
+      "accept_title": "Una nota sobre la privacidad",
+      "accept_description": "Al activar el servicio de accesibilidad, acepta que Focus: Kuria Mind pueda monitorear las aplicaciones que abres con el fin de bloquear las seleccionadas y registrar su uso localmente. Además, accederá a interfaces del sistema para proporcionar funciones como modo estricto.\nTe aseguramos que nunca accederemos ni compartiremos ninguna de tus datos personales durante este proceso.",
+      "accept_button_text": "Aceptar",
+      "cancel_button_text": "Cancelar"
     },
     "notification_listener": {
       "title": "Escuchar notificaciones",
