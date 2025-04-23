@@ -1,9 +1,7 @@
 import {JSX} from 'react';
 import {TouchableOpacity} from 'react-native';
-import {HStack} from '@/components/ui/hstack';
-import {Text} from '@/components/ui/text';
-import {VStack} from '@/components/ui/vstack';
 import {CircleCheckBig} from 'lucide-react-native';
+import {Flex, Text} from 'dripsy';
 
 interface RequestPermissionOptionProps {
   title: string;
@@ -22,17 +20,26 @@ export const RequestPermissionOption = ({
 }: RequestPermissionOptionProps) => {
   return (
     <TouchableOpacity disabled={isActive} onPress={onRequestPermission}>
-      <HStack
-        className={`items-center px-3 rounded-xl py-4 border-2  bg-gray-950 ${
-          isActive ? 'border-custom-green' : 'border-gray-500'
-        }`}>
+      <Flex
+        sx={{
+          alignItems: 'center',
+          px: '3%',
+          py: '4%',
+          backgroundColor: '#111',
+          borderWidth: 2,
+          borderColor: isActive ? 'accent' : 'gray',
+          borderRadius: 12,
+          gap: '2%',
+        }}>
         {Icon}
-        <VStack className="flex-1 px-4">
-          <Text className="text-white font-bold mb-2">{title}</Text>
-          <Text>{description}</Text>
-        </VStack>
-        <CircleCheckBig size={22} color={isActive ? '#9bec8f' : '#888'} />
-      </HStack>
+        <Flex sx={{flex: 1, flexDirection: 'column', px: '2%'}}>
+          <Flex sx={{gap: '2%', alignItems: 'center', mb: '3%'}}>
+            <CircleCheckBig size={18} color={isActive ? '#9bec8f' : '#888'} />
+            <Text sx={{fontSize: 'lg'}}>{title}</Text>
+          </Flex>
+          <Text sx={{lineHeight: 20}}>{description}</Text>
+        </Flex>
+      </Flex>
     </TouchableOpacity>
   );
 };
