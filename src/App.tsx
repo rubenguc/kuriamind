@@ -1,11 +1,12 @@
-import './global.css';
 import './i18n';
-import {GluestackUIProvider} from '@/components/ui/gluestack-ui-provider';
-import {RooStack} from '@/router';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {InstalledAppsProvider} from './providers';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
+import {DripsyProvider} from 'dripsy';
+import {RooStack} from './router';
+import DripsyTheme from './theme';
 import {MMKV} from 'react-native-mmkv';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {Toasts} from '@backpackapp-io/react-native-toast';
 
 export const storage = new MMKV();
 
@@ -20,17 +21,24 @@ const theme: typeof DefaultTheme = {
   },
 };
 
+type MyTheme = typeof DripsyTheme;
+declare module 'dripsy' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DripsyCustomTheme extends MyTheme {}
+}
+
 function App() {
   return (
-    <GluestackUIProvider mode="dark">
+    <DripsyProvider theme={DripsyTheme}>
       <SafeAreaProvider>
-        <InstalledAppsProvider>
+        <GestureHandlerRootView>
           <NavigationContainer theme={theme}>
             <RooStack />
+            <Toasts />
           </NavigationContainer>
-        </InstalledAppsProvider>
+        </GestureHandlerRootView>
       </SafeAreaProvider>
-    </GluestackUIProvider>
+    </DripsyProvider>
   );
 }
 
