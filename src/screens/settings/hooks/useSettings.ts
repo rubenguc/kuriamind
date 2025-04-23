@@ -6,7 +6,7 @@ import {useTranslation} from 'react-i18next';
 
 export const useSettings = () => {
   const {t} = useTranslation('settings');
-  const {showErrorToast} = useCustomToast();
+  const {showErrorToast, showSuccessToast} = useCustomToast();
 
   const [settings, setSettings] = useState<Settings>({
     blockMessage: '',

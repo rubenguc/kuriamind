@@ -85,6 +85,7 @@
     "en": "English",
     "es": "Spanish",
     "block_message": "Blocked Message",
+    "block_message_description": "This message will be show when the app is blocked",
     "modify": "Modify",
     "error_fetching_settings": "Error fetching settings",
     "error_updating_block_message": "Error updating block message"

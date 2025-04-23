@@ -1,7 +1,8 @@
-import {ScrollView} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {InputOptionSetting, SelectableOptionSetting} from './components';
 import {useSettings} from './hooks';
+import {Languages, MessageSquareMore} from 'lucide-react-native';
+import {ScrollView} from 'dripsy';
 
 const Settings = () => {
   const {t, i18n} = useTranslation('settings');
@@ -9,21 +10,26 @@ const Settings = () => {
   const {settings, updateBlockMessage} = useSettings();
 
   return (
-    <ScrollView className="px-5 py-8">
+    <ScrollView
+      sx={{
+        px: '5%',
+      }}>
       <SelectableOptionSetting
-        actualValue={t(i18n.language)}
+        value={t(i18n.language)}
         options={[
           {label: t('en'), value: 'en'},
           {label: t('es'), value: 'es'},
         ]}
         text={t('language')}
         onSelected={i18n.changeLanguage}
+        Icon={<Languages size={22} color="#bbb" />}
       />
 
       <InputOptionSetting
-        actualValue={settings.blockMessage}
+        value={settings.blockMessage}
         text={t('block_message')}
         onSubmit={updateBlockMessage}
+        Icon={<MessageSquareMore size={22} color="#bbb" />}
       />
     </ScrollView>
   );
