@@ -1,14 +1,15 @@
 import {useCallback} from 'react';
-import {FlatList} from 'react-native';
+// import {FlatList} from 'react-native';
 import {CompositeScreenProps, useFocusEffect} from '@react-navigation/native';
 import {useBlocks} from './hooks';
 import {useInstalledApps} from '@/providers';
-import {BlockSaved} from './components/BlockSaved';
-import {Box} from '@/components/ui/box';
-import {ConfirmDeleteBlock} from './components/ConfirmDeleteBlock';
 import {Block, BottomStackParamList, RootStackParamList} from '@/interfaces';
 import type {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import type {StackScreenProps} from '@react-navigation/stack';
+import {FlatList} from 'dripsy';
+import {BlockItem} from './components/BlockItem';
+import {View} from 'dripsy';
+import {ConfirmDeleteBlock} from './components/ConfirmDeleteBlock';
 
 type BlocksProps = CompositeScreenProps<
   BottomTabScreenProps<BottomStackParamList, 'Blocks'>,
@@ -40,7 +41,6 @@ export const Blocks = ({navigation, route}: BlocksProps) => {
         getBlocks();
         navigation.setParams({shouldRefresh: false});
       }
-
     }, [route.params?.shouldRefresh]),
   );
 
@@ -62,7 +62,7 @@ export const Blocks = ({navigation, route}: BlocksProps) => {
         data={blocks}
         keyExtractor={block => block.id}
         renderItem={({item}) => (
-          <BlockSaved
+          <BlockItem
             block={item}
             allApps={installedApps}
             onEdit={() => onEdit(item)}
@@ -70,7 +70,7 @@ export const Blocks = ({navigation, route}: BlocksProps) => {
             onChangeStatus={() => onChangeStatus(item)}
           />
         )}
-        ItemSeparatorComponent={() => <Box className="h-4" />}
+        ItemSeparatorComponent={() => <View sx={{height: 8}} />}
       />
     </>
   );

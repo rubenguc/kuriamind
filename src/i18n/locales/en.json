@@ -75,7 +75,7 @@
     "inactive": "Inactive",
     "start_time": "Start Time",
     "end_time": "End Time",
-    "add_timer": "Add Timer"
+    "always_active": "Always active"
   },
   "info": {
     "settings": "Settings"

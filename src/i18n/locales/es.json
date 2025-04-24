@@ -75,7 +75,7 @@
     "inactive": "Inactivo",
     "start_time": "Hora de inicio",
     "end_time": "Hora de fin",
-    "add_timer": "Agregar Temporizador"
+    "always_active": "Siempre activo"
   },
   "info": {
     "settings": "Ajustes"
