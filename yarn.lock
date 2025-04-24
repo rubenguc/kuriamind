@@ -6216,6 +6216,11 @@ react-native-actions-sheet@^0.9.7:
   resolved "https://registry.yarnpkg.com/react-native-actions-sheet/-/react-native-actions-sheet-0.9.7.tgz#43ff2d9252f7af2da6dc051be5a5c375a844cdfb"
   integrity sha512-rjUwxUr5dxbdSLDtLDUFAdSlFxpNSpJsbXLhHkBzEBMxEMPUhRT3zqbvKqsPj0JUkjwuRligxrhbIJZkg/6ZDw==
 
+react-native-advanced-checkbox@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/react-native-advanced-checkbox/-/react-native-advanced-checkbox-2.0.5.tgz#62fd21dfc5d75a24b5043890203488c57e8cde1d"
+  integrity sha512-ku4NU6Xw0ZEqFt2ZHqbaQdSlyEuCTSGWYk79XQLmcB4j3qtpbQIsb5CM/c1hfmHh2aPfZwaQjeODJIcnetUk9g==
+
 react-native-fast-image@^8.6.3:
   version "8.6.3"
   resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-8.6.3.tgz#6edc3f9190092a909d636d93eecbcc54a8822255"
