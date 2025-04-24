@@ -4,8 +4,8 @@ const baseButton = {
   borderRadius: 12,
   borderWidth: 1,
   borderColor: 'transparent',
-  px: '5%',
-  py: '2%',
+  px: 2,
+  py: 4,
   label: {
     textAlign: 'center',
     fontWeight: 'bold',
@@ -13,17 +13,16 @@ const baseButton = {
   },
 };
 
+const inputBase = {
+  borderRadius: 8,
+  borderWidth: 1.5,
+  color: 'white',
+  borderColor: 'primary',
+};
+
 const DEFAULT_FONT = 'HelveticaNeueCyr';
 
-// body: ['HelveticaNeueCyrUltraLigth'],
-// sans: ['HelveticaNeueCyrMedium'],
-// bold: ['HelveticaNeueCyrBold'],
-// light: ['HelveticaNeueCyrLight'],
-// roman: ['HelveticaNeueCyrRoman'],
-// thin: ['HelveticaNeueCyrThin'],
-// ultraLigth: ['HelveticaNeueCyrUltraLigth'],
-
-const theme = {
+export default makeTheme({
   customFonts: {
     [DEFAULT_FONT]: {
       bold: 'HelveticaNeueCyrMedium',
@@ -91,6 +90,9 @@ const theme = {
     },
   },
   text: {
+    error: {
+      color: 'red',
+    },
     body: {
       color: 'text',
     },
@@ -101,6 +103,14 @@ const theme = {
       color: 'text',
     },
   },
-};
-
-export default makeTheme(theme);
+  forms: {
+    input: {
+      ...inputBase,
+      cursorColor: 'primary',
+    },
+    inputError: {
+      ...inputBase,
+      borderColor: 'red',
+    },
+  },
+});
