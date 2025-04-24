@@ -7,6 +7,7 @@ import DripsyTheme from './theme';
 import {MMKV} from 'react-native-mmkv';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Toasts} from '@backpackapp-io/react-native-toast';
+import {InstalledAppsProvider} from './providers';
 
 export const storage = new MMKV();
 
@@ -32,10 +33,12 @@ function App() {
     <DripsyProvider theme={DripsyTheme}>
       <SafeAreaProvider>
         <GestureHandlerRootView>
-          <NavigationContainer theme={theme}>
-            <RooStack />
-            <Toasts />
-          </NavigationContainer>
+          <InstalledAppsProvider>
+            <NavigationContainer theme={theme}>
+              <RooStack />
+              <Toasts />
+            </NavigationContainer>
+          </InstalledAppsProvider>
         </GestureHandlerRootView>
       </SafeAreaProvider>
     </DripsyProvider>

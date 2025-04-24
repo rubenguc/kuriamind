@@ -10,12 +10,13 @@ import {
   useDripsyTheme,
   createThemedComponent,
 } from 'dripsy';
+import DripsyTheme from '@/theme';
 
 const TouchableOpacity = createThemedComponent(RNTouchableOpacity);
 
 type Props = {
   children: React.ReactNode | string;
-  variant?: any;
+  variant?: keyof typeof DripsyTheme.button;
   sx?: ComponentProps<typeof View>['sx'];
   labelSx?: ComponentProps<typeof View>['sx'];
   isText?: boolean;

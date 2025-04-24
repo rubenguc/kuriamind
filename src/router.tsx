@@ -5,16 +5,15 @@ import {
 import {Welcome} from './screens/welcome';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Blocks} from './screens/blocks';
-import {Block} from './screens/block';
 import {BottomStackParamList, RootStackParamList} from './interfaces';
 import {CompositeScreenProps} from '@react-navigation/native';
 import {storage} from './App';
 import {House, Plus, SettingsIcon} from 'lucide-react-native';
 import {TouchableOpacity} from 'react-native';
-import {Box} from './components/ui/box';
 import {Settings} from './screens/settings';
 import {useTranslation} from 'react-i18next';
 import type {StackScreenProps} from '@react-navigation/stack';
+import {Block} from './screens/block';
 
 const BottomStack = createBottomTabNavigator<BottomStackParamList>();
 
@@ -64,9 +63,7 @@ export const BottomStackNavigation = ({
             <TouchableOpacity
               activeOpacity={0.95}
               onPress={() => navigation.navigate('Block')}>
-              <Box className="p-4 bg-custom-green rounded-2xl">
-                <Plus />
-              </Box>
+              <Plus />
             </TouchableOpacity>
           ),
           tabBarButton: ({children}) => <>{children}</>,
@@ -104,8 +101,9 @@ export const RooStack = () => {
       <Stack.Screen
         options={{
           headerShown: true,
+          title: t('block'),
         }}
-        name={t('block') as 'Block'}
+        name={'Block'}
         component={Block}
       />
     </Stack.Navigator>

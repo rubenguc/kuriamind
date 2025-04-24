@@ -1,19 +1,11 @@
-import { useEffect, useState } from 'react';
-import {
-  Actionsheet,
-  ActionsheetBackdrop,
-  ActionsheetContent,
-  ActionsheetDragIndicator,
-  ActionsheetDragIndicatorWrapper,
-} from '@/components/ui/actionsheet';
-import { Box } from '@/components/ui/box';
-import { Button, ButtonText } from '@/components/ui/button';
-import { HStack } from '@/components/ui/hstack';
-import { useInstalledApps } from '@/providers';
-import { FlatList } from 'react-native';
-import { Input, InputField } from '@/components/ui/input';
-import { useTranslation } from 'react-i18next';
-import { AppItem } from './AppItem';
+import {useEffect, useState} from 'react';
+import {useInstalledApps} from '@/providers';
+import {useTranslation} from 'react-i18next';
+import {AppItem} from './AppItem';
+import {FlatList, Modal as RNModal} from 'react-native';
+import {Flex, Text, TextInput, View} from 'dripsy';
+import {X} from 'lucide-react-native';
+import {Button} from '@/components/ui';
 
 interface AppsToSelectProps {
   isOpen: boolean;
@@ -28,8 +20,8 @@ export const AppsToSelect = ({
   toggle,
   selectedApps,
 }: AppsToSelectProps) => {
-  const { t } = useTranslation('block');
-  const { installedApps } = useInstalledApps();
+  const {t} = useTranslation('block');
+  const {installedApps} = useInstalledApps();
 
   const [apps, setApps] = useState<string[]>([]);
   const [searchText, setSearchText] = useState('');
@@ -55,51 +47,42 @@ export const AppsToSelect = ({
   }, [selectedApps]);
 
   return (
-    <Actionsheet isOpen={isOpen} onClose={toggle} snapPoints={[80]}>
-      <ActionsheetBackdrop />
-      <ActionsheetContent className="flex flex-col w-full h-full ">
-        <ActionsheetDragIndicatorWrapper>
-          <ActionsheetDragIndicator />
-        </ActionsheetDragIndicatorWrapper>
-        <Box className="w-full px-2 mt-3">
-          <Input variant="outline" size="md">
-            <InputField
-              placeholder={t('search_placeholder')}
-              onChangeText={setSearchText}
-              value={searchText}
-            />
-          </Input>
-        </Box>
-        <Box className="w-full  h-[70%]">
-          <FlatList
-            data={filteredApps}
-            keyExtractor={(item) => item.packageName}
-            numColumns={5}
-            columnWrapperStyle={{ justifyContent: 'center' }}
-            contentContainerStyle={{ paddingVertical: 24 }}
-            initialNumToRender={20}
-            maxToRenderPerBatch={10}
-            windowSize={7}
-            removeClippedSubviews={true}
-            renderItem={({ item: app }) => <AppItem
+    <RNModal visible={isOpen} transparent animationType="slide">
+      <View
+        sx={{
+          backgroundColor: 'background',
+          flex: 1,
+          borderTopLeftRadius: 12,
+          borderTopRightRadius: 12,
+        }}>
+        <Flex
+          sx={{
+            px: 2,
+            py: 8,
+            justifyContent: 'flex-end',
+          }}>
+          <X color="#fff" onPress={toggle} />
+        </Flex>
+        <View>
+          <TextInput value={searchText} onChangeText={setSearchText} />
+        </View>
+        <FlatList
+          data={filteredApps}
+          keyExtractor={item => item.packageName}
+          renderItem={({item: app}) => (
+            <AppItem
               app={app}
               isSelected={isAppSelected(app.packageName)}
               onSelect={onSelectApp}
-            />}
-          />
-        </Box>
-        <HStack className="gap-5 py-5">
-          <Button onPress={toggle} variant="outline">
-            <ButtonText>{t('cancel')}</ButtonText>
+            />
+          )}
+        />
+        <View>
+          <Button onPress={() => onSave(apps)}>
+            <Text>{t('save')}</Text>
           </Button>
-          <Button
-            onPress={() => {
-              onSave(apps);
-            }}>
-            <ButtonText>{t('save')}</ButtonText>
-          </Button>
-        </HStack>
-      </ActionsheetContent>
-    </Actionsheet>
+        </View>
+      </View>
+    </RNModal>
   );
 };
