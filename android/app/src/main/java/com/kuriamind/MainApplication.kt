@@ -11,6 +11,7 @@ import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.react.soloader.OpenSourceMergedSoMapping
 import com.facebook.soloader.SoLoader
+import com.kuriamaindo.repositories.BlockRepository
 import com.kuriamind.modules.blocks.BlockPackage
 import com.kuriamind.modules.installedApps.InstalledAppsPackage
 import com.kuriamind.modules.permissions.PermissionsPackage
@@ -42,6 +43,7 @@ class MainApplication : Application(), ReactApplication {
     override fun onCreate() {
         super.onCreate()
         SoLoader.init(this, OpenSourceMergedSoMapping)
+        BlockRepository.initialize(this)
         if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
             load()
         }
