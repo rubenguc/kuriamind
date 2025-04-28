@@ -77,6 +77,9 @@ export default makeTheme({
         color: 'black',
         ...baseButton.label,
       },
+      disabled: {
+        opacity: 0.5,
+      },
     },
     outlined: {
       ...baseButton,
@@ -86,6 +89,9 @@ export default makeTheme({
       label: {
         color: 'primary',
         ...baseButton.label,
+      },
+      disabled: {
+        opacity: 0.5,
       },
     },
   },
