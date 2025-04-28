@@ -15,8 +15,8 @@ const theme: typeof DefaultTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    background: '#24222f',
-    card: '#24222f',
+    background: '#161616',
+    card: '#161616',
     text: '#fff',
     border: 'transparent',
   },
