@@ -37,6 +37,7 @@
     "delete": "Delete",
     "active": "Active",
     "disabled": "Disabled",
+    "add": "Add",
     "apps": "Apps",
     "notifications": "Notifications",
     "error_fetching_blocks": "Error fetching blocks",
