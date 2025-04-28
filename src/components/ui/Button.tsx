@@ -1,8 +1,5 @@
 import React, {ComponentProps} from 'react';
-import {
-  TouchableOpacity as RNTouchableOpacity,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import {TouchableOpacity as RNTouchableOpacity} from 'react-native';
 import {
   ActivityIndicator,
   Text,
@@ -22,10 +19,9 @@ type Props = {
   isText?: boolean;
   onPress?: () => void;
   labelProps?: ComponentProps<typeof Text>;
-  touchableProps?: ComponentProps<typeof TouchableWithoutFeedback>;
   isLoading?: boolean;
   isDisabled?: boolean;
-} & ComponentProps<typeof View>;
+} & ComponentProps<typeof TouchableOpacity>;
 
 export function Button(props: Props) {
   const {
@@ -36,15 +32,13 @@ export function Button(props: Props) {
     isText = true,
     onPress,
     labelProps,
-    touchableProps,
     isLoading = false,
     isDisabled = false,
-    ...viewProps
+    ...touchableProps
   } = props;
 
   const {theme} = useDripsyTheme();
 
-  // Obtener estilos del tema según la variante
   const {
     label: labelStyle = {},
     disabled: disabledStyle,
@@ -54,7 +48,6 @@ export function Button(props: Props) {
     disabled: {},
   };
 
-  // Determinar si el botón debe estar deshabilitado
   const isButtonDisabled = isDisabled || isLoading;
 
   return (
@@ -67,8 +60,7 @@ export function Button(props: Props) {
         ...sx,
       }}
       onPress={isButtonDisabled ? undefined : onPress}
-      disabled={isButtonDisabled} // Deshabilitar interacción
-    >
+      disabled={isButtonDisabled}>
       {isLoading ? (
         <ActivityIndicator
           color={theme.button[variant]?.label?.color || 'white'}
