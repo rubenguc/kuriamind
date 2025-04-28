@@ -55,10 +55,8 @@ class AppMonitorService : AccessibilityService() {
     }
 
     private fun checkAndUpdateServiceState() {
-        // --- Use Repository to get blocks ---
         val activeBlocks = BlockRepository.getActiveAppBlockingBlocks()
         val shouldBeForeground = activeBlocks.isNotEmpty()
-        // Log statement updated to reflect repository usage
         Log.d(
                 "DEBUG",
                 "AppMonitorService Check State: shouldBeForeground=$shouldBeForeground, isForeground=$isForeground (using Repository)"
@@ -117,27 +115,11 @@ class AppMonitorService : AccessibilityService() {
                     currentActiveBlocks.forEach { block ->
                         if (BlockUtils.shouldBlock(block, packageName)) {
                             if (BuildConfig.DEBUG) {
-                                // Logging moved inside BlockUtils.shouldBlock for success case
                                 Log.d("DEBUG", "Blocking app: $packageName, Block: ${block.name}")
                             }
                             showBlockPopup(packageName, block)
-                            return@let // Exit loop once blocked
+                            return@let
                         }
-                        // val isBlocked = isPackageNameInList(packageName, block.blockedApps)
-                        // if (isBlocked) {
-                        //     val isInTimeWindow =
-                        //             isTimeWithinWindow(block, getCurrentTimeInMinutes())
-                        //     if (isInTimeWindow) {
-                        //         if (BuildConfig.DEBUG) {
-                        //             Log.d(
-                        //                     "DEBUG",
-                        //                     "Blocking app: $packageName, Block: ${block.name}"
-                        //             )
-                        //         }
-                        //         showBlockPopup(packageName, block)
-                        //         return@let // Exit let block once blocked
-                        //     }
-                        // }
                     }
                 }
             }
@@ -156,9 +138,11 @@ class AppMonitorService : AccessibilityService() {
 
             val blockMessageTextView: TextView? = blockPopupView?.findViewById(R.id.block_message)
 
+            val defaultMessage = getString(R.string.popup_default_block_message)
+
             val blockedMessage =
                     SettingsLocator.provideSettingsStorage(applicationContext)
-                            .getValue("blockMessage", "App Blocked")
+                            .getValue("blockMessage", defaultMessage)
             blockMessageTextView?.text = blockedMessage
 
             val layoutParams =
@@ -182,6 +166,8 @@ class AppMonitorService : AccessibilityService() {
             }
         } catch (e: Exception) {
             Log.e("DEBUG", "Error showing block popup", e)
+            isPopupActive = false
+            removeBlockPopup()
         }
     }
 
@@ -242,13 +228,13 @@ class AppMonitorService : AccessibilityService() {
     }
 
     private fun createNotificationChannel() {
+
+        val channelName = getString(R.string.app_monitor_channel_name)
+        val channelDesc = getString(R.string.app_monitor_channel_description)
+
         val serviceChannel =
-                NotificationChannel(
-                                CHANNEL_ID,
-                                "Kuriamind Blocker Servic",
-                                NotificationManager.IMPORTANCE_LOW
-                        )
-                        .apply { description = "Monitors app usage for blocking features" }
+                NotificationChannel(CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_LOW)
+                        .apply { description = channelDesc }
 
         val manager = getSystemService(NotificationManager::class.java)
         manager.createNotificationChannel(serviceChannel)
@@ -256,6 +242,8 @@ class AppMonitorService : AccessibilityService() {
     }
 
     private fun startForegroundServiceInternal() {
+        if (isForeground) return
+
         try {
             val notificationIntent = Intent(this, MainActivity::class.java)
             val pendingIntentFlags =
@@ -267,10 +255,13 @@ class AppMonitorService : AccessibilityService() {
             val pendingIntent =
                     PendingIntent.getActivity(this, 0, notificationIntent, pendingIntentFlags)
 
+            val notificationTitle = getString(R.string.app_monitor_notification_title)
+            val notificationText = getString(R.string.app_monitor_notification_text)
+
             val notification: Notification =
                     Notification.Builder(this, CHANNEL_ID)
-                            .setContentTitle("Kuriamind Blocker Active")
-                            .setContentText("App monitoring and blocking is enabled.")
+                            .setContentTitle(notificationTitle)
+                            .setContentText(notificationText)
                             .setSmallIcon(R.drawable.ic_icon)
                             .setContentIntent(pendingIntent)
                             .setOngoing(true)
@@ -293,12 +284,14 @@ class AppMonitorService : AccessibilityService() {
     }
 
     private fun stopForegroundServiceInternal() {
+        if (!isForeground) return
         try {
             stopForeground(STOP_FOREGROUND_REMOVE)
             isForeground = false
             Log.d("DEBUG", "AppMonitorService stopped foreground state.")
         } catch (e: Exception) {
             Log.e("DEBUG", "Error stopping foreground service", e)
+            isForeground = false
         }
     }
 }
