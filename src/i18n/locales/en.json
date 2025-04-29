@@ -95,6 +95,16 @@
   "screens": {
     "blocks": "Blocks",
     "settings": "Settings",
-    "block": "Block"
+    "block": "Block",
+    "stats": "Stats"
+  },
+  "stats": {
+    "blockedCount": "Blocked Count",
+    "blockedNotifications": "Blocked Notifications",
+    "today": "Today",
+    "last3days": "Last 3 Days",
+    "last7days": "Last 7 Days",
+    "error_fetching_stats": "Error fetching stats",
+    "no_data": "No data for this period"
   }
 }

@@ -117,6 +117,9 @@ class AppMonitorService : AccessibilityService() {
                             if (BuildConfig.DEBUG) {
                                 Log.d("DEBUG", "Blocking app: $packageName, Block: ${block.name}")
                             }
+                            StatsLocator.provideStatsStorage(applicationContext)
+                                    .incrementAppBlock(packageName)
+
                             showBlockPopup(packageName, block)
                             return@let
                         }

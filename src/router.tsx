@@ -4,11 +4,17 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Blocks} from './screens/blocks';
 import {BottomStackParamList, RootStackParamList} from './interfaces';
 import {storage} from './App';
-import {House, SettingsIcon} from 'lucide-react-native';
+import {
+  ChartNoAxesCombined,
+  House,
+  SettingsIcon,
+  Star,
+} from 'lucide-react-native';
 import {Settings} from './screens/settings';
 import {useTranslation} from 'react-i18next';
 import {Block} from './screens/block';
 import {useDripsyTheme} from 'dripsy';
+import {Stats} from './screens/stats';
 
 const BottomStack = createBottomTabNavigator<BottomStackParamList>();
 
@@ -41,6 +47,21 @@ export const BottomStackNavigation = () => {
             <House color={focused ? theme.colors.primary : color} size={26} />
           ),
           title: t('blocks'),
+        }}
+      />
+
+      <BottomStack.Screen
+        name="Stats"
+        component={Stats}
+        options={{
+          // eslint-disable-next-line react/no-unstable-nested-components
+          tabBarIcon: ({color, focused}) => (
+            <ChartNoAxesCombined
+              color={focused ? theme.colors.primary : color}
+              size={26}
+            />
+          ),
+          title: t('stats'),
         }}
       />
 
