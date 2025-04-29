@@ -18,9 +18,7 @@ type BlocksProps = CompositeScreenProps<
   StackScreenProps<RootStackParamList>
 >;
 
-const ItemSeparator = () => (
-  <View style={{height: 1, backgroundColor: 'gray'}} />
-);
+const ItemSeparator = () => <View style={{height: 20}} />;
 
 export const Blocks = ({navigation, route}: BlocksProps) => {
   const {t} = useTranslation('blocks');

@@ -71,9 +71,14 @@ const Welcome = ({navigation}: WelcomeProps) => {
       <Box
         sx={{
           p: 10,
-          borderTop: '1px solid #ccc',
         }}>
-        <Button isText isDisabled={!canGoNext()} onPress={handleNext}>
+        <Button
+          isText
+          isDisabled={!canGoNext()}
+          onPress={handleNext}
+          sx={{
+            py: 10,
+          }}>
           {t(step === Step.WELCOME ? 'next' : 'start_app')}
         </Button>
       </Box>

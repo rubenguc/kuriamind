@@ -63,6 +63,7 @@ export const Modal: FC<ModalProps> = ({
                 isText
                 sx={{
                   width: '45%',
+                  py: 6,
                 }}>
                 {cancelButtonText}
               </Button>
@@ -74,6 +75,7 @@ export const Modal: FC<ModalProps> = ({
                 isText
                 sx={{
                   width: '45%',
+                  py: 6,
                 }}>
                 {acceptButtonText}
               </Button>

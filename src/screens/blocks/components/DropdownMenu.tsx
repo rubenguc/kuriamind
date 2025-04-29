@@ -35,7 +35,7 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
     },
     {
       icon: Check,
-      label: t(isActive ? 'disabled' : 'active'),
+      label: t(isActive ? 'disable' : 'activate'),
       onPress: onChangeStatus,
     },
   ];
@@ -62,9 +62,10 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
         <View
           sx={{
             position: 'absolute',
+            zIndex: 1000,
             top: 40,
             right: 1,
-            width: 120,
+            width: 150,
             backgroundColor: '#111',
             borderRadius: 5,
             elevation: 3,

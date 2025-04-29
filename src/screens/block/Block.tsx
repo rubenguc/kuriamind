@@ -88,7 +88,7 @@ export const Block = ({route, navigation}: BlocksProps) => {
                         fontSize: 'sm',
                         color: 'black',
                       }}>
-                      {t('add_apps')}
+                      {t('add')}
                     </Text>
                   </Flex>
                 </Button>
@@ -110,7 +110,7 @@ export const Block = ({route, navigation}: BlocksProps) => {
                     borderRadius: 8,
                   }}>
                   {value?.length === 0 ? (
-                    <Text>{t('no_apps_selected')}</Text>
+                    <Text sx={{color: 'gray'}}>{t('no_apps_selected')}</Text>
                   ) : (
                     <SelectedAppsInBlock
                       packageNames={value}
@@ -271,7 +271,7 @@ export const Block = ({route, navigation}: BlocksProps) => {
         sx={{
           p: 10,
         }}>
-        <Button onPress={onSubmit}>
+        <Button onPress={onSubmit} sx={{py: 10}}>
           {t(isEditing ? 'update_block' : 'create_block')}
         </Button>
       </View>
