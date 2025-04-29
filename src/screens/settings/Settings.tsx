@@ -6,7 +6,6 @@ import {ScrollView} from 'dripsy';
 
 const Settings = () => {
   const {t, i18n} = useTranslation('settings');
-
   const {settings, updateBlockMessage} = useSettings();
 
   return (
@@ -22,14 +21,14 @@ const Settings = () => {
         ]}
         text={t('language')}
         onSelected={i18n.changeLanguage}
-        Icon={<Languages size={22} color="#bbb" />}
+        Icon={<Languages size={20} color="#bbb" />}
       />
 
       <InputOptionSetting
         value={settings.blockMessage}
         text={t('block_message')}
         onSubmit={updateBlockMessage}
-        Icon={<MessageSquareMore size={22} color="#bbb" />}
+        Icon={<MessageSquareMore size={20} color="#bbb" />}
       />
     </ScrollView>
   );

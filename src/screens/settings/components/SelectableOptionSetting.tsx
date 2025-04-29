@@ -2,7 +2,7 @@ import {useToggle} from 'react-use';
 import {SettingOption} from './SettingOption';
 import {SettingOptionProps} from '../interface';
 import {Actionsheet} from '@/components/ui';
-import {Text, View} from 'dripsy';
+import {View} from 'dripsy';
 import {SelectableOption} from './SelectableOption';
 
 interface SelectableOptionSettingProps<T>

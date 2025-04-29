@@ -3,7 +3,7 @@ import {useInstalledApps} from '@/providers';
 import {useTranslation} from 'react-i18next';
 import {AppItem} from './AppItem';
 import {FlatList, Modal as RNModal} from 'react-native';
-import {Flex, Text, TextInput, View} from 'dripsy';
+import {Flex, TextInput, View} from 'dripsy';
 import {X} from 'lucide-react-native';
 import {Button} from '@/components/ui';
 
@@ -77,9 +77,12 @@ export const AppsToSelect = ({
             />
           )}
         />
-        <View>
-          <Button onPress={() => onSave(apps)}>
-            <Text>{t('save')}</Text>
+        <View
+          sx={{
+            p: 10,
+          }}>
+          <Button onPress={() => onSave(apps)} sx={{py: 10}}>
+            {t('save')}
           </Button>
         </View>
       </View>
