@@ -31,6 +31,7 @@
     "react-native": "0.76.5",
     "react-native-actions-sheet": "^0.9.7",
     "react-native-advanced-checkbox": "^2.0.5",
+    "react-native-element-dropdown": "^2.12.4",
     "react-native-fast-image": "^8.6.3",
     "react-native-gesture-handler": "^2.25.0",
     "react-native-localize": "^3.4.1",

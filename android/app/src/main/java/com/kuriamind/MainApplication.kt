@@ -16,6 +16,8 @@ import com.kuriamind.modules.blocks.BlockPackage
 import com.kuriamind.modules.installedApps.InstalledAppsPackage
 import com.kuriamind.modules.permissions.PermissionsPackage
 import com.kuriamind.modules.settings.SettingsPackage
+import com.kuriamind.modules.stats.StatsPackage
+import com.kuriamind.services.StatsLocator
 
 class MainApplication : Application(), ReactApplication {
 
@@ -27,6 +29,7 @@ class MainApplication : Application(), ReactApplication {
                             add(InstalledAppsPackage())
                             add(PermissionsPackage())
                             add(SettingsPackage())
+                            add(StatsPackage())
                         }
 
                 override fun getJSMainModuleName(): String = "index"
@@ -44,6 +47,7 @@ class MainApplication : Application(), ReactApplication {
         super.onCreate()
         SoLoader.init(this, OpenSourceMergedSoMapping)
         BlockRepository.initialize(this)
+        StatsLocator.provideStatsStorage(this)
         if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
             load()
         }
