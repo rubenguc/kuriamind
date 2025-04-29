@@ -19,6 +19,8 @@ class NotificationBlockerService : NotificationListenerService() {
             val packageName = it.packageName
             Log.d("DEBUG", "Received notification for package: ${packageName}, key: ${sbn.key}")
             if (shouldBlockNotification(packageName, sbn.key)) {
+                StatsLocator.provideStatsStorage(applicationContext)
+                        .incrementNotificationBlock(packageName)
                 cancelNotification(sbn.key)
             }
         }

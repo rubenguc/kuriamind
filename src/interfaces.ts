@@ -27,6 +27,7 @@ export type BottomStackParamList = {
     | undefined;
   Settings: undefined;
   BlockAction: undefined;
+  Stats: undefined;
 };
 
 export type RootStackParamList = {
@@ -39,3 +40,17 @@ export type RootStackParamList = {
 export interface Settings {
   blockMessage: string;
 }
+
+type packageName = string;
+
+export interface Stat {
+  date: string;
+  appStats: {
+    [key: packageName]: {
+      appBlockCount: number;
+      notificationBlockCount: number;
+    };
+  };
+}
+
+export type StatsFilter = 'today' | 'last3days' | 'last7days';

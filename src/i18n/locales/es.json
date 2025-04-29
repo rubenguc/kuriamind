@@ -95,6 +95,16 @@
   "screens": {
     "blocks": "Bloques",
     "settings": "Ajustes",
-    "block": "Bloque"
+    "block": "Bloque",
+    "stats": "Estadísticas"
+  },
+  "stats": {
+    "blockedCount": "Conteo Bloqueado",
+    "blockedNotifications": "Notificaciones Bloqueadas",
+    "today": "Hoy",
+    "last3days": "Últimos 3 Días",
+    "last7days": "Últimos 7 Días",
+    "error_fetching_stats": "Error al obtener estadísticas",
+    "no_data": "No hay datos para este período"
   }
 }

@@ -5,20 +5,19 @@ import {useInstalledApps} from '@/providers';
 import {Block, BottomStackParamList, RootStackParamList} from '@/interfaces';
 import type {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import type {StackScreenProps} from '@react-navigation/stack';
-import {Flex, Text, useSx, View} from 'dripsy';
+import {Flex, Text, useSx} from 'dripsy';
 import {ConfirmDeleteBlock} from './components/ConfirmDeleteBlock';
 import {Button} from '@/components/ui';
 import {useTranslation} from 'react-i18next';
 import {Plus} from 'lucide-react-native';
 import {BlockItem} from './components/BlockItem';
 import {FlatList} from 'react-native';
+import {ItemSeparator} from '@/components/shared';
 
 type BlocksProps = CompositeScreenProps<
   BottomTabScreenProps<BottomStackParamList, 'Blocks'>,
   StackScreenProps<RootStackParamList>
 >;
-
-const ItemSeparator = () => <View style={{height: 20}} />;
 
 export const Blocks = ({navigation, route}: BlocksProps) => {
   const {t} = useTranslation('blocks');
