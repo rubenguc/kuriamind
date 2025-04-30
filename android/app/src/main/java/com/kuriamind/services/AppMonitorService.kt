@@ -2,353 +2,145 @@ package com.kuriamind.services
 
 import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.AccessibilityServiceInfo
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE
-import android.graphics.PixelFormat
-import android.os.Build
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.WindowManager
 import android.view.accessibility.AccessibilityEvent
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import com.facebook.react.BuildConfig
 import com.kuriamaindo.repositories.BlockRepository
-import com.kuriamind.MainActivity
-import com.kuriamind.R
-import com.kuriamind.modules.blocks.Block
+import com.kuriamind.services.helpers.BlockPopupManager
+import com.kuriamind.services.helpers.ForegroundServiceManager // Import helper
 import com.kuriamind.utils.BlockUtils
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class AppMonitorService : AccessibilityService() {
 
     companion object {
         const val ACTION_UPDATE_STATUS = "com.kuriamind.services.ACTION_UPDATE_STATUS"
-        private const val CHANNEL_ID = "AppMonitorServiceChannel"
-        private const val NOTIFICATION_ID = 1
+        private const val TAG = "AppMonitorService"
     }
 
-    private var blockPopupView: View? = null
-    private var isPopupActive: Boolean = false
-    private var isRedirectingToHome: Boolean = false
-    private var isForeground: Boolean = false
+    // Use lateinit for managers that need context/service instance
+    private lateinit var foregroundManager: ForegroundServiceManager
+    private lateinit var popupManager: BlockPopupManager
 
     override fun onCreate() {
         super.onCreate()
-        createNotificationChannel()
-        checkAndUpdateServiceState()
+        Log.d(TAG, "onCreate")
+        // Initialize managers here as 'this' (Service instance) is available
+        foregroundManager = ForegroundServiceManager(this)
+        popupManager = BlockPopupManager(this)
+
+        // Create channel immediately (required for foreground notification)
+        foregroundManager.createNotificationChannel()
+        // Initial check to start foreground if needed
+        foregroundManager.checkAndUpdateServiceState()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.d("DEBUG", "AppMonitorService onStartCommand, Action: ${intent?.action}")
+        Log.d(TAG, "onStartCommand, Action: ${intent?.action}")
         if (intent?.action == ACTION_UPDATE_STATUS) {
-            checkAndUpdateServiceState()
+            // Delegate state check to the manager
+            foregroundManager.checkAndUpdateServiceState()
         }
+        // START_STICKY is important for AccessibilityServices that need to stay running
         return START_STICKY
     }
 
-    private fun checkAndUpdateServiceState() {
-        val activeBlocks = BlockRepository.getActiveAppBlockingBlocks()
-        val shouldBeForeground = activeBlocks.isNotEmpty()
-        Log.d(
-                "DEBUG",
-                "AppMonitorService Check State: shouldBeForeground=$shouldBeForeground, isForeground=$isForeground (using Repository)"
-        )
-
-        if (shouldBeForeground && !isForeground) {
-            startForegroundServiceInternal()
-        } else if (!shouldBeForeground && isForeground) {
-            stopForegroundServiceInternal()
-        }
-    }
-
     override fun onServiceConnected() {
-        BlockRepository.invalidateCache()
-        Log.d("DEBUG", "AppMonitorService onServiceConnected, invalidated repository cache.")
+        super.onServiceConnected() // Call super
+        Log.d(TAG, "onServiceConnected")
+        BlockRepository.invalidateCache() // Good place to invalidate cache
 
-        val info =
+        // Configure service info (remains here as it's specific to AccessibilityService)
+        serviceInfo =
                 AccessibilityServiceInfo().apply {
                     eventTypes = AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED
                     feedbackType = AccessibilityServiceInfo.FEEDBACK_GENERIC
-                    flags = AccessibilityServiceInfo.DEFAULT
-                    notificationTimeout = 100
+                    // Consider if other flags are needed, e.g., FLAG_RETRIEVE_INTERACTIVE_WINDOWS
+                    // flags = AccessibilityServiceInfo.DEFAULT or
+                    // AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS
+                    notificationTimeout = 100 // Keep short for responsiveness
+                    // packageNames = null // Monitor all apps unless specific ones are needed
                 }
-        this.serviceInfo = info
+        Log.d(TAG, "Accessibility Service Info configured.")
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-        event?.let {
-            if (isPopupActive || isRedirectingToHome) return
+        event ?: return // Exit if event is null
 
-            if (it.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED &&
-                            it.packageName != null &&
-                            it.className != null
-            ) {
-                val packageName = it.packageName.toString()
-                val className = it.className.toString()
+        // Check if popup is active or redirecting via the manager
+        if (popupManager.isPopupActive() || popupManager.isRedirectingToHome()) {
+            return
+        }
 
-                if (packageName == applicationContext.packageName ||
-                                className.contains("permissioncontroller")
-                ) {
-                    if (isPopupActive) {
-                        removeBlockPopup()
-                    }
-                    return
-                }
-
-                if (isForeground) {
-                    val currentActiveBlocks = BlockRepository.getActiveAppBlockingBlocks()
-
-                    if (currentActiveBlocks.isEmpty()) return
-
-                    if (BuildConfig.DEBUG) {
-                        Log.d("DEBUG", "Window Changed: $packageName / $className")
-                    }
-
-                    currentActiveBlocks.forEach { block ->
-                        if (BlockUtils.shouldBlock(block, packageName)) {
-                            if (BuildConfig.DEBUG) {
-                                Log.d("DEBUG", "Blocking app: $packageName, Block: ${block.name}")
-                            }
-                            StatsLocator.provideStatsStorage(applicationContext)
-                                    .incrementAppBlock(packageName)
-
-                            showBlockPopup(packageName, block)
-                            return@let
-                        }
-                    }
-                }
+        if (shouldIgnoreEvent(event)) {
+            // If popup was shown for our own app or permission controller, remove it
+            if (popupManager.isPopupActive()) {
+                popupManager.removeBlockPopup()
             }
+            return
+        }
+
+        // Only process relevant events if the service should be active (is in foreground)
+        if (foregroundManager.isForeground() &&
+                        event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED &&
+                        event.packageName != null
+        ) {
+
+            val packageName = event.packageName.toString()
+            Log.d(TAG, "Window Changed: $packageName / ${event.className}") // Keep useful log
+
+            checkAndBlockApp(packageName)
         }
     }
 
-    private fun showBlockPopup(packageName: String, block: Block) {
-        if (isPopupActive) return
+    private fun shouldIgnoreEvent(event: AccessibilityEvent): Boolean {
+        // Ignore events if package or class name is missing
+        if (event.packageName == null || event.className == null) return true
 
-        try {
-            isPopupActive = true
+        val packageName = event.packageName.toString()
+        val className = event.className.toString()
 
-            val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            blockPopupView = inflater.inflate(R.layout.popup_block_screen, null)
-
-            // --- Find Views (Make sure these IDs match your XML) ---
-            val appIconImageView: ImageView? =
-                    blockPopupView?.findViewById(
-                            R.id.app_icon
-                    ) // Add ImageView with this ID to your XML
-            val appNameTextView: TextView? =
-                    blockPopupView?.findViewById(R.id.app_name) // Add TextView with this ID
-            val blockMessageTextView: TextView? =
-                    blockPopupView?.findViewById(R.id.block_message) // Existing TextView
-            val blockCountTextView: TextView? =
-                    blockPopupView?.findViewById(R.id.block_count_text) // Add TextView with this ID
-            val closeButton =
-                    blockPopupView?.findViewById<Button>(R.id.close_button) // Existing Button
-
-            // --- Fetch App Info ---
-            var appName = packageName // Default to package name
-            try {
-                val pm = applicationContext.packageManager
-                val appInfo = pm.getApplicationInfo(packageName, 0)
-                appName = pm.getApplicationLabel(appInfo).toString()
-                val appIcon = pm.getApplicationIcon(appInfo)
-                appIconImageView?.setImageDrawable(appIcon)
-            } catch (e: PackageManager.NameNotFoundException) {
-                Log.w("DEBUG", "Could not find package info for $packageName", e)
-                // Keep default icon or set a placeholder if you have one
-            } catch (e: Exception) {
-                Log.e("DEBUG", "Error getting app info for $packageName", e)
-            }
-
-            // --- Set App Name ---
-            appNameTextView?.text = appName
-
-            // --- Set Block Message ---
-            val defaultMessage = getString(R.string.popup_default_block_message)
-            val blockedMessage =
-                    SettingsLocator.provideSettingsStorage(applicationContext)
-                            .getValue("blockMessage", defaultMessage)
-            blockMessageTextView?.text = blockedMessage
-
-            // --- Fetch and Set Block Count ---
-            var blockCountToday = 0
-            try {
-                val today = LocalDate.now()
-                // Use the getStats method which returns a list
-                val statsList =
-                        StatsLocator.provideStatsStorage(applicationContext).getStats(today, today)
-                // Find today's entry (should be the first if list is not empty and sorted)
-                val todayStats =
-                        statsList.firstOrNull {
-                            it.date == today.format(DateTimeFormatter.ISO_LOCAL_DATE)
-                        }
-                blockCountToday = todayStats?.appStats?.get(packageName)?.appBlockCount ?: 0
-            } catch (e: Exception) {
-                Log.e("DEBUG", "Error fetching stats for $packageName", e)
-            }
-            // Format the string using a resource for better localization
-            blockCountTextView?.text = getString(R.string.popup_block_count_text, blockCountToday)
-
-            // --- Setup Popup Window ---
-            val layoutParams =
-                    WindowManager.LayoutParams(
-                            WindowManager.LayoutParams.MATCH_PARENT,
-                            WindowManager.LayoutParams.MATCH_PARENT,
-                            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-                            // Removed FLAG_NOT_FOCUSABLE and FLAG_NOT_TOUCH_MODAL
-                            // to allow interaction if needed, but kept for overlay behaviour.
-                            // Adjust flags as needed for your desired interaction model.
-                            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
-                            PixelFormat.TRANSLUCENT
-                    )
-
-            val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-            windowManager.addView(blockPopupView, layoutParams)
-
-            // --- Setup Close Button ---
-            closeButton?.setOnClickListener {
-                isRedirectingToHome = true
-                redirectToHome()
-            }
-        } catch (e: Exception) {
-            Log.e("DEBUG", "Error showing block popup", e)
-            isPopupActive = false
-            removeBlockPopup()
-        }
+        // Ignore events from own app or permission controllers
+        return packageName == applicationContext.packageName ||
+                className.contains("permissioncontroller", ignoreCase = true) ||
+                className.contains("packageinstaller", ignoreCase = true)
     }
 
-    private fun removeBlockPopup() {
-        Handler(Looper.getMainLooper()).post {
-            if (blockPopupView != null) {
-                Log.d("DEBUG", "Removing block popup")
-                try {
-                    val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-                    windowManager.removeView(blockPopupView)
-                } catch (e: IllegalArgumentException) {
-                    // Can happen if view is already removed or activity is finishing
-                    Log.w(
-                            "DEBUG",
-                            "Error removing block popup view (already removed?): ${e.message}"
-                    )
-                } catch (e: Exception) {
-                    Log.e("DEBUG", "Error removing block popup view", e)
-                } finally {
-                    blockPopupView = null
-                    isPopupActive = false
-                }
-            } else {
-                // Ensure flag is false if view was already null
-                isPopupActive = false
-            }
-        }
-    }
+    private fun checkAndBlockApp(packageName: String) {
+        val currentActiveBlocks = BlockRepository.getActiveAppBlockingBlocks()
+        if (currentActiveBlocks.isEmpty()) return
 
-    private fun redirectToHome() {
-        val homeIntent =
-                Intent(Intent.ACTION_MAIN).apply {
-                    addCategory(Intent.CATEGORY_HOME)
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                }
-        try {
-            Log.d("DEBUG", "Redirecting to home screen")
-            startActivity(homeIntent)
-            Handler(Looper.getMainLooper())
-                    .postDelayed(
-                            {
-                                removeBlockPopup()
-                                isRedirectingToHome = false
-                                Log.d("DEBUG", "Finished redirecting, popup removed, flag reset.")
-                            },
-                            500
-                    )
-        } catch (e: Exception) {
-            Log.e("DEBUG", "Error redirecting to home", e)
-            removeBlockPopup()
-            isRedirectingToHome = false
+        currentActiveBlocks.forEach { block ->
+            if (BlockUtils.shouldBlock(block, packageName)) {
+                Log.i(
+                        TAG,
+                        "Blocking app: $packageName based on Block: ${block.name}"
+                ) // Use Info level
+
+                // Increment stats
+                StatsLocator.provideStatsStorage(applicationContext).incrementAppBlock(packageName)
+
+                // Delegate showing the popup
+                popupManager.showBlockPopup(packageName)
+
+                // Once a block matches and popup is shown, stop checking other blocks for this
+                // event
+                return
+            }
         }
     }
 
     override fun onInterrupt() {
-        Log.d("DEBUG", "AppMonitorService onInterrupt")
-        removeBlockPopup()
+        Log.w(TAG, "onInterrupt received") // Use Warning level as this indicates an issue
+        // Clean up resources managed by helpers
+        popupManager.removeBlockPopup()
+        // Note: Foreground service state might also be affected, but typically system handles this
     }
 
-    private fun createNotificationChannel() {
-
-        val channelName = getString(R.string.app_monitor_channel_name)
-        val channelDesc = getString(R.string.app_monitor_channel_description)
-
-        val serviceChannel =
-                NotificationChannel(CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_LOW)
-                        .apply { description = channelDesc }
-
-        val manager = getSystemService(NotificationManager::class.java)
-        manager.createNotificationChannel(serviceChannel)
-        Log.d("DEBUG", "Notification channel created.")
-    }
-
-    private fun startForegroundServiceInternal() {
-        if (isForeground) return
-
-        try {
-            val notificationIntent = Intent(this, MainActivity::class.java)
-            val pendingIntentFlags =
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-                    } else {
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                    }
-            val pendingIntent =
-                    PendingIntent.getActivity(this, 0, notificationIntent, pendingIntentFlags)
-
-            val notificationTitle = getString(R.string.app_monitor_notification_title)
-            val notificationText = getString(R.string.app_monitor_notification_text)
-
-            val notification: Notification =
-                    Notification.Builder(this, CHANNEL_ID)
-                            .setContentTitle(notificationTitle)
-                            .setContentText(notificationText)
-                            .setSmallIcon(R.drawable.ic_icon)
-                            .setContentIntent(pendingIntent)
-                            .setOngoing(true)
-                            .build()
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                startForeground(NOTIFICATION_ID, notification, FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
-            } else {
-                startForeground(NOTIFICATION_ID, notification)
-            }
-            isForeground = true
-            Log.d("DEBUG", "AppMonitorService started in foreground.")
-        } catch (e: Exception) {
-            Log.e("DEBUG", "Error starting foreground service", e)
-            if (BuildConfig.DEBUG) {
-                e.printStackTrace()
-            }
-            isForeground = false
-        }
-    }
-
-    private fun stopForegroundServiceInternal() {
-        if (!isForeground) return
-        try {
-            stopForeground(STOP_FOREGROUND_REMOVE)
-            isForeground = false
-            Log.d("DEBUG", "AppMonitorService stopped foreground state.")
-        } catch (e: Exception) {
-            Log.e("DEBUG", "Error stopping foreground service", e)
-            isForeground = false
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy")
+        // Ensure popup is removed if service is destroyed unexpectedly
+        popupManager.removeBlockPopup()
+        // Foreground service stops automatically when service is destroyed
     }
 }
