@@ -2,7 +2,6 @@ package com.kuriamind.modules.blocks
 
 import android.content.Intent
 import android.util.Log
-import com.facebook.react.BuildConfig
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
@@ -44,9 +43,7 @@ class BlockModule(reactContext: ReactApplicationContext) :
             val json = Gson().toJson(blocks)
             promise.resolve(json)
         } catch (e: Exception) {
-            if (BuildConfig.DEBUG) {
-                Log.d("DEBUG", "error getAllBlocks: $e")
-            }
+            Log.e("DEBUG", "error getAllBlocks: $e")
             promise.reject("ERROR_GET_BLOCK", "Failed to get block data", e)
         }
     }
@@ -79,9 +76,8 @@ class BlockModule(reactContext: ReactApplicationContext) :
 
             promise.resolve("Block ${block.name} saved successfully")
         } catch (e: Exception) {
-            if (BuildConfig.DEBUG) {
-                Log.d("DEBUG", "error saveBlock: $e")
-            }
+            Log.e("DEBUG", "error saveBlock: $e")
+
             promise.reject("ERROR_SAVE_BLOCK", "Failed to save block data", e)
         }
     }
@@ -110,9 +106,8 @@ class BlockModule(reactContext: ReactApplicationContext) :
 
             promise.resolve("Block ${updatedBlock.name} updated successfully")
         } catch (e: Exception) {
-            if (BuildConfig.DEBUG) {
-                Log.d("DEBUG", "error updateBlock: $e")
-            }
+            Log.e("DEBUG", "error updateBlock: $e")
+
             promise.reject("ERROR_UPDATE_BLOCK", "Failed to update block data", e)
         }
     }
@@ -133,9 +128,8 @@ class BlockModule(reactContext: ReactApplicationContext) :
 
             promise.resolve("Block ${updatedBlock.name} status changed successfully")
         } catch (e: Exception) {
-            if (BuildConfig.DEBUG) {
-                Log.d("DEBUG", "error changeBlockStatus: $e")
-            }
+            Log.e("DEBUG", "error changeBlockStatus: $e")
+
             promise.reject("ERROR_CHANGE_BLOCK_STATUS", "Failed to change block status", e)
         }
     }
@@ -149,9 +143,7 @@ class BlockModule(reactContext: ReactApplicationContext) :
 
             promise.resolve("Block with ID $blockId deleted successfully")
         } catch (e: Exception) {
-            if (BuildConfig.DEBUG) {
-                Log.d("DEBUG", "error deleteBlock: $e")
-            }
+            Log.e("DEBUG", "error deleteBlock: $e")
             promise.reject("ERROR_DELETE_BLOCK", "Failed to delete block data", e)
         }
     }

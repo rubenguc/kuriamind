@@ -1,7 +1,6 @@
 package com.kuriamind.modules.settings
 
 import android.util.Log
-import com.facebook.react.BuildConfig
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
@@ -26,9 +25,7 @@ class SettingsModule(reactContext: ReactApplicationContext) :
 
             promise.resolve(json)
         } catch (e: Exception) {
-            if (BuildConfig.DEBUG) {
-                Log.d("DEBUG", "error getAllBlocks: $e")
-            }
+            Log.e("DEBUG", "error getAllBlocks: $e")
             promise.reject("ERROR_GET_SETTINGS", "Failed to get block data", e)
         }
     }
@@ -39,9 +36,8 @@ class SettingsModule(reactContext: ReactApplicationContext) :
             storage.saveValue(key, value)
             promise.resolve(null)
         } catch (e: Exception) {
-            if (BuildConfig.DEBUG) {
-                Log.d("DEBUG", "error setAllBlocks: $e")
-            }
+            Log.e("DEBUG", "error setAllBlocks: $e")
+
             promise.reject("ERROR_SET_SETTINGS", "Failed to set block data", e)
         }
     }
