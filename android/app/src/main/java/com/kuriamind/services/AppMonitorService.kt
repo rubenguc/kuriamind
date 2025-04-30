@@ -8,6 +8,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE
 import android.graphics.PixelFormat
 import android.os.Build
@@ -19,6 +20,7 @@ import android.view.View
 import android.view.WindowManager
 import android.view.accessibility.AccessibilityEvent
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import com.facebook.react.BuildConfig
 import com.kuriamaindo.repositories.BlockRepository
@@ -26,6 +28,8 @@ import com.kuriamind.MainActivity
 import com.kuriamind.R
 import com.kuriamind.modules.blocks.Block
 import com.kuriamind.utils.BlockUtils
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class AppMonitorService : AccessibilityService() {
 
@@ -133,36 +137,86 @@ class AppMonitorService : AccessibilityService() {
         if (isPopupActive) return
 
         try {
-
             isPopupActive = true
 
             val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             blockPopupView = inflater.inflate(R.layout.popup_block_screen, null)
 
-            val blockMessageTextView: TextView? = blockPopupView?.findViewById(R.id.block_message)
+            // --- Find Views (Make sure these IDs match your XML) ---
+            val appIconImageView: ImageView? =
+                    blockPopupView?.findViewById(
+                            R.id.app_icon
+                    ) // Add ImageView with this ID to your XML
+            val appNameTextView: TextView? =
+                    blockPopupView?.findViewById(R.id.app_name) // Add TextView with this ID
+            val blockMessageTextView: TextView? =
+                    blockPopupView?.findViewById(R.id.block_message) // Existing TextView
+            val blockCountTextView: TextView? =
+                    blockPopupView?.findViewById(R.id.block_count_text) // Add TextView with this ID
+            val closeButton =
+                    blockPopupView?.findViewById<Button>(R.id.close_button) // Existing Button
 
+            // --- Fetch App Info ---
+            var appName = packageName // Default to package name
+            try {
+                val pm = applicationContext.packageManager
+                val appInfo = pm.getApplicationInfo(packageName, 0)
+                appName = pm.getApplicationLabel(appInfo).toString()
+                val appIcon = pm.getApplicationIcon(appInfo)
+                appIconImageView?.setImageDrawable(appIcon)
+            } catch (e: PackageManager.NameNotFoundException) {
+                Log.w("DEBUG", "Could not find package info for $packageName", e)
+                // Keep default icon or set a placeholder if you have one
+            } catch (e: Exception) {
+                Log.e("DEBUG", "Error getting app info for $packageName", e)
+            }
+
+            // --- Set App Name ---
+            appNameTextView?.text = appName
+
+            // --- Set Block Message ---
             val defaultMessage = getString(R.string.popup_default_block_message)
-
             val blockedMessage =
                     SettingsLocator.provideSettingsStorage(applicationContext)
                             .getValue("blockMessage", defaultMessage)
             blockMessageTextView?.text = blockedMessage
 
+            // --- Fetch and Set Block Count ---
+            var blockCountToday = 0
+            try {
+                val today = LocalDate.now()
+                // Use the getStats method which returns a list
+                val statsList =
+                        StatsLocator.provideStatsStorage(applicationContext).getStats(today, today)
+                // Find today's entry (should be the first if list is not empty and sorted)
+                val todayStats =
+                        statsList.firstOrNull {
+                            it.date == today.format(DateTimeFormatter.ISO_LOCAL_DATE)
+                        }
+                blockCountToday = todayStats?.appStats?.get(packageName)?.appBlockCount ?: 0
+            } catch (e: Exception) {
+                Log.e("DEBUG", "Error fetching stats for $packageName", e)
+            }
+            // Format the string using a resource for better localization
+            blockCountTextView?.text = getString(R.string.popup_block_count_text, blockCountToday)
+
+            // --- Setup Popup Window ---
             val layoutParams =
                     WindowManager.LayoutParams(
                             WindowManager.LayoutParams.MATCH_PARENT,
                             WindowManager.LayoutParams.MATCH_PARENT,
                             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-                            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
-                                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
-                                    WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+                            // Removed FLAG_NOT_FOCUSABLE and FLAG_NOT_TOUCH_MODAL
+                            // to allow interaction if needed, but kept for overlay behaviour.
+                            // Adjust flags as needed for your desired interaction model.
+                            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
                             PixelFormat.TRANSLUCENT
                     )
 
             val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
             windowManager.addView(blockPopupView, layoutParams)
 
-            val closeButton = blockPopupView?.findViewById<Button>(R.id.close_button)
+            // --- Setup Close Button ---
             closeButton?.setOnClickListener {
                 isRedirectingToHome = true
                 redirectToHome()
