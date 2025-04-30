@@ -10,4 +10,6 @@
 
     <!-- Popup -->
     <string name="popup_default_block_message">Aplicación Bloqueada</string>
+    <string name="popup_close_button">Cerrar</string>
+    <string name="popup_block_count_text">Bloqueada %d veces hoy</string>
 </resources>

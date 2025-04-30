@@ -1,25 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:background="#E6000000" >
 
-    <TextView
-        android:id="@+id/block_message"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:text=""
-        android:textColor="@android:color/white"
-        android:textSize="20sp" />
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:layout_margin="32dp"
+        android:padding="24dp"
+        android:background="@drawable/popup_background" >
 
-    <Button
-        android:id="@+id/close_button"
-        android:background="@color/customPink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Close" />
-</LinearLayout>
+        <!-- App Icon -->
+        <ImageView
+            android:id="@+id/app_icon"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            tools:srcCompat="@mipmap/ic_launcher" />
+
+        <!-- App Name -->
+        <TextView
+            android:id="@+id/app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="8dp"
+            tools:text="Application Name"/>
+
+        <!-- Block Message -->
+        <TextView
+            android:id="@+id/block_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="@string/popup_default_block_message"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Block Count -->
+        <TextView
+            android:id="@+id/block_count_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="14sp"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="24dp"
+            tools:text="Blocked 5 times today" />
+
+        <!-- Close Button -->
+        <Button
+            android:id="@+id/close_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/black"
+            android:backgroundTint="@color/primary"
+            android:text="@string/popup_close_button"
+        />
+    </LinearLayout>
+</RelativeLayout>

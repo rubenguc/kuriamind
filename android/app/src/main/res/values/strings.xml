@@ -9,5 +9,7 @@
     <string name="app_monitor_notification_text">App monitoring and blocking is enabled.</string>
 
     <!-- Popup -->
-    <string name="popup_default_block_message">App Blocked</string>
+    <string name="popup_default_block_message">This app is currently blocked.</string>
+    <string name="popup_close_button">Close</string>
+    <string name="popup_block_count_text">Blocked %d times today</string>
 </resources>
