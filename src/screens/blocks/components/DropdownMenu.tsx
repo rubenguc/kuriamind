@@ -1,8 +1,8 @@
 import {FlatList, Text, useSx, View} from 'dripsy';
 import {Check, EditIcon, EllipsisVertical, Trash} from 'lucide-react-native';
-import {FC} from 'react';
+import {FC, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import {TouchableOpacity} from 'react-native';
+import {Dimensions, Modal, TouchableOpacity} from 'react-native';
 import {useToggle} from 'react-use';
 
 interface DropdownMenuProps {
@@ -21,6 +21,9 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
   const {t} = useTranslation('blocks');
   const [isOpen, toggle] = useToggle(false);
   const sx = useSx();
+  const buttonRef = useRef<View>(null);
+
+  const [position, setPosition] = useState({x: 0, y: 0});
 
   const OPTIONS = [
     {
@@ -45,6 +48,17 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
     handler();
   };
 
+  const getPosition = () => {
+    buttonRef.current?.measure((_fx, _fy, _width, _height, px, py) => {
+      setPosition({x: px, y: py});
+    });
+  };
+
+  const handleOpen = () => {
+    getPosition();
+    toggle();
+  };
+
   return (
     <View
       sx={{
@@ -53,47 +67,61 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
         right: 8,
       }}>
       <TouchableOpacity
+        ref={buttonRef}
         activeOpacity={0.8}
         style={sx({borderRadius: 9999, backgroundColor: 'primary', p: 6})}
-        onPress={toggle}>
+        onPress={handleOpen}>
         <EllipsisVertical size={18} />
       </TouchableOpacity>
-      {isOpen && (
-        <View
-          sx={{
-            position: 'absolute',
-            zIndex: 1000,
-            top: 40,
-            right: 1,
-            width: 150,
-            backgroundColor: '#111',
-            borderRadius: 5,
-            elevation: 3,
-            shadowColor: '#000',
-            shadowOpacity: 0.1,
-            shadowRadius: 5,
-            shadowOffset: {width: 0, height: 2},
-          }}>
-          <FlatList
-            data={OPTIONS}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({item}) => (
-              <TouchableOpacity
-                style={sx({
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 10,
-                  p: 10,
-                })}
-                onPress={handleAction(item.onPress)}>
-                <item.icon color="#fff" size={16} />
-                <Text sx={{fontSize: 'md'}}>{item.label}</Text>
-              </TouchableOpacity>
-            )}
-          />
-        </View>
-      )}
+      <Modal visible={isOpen} transparent>
+        <TouchableOpacity
+          activeOpacity={1}
+          style={{
+            flex: 1,
+            backgroundColor: 'transparent',
+          }}
+          onPress={toggle}>
+          <View
+            pointerEvents="auto"
+            sx={{
+              pointerEvents: 'auto',
+              position: 'absolute',
+              zIndex: 1000,
+              top: position.y + 30, // Ajusta según el tamaño del botón
+              right: Dimensions.get('window').width - position.x - 30, // Alinea al botón
+              width: 150,
+              backgroundColor: '#111',
+              borderRadius: 5,
+              elevation: 3,
+              shadowColor: '#000',
+              shadowOpacity: 0.1,
+              shadowRadius: 5,
+              shadowOffset: {width: 0, height: 2},
+            }}>
+            <FlatList
+              data={OPTIONS}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({item}) => (
+                <TouchableOpacity
+                  style={sx({
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 10,
+                    p: 10,
+                  })}
+                  onPress={e => {
+                    e.stopPropagation();
+                    handleAction(item.onPress)();
+                  }}>
+                  <item.icon color="#fff" size={16} />
+                  <Text sx={{fontSize: 'md'}}>{item.label}</Text>
+                </TouchableOpacity>
+              )}
+            />
+          </View>
+        </TouchableOpacity>
+      </Modal>
     </View>
   );
 };
