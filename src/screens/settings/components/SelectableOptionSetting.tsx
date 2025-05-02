@@ -1,6 +1,6 @@
 import {useToggle} from 'react-use';
 import {SettingOption} from './SettingOption';
-import {SettingOptionProps} from '../interface';
+import type {SettingOptionProps} from '../interface';
 import {Actionsheet} from '@/components/ui';
 import {View} from 'dripsy';
 import {SelectableOption} from './SelectableOption';
@@ -23,9 +23,9 @@ export const SelectableOptionSetting = <T,>({
 }: SelectableOptionSettingProps<T>) => {
   const [isOpen, toggle] = useToggle(false);
 
-  const onOptionSelected = (value: T) => {
+  const onOptionSelected = (newValue: T) => {
     toggle(false);
-    onSelected(value);
+    onSelected(newValue);
   };
 
   return (
@@ -37,9 +37,9 @@ export const SelectableOptionSetting = <T,>({
         onClose={() => toggle(false)}
         content={
           <View sx={{display: 'flex', gap: 10}}>
-            {options.map((option, index) => (
+            {options.map(option => (
               <SelectableOption
-                key={index}
+                key={option.value}
                 isSelected={option.label === value}
                 label={option.label}
                 value={option.value}

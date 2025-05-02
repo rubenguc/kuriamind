@@ -1,4 +1,4 @@
-import {InstalledApp} from '@/interfaces';
+import type {InstalledApp} from '@/interfaces';
 import {getSelectedApps} from '@/utils/block-utils';
 import {Flex, Image} from 'dripsy';
 

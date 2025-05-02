@@ -25,16 +25,6 @@ export const useCustomToast = () => {
         },
       },
     });
-
-    // toast.success({
-    //   // position: 'top',
-    //   // duration: 3000,
-    //   // render: () => (
-    //   //   <Toast action={config.action} variant="solid">
-    //   //     <ToastDescription>{config.description}</ToastDescription>
-    //   //   </Toast>
-    //   // ),
-    // });
   };
 
   const showSuccessToast = ({description}: Message) => {

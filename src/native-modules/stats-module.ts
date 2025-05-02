@@ -1,4 +1,4 @@
-import {Stat, StatsFilter} from '@/interfaces';
+import type {Stat, StatsFilter} from '@/interfaces';
 import {NativeModules} from 'react-native';
 
 const {StatsModule} = NativeModules;

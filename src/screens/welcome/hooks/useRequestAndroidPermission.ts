@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Permission, PermissionsAndroid, Platform} from 'react-native';
+import {type Permission, PermissionsAndroid, Platform} from 'react-native';
 
 export const useRequestAndroidPermission = ({
   permission,
