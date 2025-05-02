@@ -20,7 +20,7 @@ Kuria Mind is an Android application that allows users to manage app usage on th
 
 ## 🛠️ Technologies Used
 - **React Native**
-- **Gluestack**
+- **Dripsy**
 - **Native Modules for App Monitoring**
 
 &nbsp;
