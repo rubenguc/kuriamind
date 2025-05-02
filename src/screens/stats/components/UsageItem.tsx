@@ -1,6 +1,6 @@
 import {Flex, Text, View} from 'dripsy';
-import {AppUsageStat} from '../interface';
-import {FC} from 'react';
+import type {AppUsageStat} from '../interface';
+import type {FC} from 'react';
 import FastImage from 'react-native-fast-image';
 import {useTranslation} from 'react-i18next';
 

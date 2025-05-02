@@ -1,6 +1,6 @@
 import {SelectedAppsInBlock} from '@/components/shared';
 import {Badge} from '@/components/ui';
-import {Block, InstalledApp} from '@/interfaces';
+import type {Block, InstalledApp} from '@/interfaces';
 import {Flex, Text, View} from 'dripsy';
 import {Check, Timer} from 'lucide-react-native';
 import {useTranslation} from 'react-i18next';
