@@ -2,14 +2,9 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Welcome} from './screens/welcome';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Blocks} from './screens/blocks';
-import {BottomStackParamList, RootStackParamList} from './interfaces';
+import type {BottomStackParamList, RootStackParamList} from './interfaces';
 import {storage} from './App';
-import {
-  ChartNoAxesCombined,
-  House,
-  SettingsIcon,
-  Star,
-} from 'lucide-react-native';
+import {ChartNoAxesCombined, House, SettingsIcon} from 'lucide-react-native';
 import {Settings} from './screens/settings';
 import {useTranslation} from 'react-i18next';
 import {Block} from './screens/block';
@@ -84,7 +79,7 @@ export const BottomStackNavigation = () => {
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-export const RooStack = () => {
+export const RootStack = () => {
   const {t} = useTranslation('screens');
   const isFirstTime = storage.getBoolean('isFirstTime') ?? true;
 

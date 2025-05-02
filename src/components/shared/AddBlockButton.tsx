@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import type {FC} from 'react';
 import {Button} from '../ui';
 import {Plus} from 'lucide-react-native';
 

@@ -1,8 +1,8 @@
-import {Stat, StatsFilter} from '@/interfaces';
+import type {Stat, StatsFilter} from '@/interfaces';
 import {useEffect, useMemo, useState} from 'react';
 import {fetchStats} from '@/native-modules/stats-module';
 import {useInstalledApps} from '@/providers';
-import {AppUsageStat, StatsObject} from '../interface';
+import type {AppUsageStat, StatsObject} from '../interface';
 import {useTranslation} from 'react-i18next';
 import {useToggle} from 'react-use';
 import {useCustomToast} from '@/hooks';
@@ -37,10 +37,10 @@ export const useStats = () => {
   const appUsageStats: AppUsageStat[] = useMemo(() => {
     const data: StatsObject = {};
 
-    stats.forEach(dayStat => {
+    for (const dayStat of stats) {
       const {appStats} = dayStat;
 
-      Object.keys(appStats).forEach(packageName => {
+      for (const packageName of Object.keys(appStats)) {
         const {appBlockCount, notificationBlockCount} = appStats[packageName];
 
         if (data[packageName]) {
@@ -60,8 +60,8 @@ export const useStats = () => {
             };
           }
         }
-      });
-    });
+      }
+    }
 
     return Object.values(data);
   }, [installedApps, stats]);

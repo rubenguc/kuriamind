@@ -2,7 +2,7 @@ import './i18n';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {DripsyProvider} from 'dripsy';
-import {RooStack} from './router';
+import {RootStack} from './router';
 import DripsyTheme from './theme';
 import {MMKV} from 'react-native-mmkv';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
@@ -35,7 +35,7 @@ function App() {
         <GestureHandlerRootView>
           <InstalledAppsProvider>
             <NavigationContainer theme={theme}>
-              <RooStack />
+              <RootStack />
               <Toasts />
             </NavigationContainer>
           </InstalledAppsProvider>

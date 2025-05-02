@@ -1,8 +1,8 @@
-import {PropsWithChildren} from 'react';
+import type {PropsWithChildren} from 'react';
 import {TouchableOpacity} from 'react-native';
 import {Flex, Text} from 'dripsy';
 import {ChevronRight} from 'lucide-react-native';
-import {SettingOptionProps} from '../interface';
+import type {SettingOptionProps} from '../interface';
 
 export const SettingOption = ({
   Icon,

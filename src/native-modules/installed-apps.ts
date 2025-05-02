@@ -1,4 +1,4 @@
-import {InstalledApp} from '@/interfaces';
+import type {InstalledApp} from '@/interfaces';
 import {NativeModules} from 'react-native';
 
 const {InstalledAppsModule} = NativeModules;
