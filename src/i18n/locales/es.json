@@ -3,7 +3,7 @@
     "title": "Bienvenido a Kuria mind",
     "description_1": "Bienvenidos a nuestra app! Crea bloques personalizados para deshabilitar el acceso y las notificaciones de apps, así podrás mantenerte alejado de las distracciones.",
     "description_2": "Mejora tu productividad limitando interrupciones. Mántenete concentrado en tus tareas y logra tus metas en un espacio libre de interferencias.",
-    "permissions_message": "Necesitamos poquías permitidas para monitorizar apps y sus notificaciones, con el fin de cerrar procesos de fondo innecesarios. Su privacidad es importante y esta aplicación NO recolectan ni comparten datos personales.",
+    "permissions_message": "Sólo necesitamos unos pocos permisos para monitorizar las aplicaciones y sus notificaciones con el fin de cerrar cualquier proceso innecesario en segundo plano. Tu privacidad es importante y esta aplicación NO recopila ni comparte ningún dato personal.",
     "next": "Siguiente",
     "start_app": "Iniciar App"
   },
@@ -35,8 +35,9 @@
   "blocks": {
     "edit": "Editar",
     "delete": "Eliminar",
-    "active": "Activo",
-    "disabled": "Deshabilitado",
+    "activate": "Activar",
+    "disable": "Deshabilitar",
+    "add": "Agregar",
     "apps": "Aplicaciones",
     "notifications": "Notificaciones",
     "error_fetching_blocks": "Error-fetching bloques",
@@ -54,7 +55,7 @@
   },
   "block": {
     "name": "Nombre",
-    "add_apps": "Agregar Aplicaciones",
+    "add": "Agregar",
     "block_apps": "Bloquear Aplicaciones",
     "block_Notifications": "Bloquear Notificaciones",
     "no_apps_selected": "Ninguna aplicación seleccionada",
@@ -75,7 +76,7 @@
     "inactive": "Inactivo",
     "start_time": "Hora de inicio",
     "end_time": "Hora de fin",
-    "add_timer": "Agregar Temporizador"
+    "always_active": "Siempre activo"
   },
   "info": {
     "settings": "Ajustes"
@@ -85,6 +86,8 @@
     "en": "Inglés",
     "es": "Español",
     "block_message": "Mensaje de bloqueo",
+    "block_message_description": "Este mensaje se mostrará cuando una aplicación esté bloqueada",
+    "cancel": "Cancelar",
     "modify": "Modificar",
     "error_fetching_settings": "Error al obtener ajustes",
     "error_updating_block_message": "Error al actualizar mensaje del bloqueo"
@@ -92,6 +95,16 @@
   "screens": {
     "blocks": "Bloques",
     "settings": "Ajustes",
-    "block": "Bloque"
+    "block": "Bloque",
+    "stats": "Estadísticas"
+  },
+  "stats": {
+    "blockedCount": "Conteo Bloqueado",
+    "blockedNotifications": "Notificaciones Bloqueadas",
+    "today": "Hoy",
+    "last3days": "Últimos 3 Días",
+    "last7days": "Últimos 7 Días",
+    "error_fetching_stats": "Error al obtener estadísticas",
+    "no_data": "No hay datos para este período"
   }
 }

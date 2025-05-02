@@ -1,15 +1,6 @@
-import {
-  AlertDialog,
-  AlertDialogBackdrop,
-  AlertDialogBody,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-} from '@/components/ui/alert-dialog';
-import {Button, ButtonText} from '@/components/ui/button';
-import {Heading} from '@/components/ui/heading';
-import {Text} from '@/components/ui/text';
-import {Block} from '@/interfaces';
+import {Modal} from '@/components/ui';
+import type {Block} from '@/interfaces';
+import {Text} from 'dripsy';
 import {useTranslation} from 'react-i18next';
 
 interface ConfirmDeleteBlockProps {
@@ -32,36 +23,14 @@ export const ConfirmDeleteBlock = ({
   const {name} = block;
 
   return (
-    <AlertDialog isOpen={isOpen} size="md">
-      <AlertDialogBackdrop />
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <Heading className="text-typography-950 font-semibold" size="md">
-            {t('title')}
-          </Heading>
-        </AlertDialogHeader>
-        <AlertDialogBody className="mt-3 mb-4">
-          <Text className="text-lg text-white">{name}</Text>
-        </AlertDialogBody>
-        <AlertDialogFooter>
-          <Button
-            disabled={isLoading}
-            isDisabled={isLoading}
-            variant="outline"
-            onPress={onClose}
-            size="sm">
-            <ButtonText>{t('cancel')}</ButtonText>
-          </Button>
-          <Button
-            size="sm"
-            disabled={isLoading}
-            isDisabled={isLoading}
-            onPress={onConfirmDelete}
-            className="bg-custom-green">
-            <ButtonText>{t('delete')}</ButtonText>
-          </Button>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+    <Modal
+      title={t('title')}
+      content={<Text>{name}</Text>}
+      isOpen={isOpen}
+      cancelButtonText={t('cancel')}
+      onCancel={onClose}
+      acceptButtonText={t('confirm')}
+      onAccept={onConfirmDelete}
+    />
   );
 };

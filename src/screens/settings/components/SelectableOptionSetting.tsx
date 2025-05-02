@@ -1,20 +1,12 @@
 import {useToggle} from 'react-use';
-import {
-  Actionsheet,
-  ActionsheetBackdrop,
-  ActionsheetContent,
-  ActionsheetDragIndicator,
-  ActionsheetDragIndicatorWrapper,
-  ActionsheetItem,
-  ActionsheetItemText,
-} from '@/components/ui/actionsheet';
-import {HStack} from '@/components/ui/hstack';
-import {Text} from '@/components/ui/text';
-import {SettingOptionWrapper} from './SettingOptionWrapper';
+import {SettingOption} from './SettingOption';
+import type {SettingOptionProps} from '../interface';
+import {Actionsheet} from '@/components/ui';
+import {View} from 'dripsy';
+import {SelectableOption} from './SelectableOption';
 
-interface SelectableOptionSettingProps<T> {
-  text: string;
-  actualValue: string;
+interface SelectableOptionSettingProps<T>
+  extends Omit<SettingOptionProps, 'onPress'> {
   options: {
     label: string;
     value: T;
@@ -23,42 +15,40 @@ interface SelectableOptionSettingProps<T> {
 }
 
 export const SelectableOptionSetting = <T,>({
+  Icon,
+  value,
   text,
   options,
   onSelected,
-  actualValue,
 }: SelectableOptionSettingProps<T>) => {
   const [isOpen, toggle] = useToggle(false);
 
-  const onOptionSelected = (value: T) => {
+  const onOptionSelected = (newValue: T) => {
     toggle(false);
-    onSelected(value);
+    onSelected(newValue);
   };
 
   return (
     <>
-      <SettingOptionWrapper onPress={toggle}>
-        <HStack className="items-center justify-between">
-          <Text className="text-white">{text}</Text>
-          <Text className="text-custom-pink">{actualValue}</Text>
-        </HStack>
-      </SettingOptionWrapper>
-
-      <Actionsheet isOpen={isOpen} onClose={toggle}>
-        <ActionsheetBackdrop />
-        <ActionsheetContent>
-          <ActionsheetDragIndicatorWrapper>
-            <ActionsheetDragIndicator />
-          </ActionsheetDragIndicatorWrapper>
-          {options.map((option, index) => (
-            <ActionsheetItem
-              key={index}
-              onPress={() => onOptionSelected(option.value)}>
-              <ActionsheetItemText>{option.label}</ActionsheetItemText>
-            </ActionsheetItem>
-          ))}
-        </ActionsheetContent>
-      </Actionsheet>
+      <SettingOption onPress={toggle} Icon={Icon} text={text} value={value} />
+      <Actionsheet
+        isOpen={isOpen}
+        title={text}
+        onClose={() => toggle(false)}
+        content={
+          <View sx={{display: 'flex', gap: 10}}>
+            {options.map(option => (
+              <SelectableOption
+                key={option.value}
+                isSelected={option.label === value}
+                label={option.label}
+                value={option.value}
+                onPress={onOptionSelected}
+              />
+            ))}
+          </View>
+        }
+      />
     </>
   );
 };

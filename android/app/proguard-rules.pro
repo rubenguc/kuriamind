@@ -1,12 +1,13 @@
-# Add project specific ProGuard rules here.
-# By default, the flags in this file are appended to flags specified
-# in /usr/local/Cellar/android-sdk/24.3.3/tools/proguard/proguard-android.txt
-# You can edit the include path and order by changing the proguardFiles
-# directive in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+# This keeps are to prevent errors by proguard optimizations / ofuscating
 
-# Add any project specific keep options here:
+-keep class com.kuriamind.modules.blocks.Block { *; }
+-keep class com.kuriamind.modules.stats.DailyStats { *; }
+-keep class com.kuriamind.modules.stats.AppDayStats { *; }
 
--keep class com.kuriamind.modules.blocks.** { *; }
+
+# Remove debug logs
+-assumenosideeffects class android.util.Log {
+        public static *** v(...);
+        public static *** d(...);
+        public static *** i(...);
+    }

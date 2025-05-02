@@ -1,42 +1,27 @@
-import {
-  createNativeStackNavigator,
-  NativeStackScreenProps,
-} from '@react-navigation/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Welcome} from './screens/welcome';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Blocks} from './screens/blocks';
-import {Block} from './screens/block';
-import {BottomStackParamList, RootStackParamList} from './interfaces';
-import {CompositeScreenProps} from '@react-navigation/native';
+import type {BottomStackParamList, RootStackParamList} from './interfaces';
 import {storage} from './App';
-import {House, Plus, SettingsIcon} from 'lucide-react-native';
-import {TouchableOpacity} from 'react-native';
-import {Box} from './components/ui/box';
+import {ChartNoAxesCombined, House, SettingsIcon} from 'lucide-react-native';
 import {Settings} from './screens/settings';
 import {useTranslation} from 'react-i18next';
-import type {StackScreenProps} from '@react-navigation/stack';
+import {Block} from './screens/block';
+import {useDripsyTheme} from 'dripsy';
+import {Stats} from './screens/stats';
 
 const BottomStack = createBottomTabNavigator<BottomStackParamList>();
 
-const EmptyScreen = () => {
-  return null;
-};
-
-type BottomStackNavigationProps = CompositeScreenProps<
-  NativeStackScreenProps<RootStackParamList, 'Home'>,
-  StackScreenProps<BottomStackParamList>
->;
-
-export const BottomStackNavigation = ({
-  navigation,
-}: BottomStackNavigationProps) => {
+export const BottomStackNavigation = () => {
   const {t} = useTranslation('screens');
+  const {theme} = useDripsyTheme();
 
   return (
     <BottomStack.Navigator
       screenOptions={{
         tabBarStyle: {
-          borderColor: '#555',
+          borderColor: '#6666',
         },
         headerStyle: {
           height: 40,
@@ -46,42 +31,46 @@ export const BottomStackNavigation = ({
         },
         tabBarActiveTintColor: 'white',
         tabBarInactiveTintColor: 'gray',
+        tabBarShowLabel: false,
       }}>
       <BottomStack.Screen
         name="Blocks"
         component={Blocks}
         options={{
-          tabBarIcon: ({color}) => <House color={color} />,
+          // eslint-disable-next-line react/no-unstable-nested-components
+          tabBarIcon: ({color, focused}) => (
+            <House color={focused ? theme.colors.primary : color} size={26} />
+          ),
           title: t('blocks'),
         }}
       />
+
       <BottomStack.Screen
-        name="BlockAction"
-        component={EmptyScreen}
+        name="Stats"
+        component={Stats}
         options={{
-          tabBarLabel: '',
-          tabBarIcon: () => (
-            <TouchableOpacity
-              activeOpacity={0.95}
-              onPress={() => navigation.navigate('Block')}>
-              <Box className="p-4 bg-custom-green rounded-2xl">
-                <Plus />
-              </Box>
-            </TouchableOpacity>
+          // eslint-disable-next-line react/no-unstable-nested-components
+          tabBarIcon: ({color, focused}) => (
+            <ChartNoAxesCombined
+              color={focused ? theme.colors.primary : color}
+              size={26}
+            />
           ),
-          tabBarButton: ({children}) => <>{children}</>,
-          tabBarItemStyle: {
-            width: 41,
-            flex: 0,
-            alignItems: 'center',
-          },
+          title: t('stats'),
         }}
       />
+
       <BottomStack.Screen
         name={t('settings') as 'Settings'}
         component={Settings}
         options={{
-          tabBarIcon: ({color}) => <SettingsIcon color={color} />,
+          // eslint-disable-next-line react/no-unstable-nested-components
+          tabBarIcon: ({color, focused}) => (
+            <SettingsIcon
+              color={focused ? theme.colors.primary : color}
+              size={26}
+            />
+          ),
         }}
       />
     </BottomStack.Navigator>
@@ -90,7 +79,7 @@ export const BottomStackNavigation = ({
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-export const RooStack = () => {
+export const RootStack = () => {
   const {t} = useTranslation('screens');
   const isFirstTime = storage.getBoolean('isFirstTime') ?? true;
 
@@ -104,8 +93,9 @@ export const RooStack = () => {
       <Stack.Screen
         options={{
           headerShown: true,
+          title: t('block'),
         }}
-        name={t('block') as 'Block'}
+        name={'Block'}
         component={Block}
       />
     </Stack.Navigator>

@@ -1,5 +1,4 @@
 <resources>
-    <color name="customGreen">#9bec8f</color>
-    <color name="customPink">#f08bc3</color>
-    <color name="customBg">#24222f</color>
+    <color name="background">#161616</color>
+    <color name="primary">#f08bc3</color>
 </resources>
