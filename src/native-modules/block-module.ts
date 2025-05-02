@@ -1,4 +1,4 @@
-import {Block, BlockToSave} from '@/interfaces';
+import type {Block, BlockToSave} from '@/interfaces';
 import {NativeModules} from 'react-native';
 
 const {BlockModule} = NativeModules;

@@ -1,6 +1,6 @@
 import {FlatList, Text, useSx, View} from 'dripsy';
 import {Check, EditIcon, EllipsisVertical, Trash} from 'lucide-react-native';
-import {FC, useRef, useState} from 'react';
+import {type FC, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Dimensions, Modal, TouchableOpacity} from 'react-native';
 import {useToggle} from 'react-use';

@@ -1,5 +1,5 @@
 import {useCustomToast} from '@/hooks';
-import {Settings} from '@/interfaces';
+import type {Settings} from '@/interfaces';
 import {getNativeSettings, setSetting} from '@/native-modules/settings-module';
 import {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';

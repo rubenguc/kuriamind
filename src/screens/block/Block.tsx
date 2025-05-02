@@ -3,9 +3,9 @@ import {useBlock} from './hooks';
 import {PlusIcon} from 'lucide-react-native';
 import {useToggle} from 'react-use';
 import {useInstalledApps} from '@/providers';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
-import {RootStackParamList} from '@/interfaces';
+import type {RootStackParamList} from '@/interfaces';
 import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
 import {ScrollView, Text, TextInput, useDripsyTheme, View} from 'dripsy';
 import {Button} from '@/components/ui';
@@ -63,8 +63,8 @@ export const Block = ({route, navigation}: BlocksProps) => {
                   onBlur={onBlur}
                   onChangeText={onChange}
                 />
-                {errors.name && (
-                  <Text variant="error">{t(errors.name.message!)}</Text>
+                {errors.name?.message && (
+                  <Text variant="error">{t(errors.name.message)}</Text>
                 )}
               </View>
             )}
@@ -118,8 +118,8 @@ export const Block = ({route, navigation}: BlocksProps) => {
                     />
                   )}
                 </View>
-                {errors.blockedApps && (
-                  <Text variant="error">{t(errors.blockedApps.message!)}</Text>
+                {errors.blockedApps?.message && (
+                  <Text variant="error">{t(errors.blockedApps.message)}</Text>
                 )}
               </View>
             )}
@@ -158,8 +158,8 @@ export const Block = ({route, navigation}: BlocksProps) => {
                     }}
                     checkedColor={theme.colors.accent}
                   />
-                  {errors.blockApps && (
-                    <Text variant="error">{t(errors.blockApps.message!)}</Text>
+                  {errors.blockApps?.message && (
+                    <Text variant="error">{t(errors.blockApps.message)}</Text>
                   )}
                 </View>
               )}
@@ -217,7 +217,7 @@ export const Block = ({route, navigation}: BlocksProps) => {
                           mode: 'time',
                           value: getDefaultTime(value),
                           onChange: (_, date) => {
-                            onChange(formatTime(date!.toISOString()));
+                            date && onChange(formatTime(date.toISOString()));
                           },
                         })
                       }>
@@ -249,15 +249,15 @@ export const Block = ({route, navigation}: BlocksProps) => {
                             mode: 'time',
                             value: getDefaultTime(value),
                             onChange: (_, date) => {
-                              onChange(formatTime(date!.toISOString()));
+                              date && onChange(formatTime(date.toISOString()));
                             },
                           })
                         }>
                         <Text>{value}</Text>
                       </Button>
                     </Flex>
-                    {errors.endTime && (
-                      <Text variant="error">{t(errors.endTime.message!)}</Text>
+                    {errors.endTime?.message && (
+                      <Text variant="error">{t(errors.endTime.message)}</Text>
                     )}
                   </>
                 )}
