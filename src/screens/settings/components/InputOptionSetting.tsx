@@ -3,7 +3,7 @@ import {useToggle} from 'react-use';
 import {SettingOption} from './SettingOption';
 import {useTranslation} from 'react-i18next';
 import {P, TextInput} from 'dripsy';
-import {SettingOptionProps} from '../interface';
+import type {SettingOptionProps} from '../interface';
 import {Modal} from '@/components/ui';
 
 interface InputOptionSettingProps<T>
@@ -26,11 +26,6 @@ export const InputOptionSetting = ({
   const onTextSubmit = async () => {
     toggle();
     onSubmit(inputText);
-  };
-
-  const isValidText = () => {
-    if (isNotEmpty) return inputText.trim().length > 0;
-    return true;
   };
 
   return (

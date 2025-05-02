@@ -1,8 +1,15 @@
 import {useCallback} from 'react';
-import {CompositeScreenProps, useFocusEffect} from '@react-navigation/native';
+import {
+  type CompositeScreenProps,
+  useFocusEffect,
+} from '@react-navigation/native';
 import {useBlocks} from './hooks';
 import {useInstalledApps} from '@/providers';
-import {Block, BottomStackParamList, RootStackParamList} from '@/interfaces';
+import type {
+  Block,
+  BottomStackParamList,
+  RootStackParamList,
+} from '@/interfaces';
 import type {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import type {StackScreenProps} from '@react-navigation/stack';
 import {Flex, Text, useSx} from 'dripsy';

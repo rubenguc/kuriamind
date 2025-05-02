@@ -1,7 +1,7 @@
 import {Step, useWelcome} from './hooks/useWelcome';
 import {useTranslation} from 'react-i18next';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from '@/interfaces';
+import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import type {RootStackParamList} from '@/interfaces';
 import {Box, H1, Image, Text, ScrollView, Flex, View} from 'dripsy';
 import {Button} from '@/components/ui';
 import {Permissions} from './components';
