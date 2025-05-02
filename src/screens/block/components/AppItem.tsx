@@ -1,4 +1,4 @@
-import {InstalledApp} from '@/interfaces';
+import type {InstalledApp} from '@/interfaces';
 import {Flex, Text, useDripsyTheme, useSx} from 'dripsy';
 import {TouchableOpacity} from 'react-native';
 import {AdvancedCheckbox} from 'react-native-advanced-checkbox';

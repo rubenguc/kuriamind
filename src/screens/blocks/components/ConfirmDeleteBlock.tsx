@@ -1,5 +1,5 @@
 import {Modal} from '@/components/ui';
-import {Block} from '@/interfaces';
+import type {Block} from '@/interfaces';
 import {Text} from 'dripsy';
 import {useTranslation} from 'react-i18next';
 
