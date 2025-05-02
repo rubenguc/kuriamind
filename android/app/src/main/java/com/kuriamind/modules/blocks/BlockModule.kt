@@ -1,12 +1,14 @@
 package com.kuriamind.modules.blocks
 
+import android.content.Intent
 import android.util.Log
-import com.facebook.react.BuildConfig
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.google.gson.Gson
+import com.kuriamaindo.repositories.BlockRepository
+import com.kuriamind.services.AppMonitorService
 
 class BlockModule(reactContext: ReactApplicationContext) :
         ReactContextBaseJavaModule(reactContext) {
@@ -17,18 +19,31 @@ class BlockModule(reactContext: ReactApplicationContext) :
         return "BlockModule"
     }
 
+    private fun triggerUpdateNotifications() {
+        BlockRepository.invalidateCache()
+
+        Log.d("DEBUG", "BlockModule triggering AppMonitorService update check")
+        val intent = Intent(reactApplicationContext, AppMonitorService::class.java)
+        intent.action = AppMonitorService.ACTION_UPDATE_STATUS
+        try {
+            reactApplicationContext.startService(intent)
+        } catch (e: SecurityException) {
+            Log.e("DEBUG", "Error starting AppMonitorService (Security): ${e.message}", e)
+        } catch (e: IllegalStateException) {
+            Log.e("DEBUG", "Error starting AppMonitorService (IllegalState): ${e.message}", e)
+        } catch (e: Exception) {
+            Log.e("DEBUG", "Failed to send update intent to AppMonitorService", e)
+        }
+    }
+
     @ReactMethod
     fun getAllBlocks(promise: Promise) {
         try {
             var blocks = storage.getItems()
-
             val json = Gson().toJson(blocks)
-
             promise.resolve(json)
         } catch (e: Exception) {
-            if (BuildConfig.DEBUG) {
-                Log.d("DEBUG", "error getAllBlocks: $e")
-            }
+            Log.e("DEBUG", "error getAllBlocks: $e")
             promise.reject("ERROR_GET_BLOCK", "Failed to get block data", e)
         }
     }
@@ -57,12 +72,12 @@ class BlockModule(reactContext: ReactApplicationContext) :
             }
 
             storage.addItem(block)
+            triggerUpdateNotifications()
 
             promise.resolve("Block ${block.name} saved successfully")
         } catch (e: Exception) {
-            if (BuildConfig.DEBUG) {
-                Log.d("DEBUG", "error saveBlock: $e")
-            }
+            Log.e("DEBUG", "error saveBlock: $e")
+
             promise.reject("ERROR_SAVE_BLOCK", "Failed to save block data", e)
         }
     }
@@ -87,11 +102,12 @@ class BlockModule(reactContext: ReactApplicationContext) :
 
             storage.updateItem(updatedBlock, { block -> block.id == blockId })
 
+            triggerUpdateNotifications()
+
             promise.resolve("Block ${updatedBlock.name} updated successfully")
         } catch (e: Exception) {
-            if (BuildConfig.DEBUG) {
-                Log.d("DEBUG", "error updateBlock: $e")
-            }
+            Log.e("DEBUG", "error updateBlock: $e")
+
             promise.reject("ERROR_UPDATE_BLOCK", "Failed to update block data", e)
         }
     }
@@ -108,11 +124,12 @@ class BlockModule(reactContext: ReactApplicationContext) :
             val updatedBlock = block.copy(isActive = !block.isActive)
             storage.updateItem(updatedBlock, { b -> b.id == blockId })
 
+            triggerUpdateNotifications()
+
             promise.resolve("Block ${updatedBlock.name} status changed successfully")
         } catch (e: Exception) {
-            if (BuildConfig.DEBUG) {
-                Log.d("DEBUG", "error changeBlockStatus: $e")
-            }
+            Log.e("DEBUG", "error changeBlockStatus: $e")
+
             promise.reject("ERROR_CHANGE_BLOCK_STATUS", "Failed to change block status", e)
         }
     }
@@ -122,11 +139,11 @@ class BlockModule(reactContext: ReactApplicationContext) :
         try {
             storage.deleteItem({ block -> block.id == blockId })
 
+            triggerUpdateNotifications()
+
             promise.resolve("Block with ID $blockId deleted successfully")
         } catch (e: Exception) {
-            if (BuildConfig.DEBUG) {
-                Log.d("DEBUG", "error deleteBlock: $e")
-            }
+            Log.e("DEBUG", "error deleteBlock: $e")
             promise.reject("ERROR_DELETE_BLOCK", "Failed to delete block data", e)
         }
     }

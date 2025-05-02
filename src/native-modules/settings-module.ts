@@ -1,4 +1,4 @@
-import {Settings} from '@/interfaces';
+import type {Settings} from '@/interfaces';
 import {NativeModules} from 'react-native';
 
 const {SettingsModule} = NativeModules;

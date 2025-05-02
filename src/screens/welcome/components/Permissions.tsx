@@ -3,10 +3,9 @@ import {Platform, View} from 'react-native';
 import {RequestPermissionOption} from './RequestPermissionOption';
 import {usePermissions} from '../hooks';
 import {useTranslation} from 'react-i18next';
-import {Text} from '@/components/ui/text';
-import {VStack} from '@/components/ui/vstack';
 import {Bell, PersonStanding, ShieldBan} from 'lucide-react-native';
 import {RequestPermissionAcceptOption} from './RequestPermissionOptionWithAccept';
+import {Flex, Text} from 'dripsy';
 
 interface PermissionsProps {
   onAllPermissionsGranted: () => void;
@@ -36,22 +35,28 @@ export const Permissions = ({onAllPermissionsGranted}: PermissionsProps) => {
     if (allPermissionsGranted) {
       onAllPermissionsGranted();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allPermissionsGranted]);
 
   return (
-    <View>
-      <Text className="mb-10 text-lg text-white">
+    <>
+      <Text
+        sx={{
+          fontSize: 'md',
+          lineHeight: 20,
+          pt: '7%',
+        }}>
         {t('permissions_message')}
       </Text>
 
-      <VStack className="gap-5 pb-5">
+      <Flex sx={{flexDirection: 'column', gap: 30, mt: 30, pb: '10%'}}>
         {Number(Platform.Version) >= 33 && (
           <RequestPermissionOption
             isActive={isNotificationPermissionGranted}
             onRequestPermission={requestNotificationPermission}
             title={tPermissions('post_notifications.title')}
             description={tPermissions('post_notifications.description')}
-            Icon={<Bell size={18} color="#fff" />}
+            Icon={<Bell size={22} color="#fff" />}
           />
         )}
         <RequestPermissionOption
@@ -59,7 +64,7 @@ export const Permissions = ({onAllPermissionsGranted}: PermissionsProps) => {
           onRequestPermission={requestNotificationListenerPermission}
           title={tPermissions('notification_listener.title')}
           description={tPermissions('notification_listener.description')}
-          Icon={<Bell size={18} color="#fff" />}
+          Icon={<Bell size={22} color="#fff" />}
         />
 
         <RequestPermissionAcceptOption
@@ -67,7 +72,7 @@ export const Permissions = ({onAllPermissionsGranted}: PermissionsProps) => {
           onRequestPermission={requestAccessibilityPermission}
           title={tPermissions('accesibility_services.title')}
           description={tPermissions('accesibility_services.description')}
-          Icon={<PersonStanding size={18} color="#fff" />}
+          Icon={<PersonStanding size={22} color="#fff" />}
           acceptTitle={tPermissions('accesibility_services.accept_title')}
           acceptDescription={tPermissions(
             'accesibility_services.accept_description',
@@ -85,9 +90,9 @@ export const Permissions = ({onAllPermissionsGranted}: PermissionsProps) => {
           onRequestPermission={requestDisplayPopupEnabled}
           title={tPermissions('displayPopup.title')}
           description={tPermissions('displayPopup.description')}
-          Icon={<ShieldBan size={18} color="#fff" />}
+          Icon={<ShieldBan size={22} color="#fff" />}
         />
-      </VStack>
-    </View>
+      </Flex>
+    </>
   );
 };

@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Focus: Kuria mind</string>
+    <string name="app_monitor_service_description">Necesario para la función de bloqueo de aplicaciones. Este servicio detecta qué aplicación está abierta actualmente para que Kuriamind pueda aplicar tus reglas y horarios de bloqueo.</string>
+
+    <!--  AppMonitorService -->
+    <string name="app_monitor_channel_name">Servicio Bloqueador Kuriamind</string>
+    <string name="app_monitor_channel_description">Supervisa el uso de aplicaciones para funciones de bloqueo.</string>
+    <string name="app_monitor_notification_title">Bloqueador Kuriamind Activo</string>
+    <string name="app_monitor_notification_text">La supervisión y bloqueo de aplicaciones está habilitada.</string>
+
+    <!-- Popup -->
+    <string name="popup_default_block_message">Aplicación Bloqueada</string>
+    <string name="popup_close_button">Cerrar</string>
+    <string name="popup_block_count_text">Bloqueada %d veces hoy</string>
+</resources>

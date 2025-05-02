@@ -35,8 +35,9 @@
   "blocks": {
     "edit": "Edit",
     "delete": "Delete",
-    "active": "Active",
-    "disabled": "Disabled",
+    "activate": "Activate",
+    "disable": "Disable",
+    "add": "Add",
     "apps": "Apps",
     "notifications": "Notifications",
     "error_fetching_blocks": "Error fetching blocks",
@@ -54,7 +55,7 @@
   },
   "block": {
     "name": "Name",
-    "add_apps": "Add Apps",
+    "add": "Add",
     "block_apps": "Block Apps",
     "block_Notifications": "Block Notifications",
     "no_apps_selected": "No apps selected",
@@ -75,7 +76,7 @@
     "inactive": "Inactive",
     "start_time": "Start Time",
     "end_time": "End Time",
-    "add_timer": "Add Timer"
+    "always_active": "Always active"
   },
   "info": {
     "settings": "Settings"
@@ -85,6 +86,8 @@
     "en": "English",
     "es": "Spanish",
     "block_message": "Blocked Message",
+    "block_message_description": "This message will be shown when an app is blocked",
+    "cancel": "Cancel",
     "modify": "Modify",
     "error_fetching_settings": "Error fetching settings",
     "error_updating_block_message": "Error updating block message"
@@ -92,6 +95,16 @@
   "screens": {
     "blocks": "Blocks",
     "settings": "Settings",
-    "block": "Block"
+    "block": "Block",
+    "stats": "Stats"
+  },
+  "stats": {
+    "blockedCount": "Blocked Count",
+    "blockedNotifications": "Blocked Notifications",
+    "today": "Today",
+    "last3days": "Last 3 Days",
+    "last7days": "Last 7 Days",
+    "error_fetching_stats": "Error fetching stats",
+    "no_data": "No data for this period"
   }
 }
