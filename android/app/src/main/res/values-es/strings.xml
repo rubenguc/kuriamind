@@ -5,7 +5,7 @@
     <!--  AppMonitorService -->
     <string name="app_monitor_channel_name">Servicio Bloqueador Kuriamind</string>
     <string name="app_monitor_channel_description">Supervisa el uso de aplicaciones para funciones de bloqueo.</string>
-    <string name="app_monitor_notification_title">Bloqueador Kuriamind Activo</string>
+    <string name="app_monitor_notification_title">Bloqueador Activo</string>
     <string name="app_monitor_notification_text">La supervisión y bloqueo de aplicaciones está habilitada.</string>
 
     <!-- Popup -->
