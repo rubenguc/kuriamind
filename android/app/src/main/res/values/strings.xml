@@ -5,7 +5,7 @@
     <!-- AppMonitorService -->
     <string name="app_monitor_channel_name">Kuriamind Blocker Service</string>
     <string name="app_monitor_channel_description">Monitors app usage for blocking features.</string>
-    <string name="app_monitor_notification_title">Kuriamind Blocker Active</string>
+    <string name="app_monitor_notification_title">Blocker Active</string>
     <string name="app_monitor_notification_text">App monitoring and blocking is enabled.</string>
 
     <!-- Popup -->
