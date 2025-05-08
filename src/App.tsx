@@ -36,7 +36,13 @@ function App() {
           <InstalledAppsProvider>
             <NavigationContainer theme={theme}>
               <RootStack />
-              <Toasts />
+              <Toasts
+                defaultStyle={{
+                  view: {
+                    backgroundColor: '#161616',
+                  },
+                }}
+              />
             </NavigationContainer>
           </InstalledAppsProvider>
         </GestureHandlerRootView>
