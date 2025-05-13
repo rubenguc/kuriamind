@@ -72,6 +72,8 @@ export const Blocks = ({navigation, route}: BlocksProps) => {
       </Flex>
 
       <FlatList
+        onRefresh={getBlocks}
+        refreshing={isLoading}
         style={sx({
           marginTop: 30,
           paddingHorizontal: 20,

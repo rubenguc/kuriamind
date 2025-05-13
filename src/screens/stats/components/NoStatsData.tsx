@@ -5,8 +5,11 @@ export const NoStatsData = () => {
   const {t} = useTranslation('stats');
 
   return (
-    <View sx={{display: 'flex', gap: 5}}>
-      <Text>{t('no_data')}</Text>
+    <View
+      sx={{
+        display: 'flex',
+      }}>
+      <Text sx={{textAlign: 'center', color: '#ddd'}}>{t('no_data')}</Text>
     </View>
   );
 };
