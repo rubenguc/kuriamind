@@ -41,6 +41,9 @@ function App() {
                   view: {
                     backgroundColor: '#161616',
                   },
+                  text: {
+                    color: 'white',
+                  },
                 }}
               />
             </NavigationContainer>
