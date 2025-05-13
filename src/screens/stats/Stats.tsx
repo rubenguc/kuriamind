@@ -8,8 +8,15 @@ import {Dropdown} from 'react-native-element-dropdown';
 export const Stats = () => {
   const {theme} = useDripsyTheme();
   const sx = useSx();
-  const {statFilter, appUsageStats, setStatFilter, OPTIONS, thereIsNoData} =
-    useStats();
+  const {
+    statFilter,
+    appUsageStats,
+    setStatFilter,
+    OPTIONS,
+    thereIsNoData,
+    getStats,
+    isLoading,
+  } = useStats();
 
   return (
     <>
@@ -53,6 +60,8 @@ export const Stats = () => {
       </Flex>
 
       <FlatList
+        refreshing={isLoading}
+        onRefresh={getStats}
         style={sx({
           marginTop: 30,
           paddingHorizontal: 20,

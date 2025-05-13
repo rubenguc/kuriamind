@@ -63,7 +63,11 @@ export const useStats = () => {
       }
     }
 
-    return Object.values(data);
+    return Object.values(data).sort((a, b) => {
+      const totalA = a.appBlockCount + a.notificationBlockCount;
+      const totalB = b.appBlockCount + b.notificationBlockCount;
+      return totalB - totalA;
+    });
   }, [installedApps, stats]);
 
   const OPTIONS = [
@@ -89,5 +93,7 @@ export const useStats = () => {
     OPTIONS,
     statFilter,
     thereIsNoData,
+    getStats,
+    isLoading,
   };
 };
