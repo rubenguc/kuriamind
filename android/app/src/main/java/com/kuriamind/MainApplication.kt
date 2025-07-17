@@ -4,20 +4,16 @@ import android.app.Application
 import com.facebook.react.PackageList
 import com.facebook.react.ReactApplication
 import com.facebook.react.ReactHost
+import com.facebook.react.ReactNativeApplicationEntryPoint.loadReactNative
 import com.facebook.react.ReactNativeHost
 import com.facebook.react.ReactPackage
-import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load
 import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
-import com.facebook.react.soloader.OpenSourceMergedSoMapping
-import com.facebook.soloader.SoLoader
-import com.kuriamaindo.repositories.BlockRepository
 import com.kuriamind.modules.blocks.BlockPackage
 import com.kuriamind.modules.installedApps.InstalledAppsPackage
 import com.kuriamind.modules.permissions.PermissionsPackage
 import com.kuriamind.modules.settings.SettingsPackage
 import com.kuriamind.modules.stats.StatsPackage
-import com.kuriamind.services.StatsLocator
 
 class MainApplication : Application(), ReactApplication {
 
@@ -45,11 +41,6 @@ class MainApplication : Application(), ReactApplication {
 
     override fun onCreate() {
         super.onCreate()
-        SoLoader.init(this, OpenSourceMergedSoMapping)
-        BlockRepository.initialize(this)
-        StatsLocator.provideStatsStorage(this)
-        if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
-            load()
-        }
+        loadReactNative(this)
     }
 }

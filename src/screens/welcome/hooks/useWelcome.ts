@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {storage} from '@/App';
+// import {storage} from '@/App';
 
 export enum Step {
   WELCOME = 'Welcome',
@@ -20,7 +20,7 @@ export const useWelcome = ({onFinish}: UseWelcomeProps) => {
     }
 
     if (allPermissionsGranted) {
-      storage.set('isFirstTime', false);
+      // storage.set('isFirstTime', false);
       onFinish();
     }
   };
