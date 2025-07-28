@@ -1,4 +1,4 @@
-package com.kuriamaindo.repositories
+package com.kuriamind.repositories
 
 import android.content.Context
 import android.util.Log
@@ -67,10 +67,11 @@ object BlockRepository {
 
     // Loads blocks from storage and populates the cache
     private fun loadAndCacheBlocks(): List<Block> {
+
         synchronized(cacheLock) {
             // Double-check inside lock: another thread might have loaded it already
             cachedAllBlocks?.let {
-                // Log.d("BlockRepository", "Cache hit (inside lock). Returning ${it.size} blocks.")
+                Log.d("BlockRepository", "Cache hit (inside lock). Returning ${it.size} blocks.")
                 return it
             }
 

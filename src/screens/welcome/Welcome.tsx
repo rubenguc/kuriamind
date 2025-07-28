@@ -2,9 +2,11 @@ import {Step, useWelcome} from './hooks/useWelcome';
 import {useTranslation} from 'react-i18next';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {RootStackParamList} from '@/interfaces';
-import {Box, H1, Image, Text, ScrollView, Flex, View} from 'dripsy';
+import {Box, ScrollView} from 'dripsy';
 import {Button} from '@/components/ui';
 import {Permissions} from './components';
+import LinearGradient from 'react-native-linear-gradient';
+import {WelcomeText} from './components/WelcomeText';
 
 type WelcomeProps = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
 
@@ -19,48 +21,16 @@ const Welcome = ({navigation}: WelcomeProps) => {
   });
 
   return (
-    <View
-      sx={{
-        display: 'flex',
-        flex: 1,
-      }}>
+    <LinearGradient
+      colors={['#1D71B8', '#000']}
+      end={{
+        x: 0.5,
+        y: 0.5,
+      }}
+      style={{flex: 1}}>
       <ScrollView sx={{flex: 1, px: '8%'}}>
         {step === Step.WELCOME ? (
-          <Box
-            sx={{
-              display: 'flex',
-              gap: 10,
-              mt: '5%',
-            }}>
-            <Flex
-              sx={{
-                justifyContent: 'center',
-              }}>
-              <Image
-                source={require('@/assets/images/app-icon.png')}
-                sx={{
-                  width: 120,
-                  height: 120,
-                }}
-                alt="app icon"
-              />
-            </Flex>
-            <H1
-              sx={{
-                mb: '10%',
-                fontSize: '2xl',
-                fontWeight: 'bold',
-                textAlign: 'center',
-              }}>
-              {t('title')}
-            </H1>
-            <Text sx={{fontSize: 'md', mb: '10%', lineHeight: '24'}}>
-              {t('description_1')}
-            </Text>
-            <Text sx={{fontSize: 'md', lineHeight: '24'}}>
-              {t('description_2')}
-            </Text>
-          </Box>
+          <WelcomeText />
         ) : (
           <Permissions
             onAllPermissionsGranted={() => setAllPermissionsGranted(true)}
@@ -82,7 +52,7 @@ const Welcome = ({navigation}: WelcomeProps) => {
           {t(step === Step.WELCOME ? 'next' : 'start_app')}
         </Button>
       </Box>
-    </View>
+    </LinearGradient>
   );
 };
 

@@ -3,7 +3,7 @@ package com.kuriamind.services
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
-import com.kuriamaindo.repositories.BlockRepository
+import com.kuriamind.repositories.BlockRepository
 import com.kuriamind.utils.BlockUtils
 
 class NotificationBlockerService : NotificationListenerService() {

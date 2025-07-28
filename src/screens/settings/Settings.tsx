@@ -3,10 +3,13 @@ import {InputOptionSetting, SelectableOptionSetting} from './components';
 import {useSettings} from './hooks';
 import {Languages, MessageSquareMore} from 'lucide-react-native';
 import {ScrollView} from 'dripsy';
+import {useDripsyTheme} from 'dripsy';
 
 const Settings = () => {
   const {t, i18n} = useTranslation('settings');
   const {settings, updateBlockMessage} = useSettings();
+
+  const {theme} = useDripsyTheme();
 
   return (
     <ScrollView
@@ -21,14 +24,14 @@ const Settings = () => {
         ]}
         text={t('language')}
         onSelected={i18n.changeLanguage}
-        Icon={<Languages size={20} color="#bbb" />}
+        Icon={<Languages size={20} color={theme.colors.gray} />}
       />
 
       <InputOptionSetting
         value={settings.blockMessage}
         text={t('block_message')}
         onSubmit={updateBlockMessage}
-        Icon={<MessageSquareMore size={20} color="#bbb" />}
+        Icon={<MessageSquareMore size={20} color={theme.colors.gray} />}
       />
     </ScrollView>
   );

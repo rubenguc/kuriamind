@@ -33,7 +33,7 @@ export const BlockItem = ({
       sx={{
         display: 'flex',
         borderWidth: 1.5,
-        borderColor: isActive ? 'accent' : 'gray',
+        borderColor: isActive ? 'accent' : 'grayDisabled',
         borderRadius: 8,
         backgroundColor: '#222',
         p: 10,

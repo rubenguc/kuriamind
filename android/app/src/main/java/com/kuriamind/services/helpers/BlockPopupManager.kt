@@ -2,6 +2,7 @@ package com.kuriamind.services.helpers
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.PixelFormat
 import android.os.Handler
@@ -14,7 +15,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.kuriamind.R
-import com.kuriamind.services.SettingsLocator
 import com.kuriamind.services.StatsLocator
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -24,6 +24,9 @@ class BlockPopupManager(private val context: Context) {
     private var blockPopupView: View? = null
     private var isPopupActive: Boolean = false
     private var isRedirectingToHome: Boolean = false
+
+    private val settingsSharedPref: SharedPreferences =
+            context.getSharedPreferences("settings", Context.MODE_PRIVATE)
 
     private val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
     private val layoutInflater =
@@ -90,9 +93,7 @@ class BlockPopupManager(private val context: Context) {
 
     private fun populateBlockMessage(messageView: TextView?) {
         val defaultMessage = context.getString(R.string.popup_default_block_message)
-        val blockedMessage =
-                SettingsLocator.provideSettingsStorage(context)
-                        .getValue("blockMessage", defaultMessage)
+        val blockedMessage = settingsSharedPref.getString("blockMessage", null) ?: defaultMessage
         messageView?.text = blockedMessage
     }
 

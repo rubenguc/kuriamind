@@ -7,7 +7,7 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.google.gson.Gson
-import com.kuriamaindo.repositories.BlockRepository
+import com.kuriamind.repositories.BlockRepository
 import com.kuriamind.services.AppMonitorService
 
 class BlockModule(reactContext: ReactApplicationContext) :

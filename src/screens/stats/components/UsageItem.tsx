@@ -38,10 +38,10 @@ export const UsageItem: FC<UsageItemProps> = ({appUsageStat}) => {
           />
           <View sx={{display: 'flex', gap: 2}}>
             <Text sx={{fontWeight: 'bold', fontSize: 'lg'}}>{appName}</Text>
-            <Text sx={{color: 'primary'}}>{`${t(
+            <Text sx={{color: 'gray'}}>{`${t(
               'blockedCount',
             )}:  ${appBlockCount}`}</Text>
-            <Text sx={{color: 'primary'}}>{`${t(
+            <Text sx={{color: 'gray'}}>{`${t(
               'blockedNotifications',
             )}: ${notificationBlockCount}`}</Text>
           </View>

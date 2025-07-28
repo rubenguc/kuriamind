@@ -42,7 +42,7 @@ export const InputOptionSetting = ({
               onChangeText={setInputText}
               sx={{
                 borderWidth: 1,
-                borderColor: 'primary',
+                borderColor: 'white',
                 borderRadius: 8,
               }}
             />

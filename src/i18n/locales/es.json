@@ -1,6 +1,7 @@
 {
   "welcome": {
-    "title": "Bienvenido a Kuria mind",
+    "welcome_to": "Bienvenido a",
+    "kuria_mind": "Kuria Mind",
     "description_1": "Bienvenidos a nuestra app! Crea bloques personalizados para deshabilitar el acceso y las notificaciones de apps, así podrás mantenerte alejado de las distracciones.",
     "description_2": "Mejora tu productividad limitando interrupciones. Mántenete concentrado en tus tareas y logra tus metas en un espacio libre de interferencias.",
     "permissions_message": "Sólo necesitamos unos pocos permisos para monitorizar las aplicaciones y sus notificaciones con el fin de cerrar cualquier proceso innecesario en segundo plano. Tu privacidad es importante y esta aplicación NO recopila ni comparte ningún dato personal.",
@@ -57,7 +58,7 @@
     "name": "Nombre",
     "add": "Agregar",
     "block_apps": "Bloquear Aplicaciones",
-    "block_Notifications": "Bloquear Notificaciones",
+    "block_notifications": "Bloquear Notificaciones",
     "no_apps_selected": "Ninguna aplicación seleccionada",
     "create_block": "Crear Bloque",
     "update_block": "Actualizar Bloque",

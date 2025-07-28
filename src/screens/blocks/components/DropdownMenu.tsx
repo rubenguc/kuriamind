@@ -71,7 +71,7 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
         activeOpacity={0.8}
         style={sx({borderRadius: 9999, backgroundColor: 'primary', p: 6})}
         onPress={handleOpen}>
-        <EllipsisVertical size={18} />
+        <EllipsisVertical size={18} color="white" />
       </TouchableOpacity>
       <Modal visible={isOpen} transparent>
         <TouchableOpacity

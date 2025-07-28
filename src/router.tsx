@@ -3,13 +3,13 @@ import {Welcome} from './screens/welcome';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Blocks} from './screens/blocks';
 import type {BottomStackParamList, RootStackParamList} from './interfaces';
-import {storage} from './App';
 import {ChartNoAxesCombined, House, SettingsIcon} from 'lucide-react-native';
 import {Settings} from './screens/settings';
 import {useTranslation} from 'react-i18next';
 import {Block} from './screens/block';
 import {useDripsyTheme} from 'dripsy';
 import {Stats} from './screens/stats';
+import NativeLocalStorage from '@/specs/NativeLocalStorage';
 
 const BottomStack = createBottomTabNavigator<BottomStackParamList>();
 
@@ -21,16 +21,17 @@ export const BottomStackNavigation = () => {
     <BottomStack.Navigator
       screenOptions={{
         tabBarStyle: {
-          borderColor: '#6666',
+          borderColor: '#222',
         },
         headerStyle: {
           height: 40,
           elevation: 0,
           shadowOpacity: 0,
-          borderBottomWidth: 0,
+          borderBottomWidth: 0.5,
+          borderBottomColor: '#222',
         },
-        tabBarActiveTintColor: 'white',
-        tabBarInactiveTintColor: 'gray',
+        headerTintColor: theme.colors.gray,
+        tabBarInactiveTintColor: theme.colors.grayDisabled,
         tabBarShowLabel: false,
       }}>
       <BottomStack.Screen
@@ -81,14 +82,18 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const RootStack = () => {
   const {t} = useTranslation('screens');
-  const isFirstTime = storage.getBoolean('isFirstTime') ?? true;
+  const {theme} = useDripsyTheme();
+
+  const showWelcomeScreen =
+    NativeLocalStorage.getItem('isFirstTime') === 'null';
 
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
+        headerTintColor: theme.colors.gray,
       }}>
-      {isFirstTime && <Stack.Screen name="Welcome" component={Welcome} />}
+      {showWelcomeScreen && <Stack.Screen name="Welcome" component={Welcome} />}
       <Stack.Screen name="Home" component={BottomStackNavigation} />
       <Stack.Screen
         options={{
