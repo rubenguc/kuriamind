@@ -1,6 +1,6 @@
 {
   "name": "kuria-mind",
-  "version": "0.4.2",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -16,7 +16,7 @@
     "@backpackapp-io/react-native-toast": "^0.14.0",
     "@hookform/resolvers": "5.1.1",
     "@os-team/i18next-react-native-language-detector": "^1.1.6",
-    "@react-native-async-storage/async-storage": "^2.2.0",
+    "@react-native-community/checkbox": "^0.5.20",
     "@react-native-community/datetimepicker": "^8.4.2",
     "@react-navigation/bottom-tabs": "^7.4.2",
     "@react-navigation/native": "^7.1.14",
@@ -31,10 +31,10 @@
     "react-i18next": "^15.6.0",
     "react-native": "0.80.1",
     "react-native-actions-sheet": "^0.9.7",
-    "react-native-advanced-checkbox": "^2.0.6",
     "react-native-element-dropdown": "^2.12.4",
     "react-native-fast-image": "^8.6.3",
     "react-native-gesture-handler": "^2.27.0",
+    "react-native-linear-gradient": "^2.8.3",
     "react-native-localize": "^3.5.1",
     "react-native-reanimated": "^3.18.0",
     "react-native-safe-area-context": "^5.5.2",
@@ -64,6 +64,14 @@
     "prettier": "2.8.8",
     "react-test-renderer": "19.1.0",
     "typescript": "5.8.3"
+  },
+  "codegenConfig": {
+    "name": "NativeLocalStorageSpec",
+    "type": "modules",
+    "jsSrcsDir": "src/specs",
+    "android": {
+      "javaPackageName": "com.nativelocalstorage"
+    }
   },
   "engines": {
     "node": ">=18"
