@@ -5,7 +5,7 @@ import android.accessibilityservice.AccessibilityServiceInfo
 import android.content.Intent
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
-import com.kuriamaindo.repositories.BlockRepository
+import com.kuriamind.repositories.BlockRepository
 import com.kuriamind.services.helpers.BlockPopupManager
 import com.kuriamind.services.helpers.ForegroundServiceManager // Import helper
 import com.kuriamind.utils.BlockUtils
