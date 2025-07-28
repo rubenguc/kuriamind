@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {useInstalledApps} from '@/providers';
 import {useTranslation} from 'react-i18next';
 import {AppItem} from './AppItem';
@@ -6,6 +6,7 @@ import {FlatList, Modal as RNModal} from 'react-native';
 import {Flex, TextInput, View} from 'dripsy';
 import {X} from 'lucide-react-native';
 import {Button} from '@/components/ui';
+import {InstalledApp} from '@/interfaces';
 
 interface AppsToSelectProps {
   isOpen: boolean;
@@ -46,6 +47,17 @@ export const AppsToSelect = ({
     setApps(selectedApps);
   }, [selectedApps]);
 
+  const renderItem = useCallback(
+    ({item: app}: {item: InstalledApp}) => (
+      <AppItem
+        app={app}
+        isSelected={apps.includes(app.packageName)}
+        onSelect={onSelectApp}
+      />
+    ),
+    [apps, onSelectApp],
+  );
+
   return (
     <RNModal visible={isOpen} transparent animationType="slide">
       <View
@@ -69,13 +81,7 @@ export const AppsToSelect = ({
         <FlatList
           data={filteredApps}
           keyExtractor={item => item.packageName}
-          renderItem={({item: app}) => (
-            <AppItem
-              app={app}
-              isSelected={isAppSelected(app.packageName)}
-              onSelect={onSelectApp}
-            />
-          )}
+          renderItem={renderItem}
         />
         <View
           sx={{

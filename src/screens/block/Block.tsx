@@ -11,8 +11,8 @@ import {ScrollView, Text, TextInput, useDripsyTheme, View} from 'dripsy';
 import {Button} from '@/components/ui';
 import {Flex} from 'dripsy';
 import {SelectedAppsInBlock} from '@/components/shared';
-import {AdvancedCheckbox} from 'react-native-advanced-checkbox';
-import {Switch} from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
+import {Switch, TouchableOpacity, TouchableWithoutFeedback} from 'react-native';
 import {AppsToSelect} from './components/AppsToSelect';
 
 type BlocksProps = NativeStackScreenProps<RootStackParamList, 'Block'>;
@@ -56,7 +56,7 @@ export const Block = ({route, navigation}: BlocksProps) => {
             control={control}
             render={({field: {onChange, onBlur, value}}) => (
               <View sx={{display: 'flex'}}>
-                <Text sx={{mb: 2}}>{t('name')}</Text>
+                <Text sx={{mb: '2%', color: 'gray'}}>{t('name')}</Text>
                 <TextInput
                   variant={errors.name ? 'inputError' : 'input'}
                   value={value}
@@ -82,11 +82,10 @@ export const Block = ({route, navigation}: BlocksProps) => {
                   }}
                   onPress={toggleOpen}>
                   <Flex sx={{alignItems: 'center', gap: 10}}>
-                    <PlusIcon color="black" />
+                    <PlusIcon color="white" />
                     <Text
                       sx={{
                         fontSize: 'sm',
-                        color: 'black',
                       }}>
                       {t('add')}
                     </Text>
@@ -105,12 +104,14 @@ export const Block = ({route, navigation}: BlocksProps) => {
                   sx={{
                     p: 8,
                     mt: 4,
-                    borderWidth: 1.5,
-                    borderColor: 'gray',
+                    borderWidth: 1,
+                    borderColor: theme.colors.gray,
                     borderRadius: 8,
                   }}>
                   {value?.length === 0 ? (
-                    <Text sx={{color: 'gray'}}>{t('no_apps_selected')}</Text>
+                    <Text sx={{color: theme.colors.grayDisabled}}>
+                      {t('no_apps_selected')}
+                    </Text>
                   ) : (
                     <SelectedAppsInBlock
                       packageNames={value}
@@ -130,16 +131,24 @@ export const Block = ({route, navigation}: BlocksProps) => {
             <Controller
               control={control}
               render={({field: {onChange, value}}) => (
-                <AdvancedCheckbox
-                  size={18}
-                  value={value}
-                  onValueChange={onChange}
-                  label={t('block_apps')}
-                  labelStyle={{
-                    color: 'white',
-                  }}
-                  checkedColor={theme.colors.accent}
-                />
+                <TouchableOpacity
+                  activeOpacity={1}
+                  onPress={() => onChange(!value)}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}>
+                  <CheckBox
+                    value={value}
+                    onValueChange={onChange}
+                    tintColors={{
+                      true: theme.colors?.accent,
+                      false: theme.colors.grayDisabled,
+                    }}
+                  />
+                  <Text>{t('block_apps')}</Text>
+                </TouchableOpacity>
               )}
               name="blockApps"
             />
@@ -148,16 +157,24 @@ export const Block = ({route, navigation}: BlocksProps) => {
               control={control}
               render={({field: {onChange, value}}) => (
                 <View sx={{flex: 1}}>
-                  <AdvancedCheckbox
-                    size={18}
-                    value={value}
-                    onValueChange={onChange}
-                    label={t('block_Notifications')}
-                    labelStyle={{
-                      color: 'white',
-                    }}
-                    checkedColor={theme.colors.accent}
-                  />
+                  <TouchableOpacity
+                    activeOpacity={1}
+                    onPress={() => onChange(!value)}
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                    }}>
+                    <CheckBox
+                      value={value}
+                      onValueChange={onChange}
+                      tintColors={{
+                        true: theme.colors?.accent,
+                        false: theme.colors.grayDisabled,
+                      }}
+                    />
+                    <Text>{t('block_notifications')}</Text>
+                  </TouchableOpacity>
                   {errors.blockApps?.message && (
                     <Text variant="error">{t(errors.blockApps.message)}</Text>
                   )}
@@ -169,9 +186,12 @@ export const Block = ({route, navigation}: BlocksProps) => {
             <Controller
               control={control}
               render={({field: {onChange, value}}) => (
-                <Flex
-                  sx={{
-                    mt: 3,
+                <TouchableOpacity
+                  activeOpacity={1}
+                  onPress={() => onChange(!value)}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
                     alignItems: 'center',
                   }}>
                   <Switch
@@ -189,7 +209,7 @@ export const Block = ({route, navigation}: BlocksProps) => {
                     }}>
                     {t('always_active')}
                   </Text>
-                </Flex>
+                </TouchableOpacity>
               )}
               name="addTimer"
             />

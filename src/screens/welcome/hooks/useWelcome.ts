@@ -1,5 +1,5 @@
+import NativeLocalStorage from '@/specs/NativeLocalStorage';
 import {useState} from 'react';
-// import {storage} from '@/App';
 
 export enum Step {
   WELCOME = 'Welcome',
@@ -14,13 +14,13 @@ export const useWelcome = ({onFinish}: UseWelcomeProps) => {
   const [step, setStep] = useState(Step.WELCOME);
   const [allPermissionsGranted, setAllPermissionsGranted] = useState(false);
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (step === Step.WELCOME) {
       return setStep(Step.PERMISSIONS);
     }
 
     if (allPermissionsGranted) {
-      // storage.set('isFirstTime', false);
+      NativeLocalStorage.setItem('isFirstTime', 'false');
       onFinish();
     }
   };

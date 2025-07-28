@@ -11,12 +11,12 @@ export const SettingOption = ({
   onPress,
 }: PropsWithChildren<SettingOptionProps>) => {
   return (
-    <TouchableOpacity activeOpacity={0.9} onPress={onPress}>
+    <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
       <Flex
         sx={{
           alignItems: 'center',
           justifyContent: 'space-between',
-          borderBottomWidth: 1,
+          borderBottomWidth: 0.7,
           px: 4,
           py: 20,
           borderBottomColor: '#7777',
@@ -29,7 +29,7 @@ export const SettingOption = ({
           {Icon}
           <Text
             sx={{
-              fontWeight: 'bold',
+              color: 'gray',
             }}>
             {text}
           </Text>
@@ -42,6 +42,7 @@ export const SettingOption = ({
           }}>
           <Text
             sx={{
+              fontWeight: 'bold',
               color: 'primary',
             }}>
             {value}
