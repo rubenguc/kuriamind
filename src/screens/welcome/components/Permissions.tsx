@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import {Platform, View} from 'react-native';
+import {Platform} from 'react-native';
 import {RequestPermissionOption} from './RequestPermissionOption';
 import {usePermissions} from '../hooks';
 import {useTranslation} from 'react-i18next';
@@ -44,7 +44,7 @@ export const Permissions = ({onAllPermissionsGranted}: PermissionsProps) => {
         sx={{
           fontSize: 'md',
           lineHeight: 20,
-          pt: '7%',
+          mt: '7%',
         }}>
         {t('permissions_message')}
       </Text>

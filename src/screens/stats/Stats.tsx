@@ -44,11 +44,11 @@ export const Stats = () => {
           })}
           style={sx({
             backgroundColor: '#222',
-            width: '50%',
+            width: '40%',
             borderColor: theme.colors.primary,
             borderWidth: 1,
             borderRadius: 8,
-            height: 50,
+            height: 40,
             px: 10,
           })}
           iconColor={theme.colors.primary}

@@ -1,4 +1,4 @@
-import {createThemedComponent, Text} from 'dripsy';
+import {createThemedComponent, Text, useDripsyTheme} from 'dripsy';
 import {TouchableOpacity as RNTouchableOpacity} from 'react-native';
 
 const TouchableOpacity = createThemedComponent(RNTouchableOpacity);
@@ -16,13 +16,14 @@ export const SelectableOption = <T,>({
   onPress,
   isSelected,
 }: SelectableOptionProps<T>) => {
+  const {theme} = useDripsyTheme();
   return (
     <TouchableOpacity
       sx={{
         borderRadius: 8,
         px: 10,
         py: 4,
-        backgroundColor: isSelected ? '#7777' : 'transparent',
+        backgroundColor: isSelected ? theme.colors.primary : 'transparent',
       }}
       onPress={() => onPress(value)}>
       <Text>{label}</Text>

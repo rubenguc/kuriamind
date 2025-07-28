@@ -60,13 +60,15 @@ export const Blocks = ({navigation, route}: BlocksProps) => {
     <>
       <Flex
         sx={{
+          mt: '3%',
+          mr: '4%',
           justifyContent: 'flex-end',
           px: 4,
         }}>
         <Button sx={{px: 10}} onPress={() => navigation.navigate('Block')}>
           <Flex sx={{gap: 4}}>
-            <Plus size={20} color="black" />
-            <Text sx={{color: 'black'}}>{t('add')}</Text>
+            <Plus size={20} color="white" />
+            <Text>{t('add')}</Text>
           </Flex>
         </Button>
       </Flex>
@@ -75,7 +77,7 @@ export const Blocks = ({navigation, route}: BlocksProps) => {
         onRefresh={getBlocks}
         refreshing={isLoading}
         style={sx({
-          marginTop: 30,
+          marginTop: 20,
           paddingHorizontal: 20,
         })}
         data={blocks}

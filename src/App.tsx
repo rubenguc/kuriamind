@@ -14,16 +14,9 @@ const theme: typeof DefaultTheme = {
     ...DefaultTheme.colors,
     background: '#161616',
     card: '#161616',
-    text: '#fff',
     border: 'transparent',
   },
 };
-
-type MyTheme = typeof DripsyTheme;
-declare module 'dripsy' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface DripsyCustomTheme extends MyTheme {}
-}
 
 function App() {
   return (
