@@ -1,27 +1,17 @@
 import {useCustomToast} from '@/hooks';
 import type {Settings} from '@/interfaces';
-import {getNativeSettings, setSetting} from '@/native-modules/settings-module';
-import {useEffect, useState} from 'react';
+import NativeLocalStorage from '@/specs/NativeLocalStorage';
+import {useState} from 'react';
 import {useTranslation} from 'react-i18next';
+import {parseSettings} from '../utils/settings-utils';
 
 export const useSettings = () => {
   const {t} = useTranslation('settings');
   const {showErrorToast} = useCustomToast();
 
-  const [settings, setSettings] = useState<Settings>({
-    blockMessage: '',
-  });
-
-  const getSettings = async () => {
-    try {
-      const _settings = await getNativeSettings();
-      setSettings(_settings);
-    } catch (error) {
-      showErrorToast({
-        description: t('error_fetching_settings'),
-      });
-    }
-  };
+  const [settings, setSettings] = useState<Settings>(
+    parseSettings(JSON.parse(NativeLocalStorage.getAll() || '{}')),
+  );
 
   const updateSettings = (value: any) => {
     setSettings(prev => ({...prev, ...value}));
@@ -29,7 +19,7 @@ export const useSettings = () => {
 
   const updateBlockMessage = async (value: string) => {
     try {
-      await setSetting('blockMessage', value);
+      NativeLocalStorage.setItem('blockMessage', value);
       updateSettings({blockMessage: value});
     } catch (error) {
       showErrorToast({
@@ -37,11 +27,6 @@ export const useSettings = () => {
       });
     }
   };
-
-  useEffect(() => {
-    getSettings();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return {
     settings,
