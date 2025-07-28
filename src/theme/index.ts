@@ -5,7 +5,7 @@ const baseButton = {
   borderWidth: 1,
   borderColor: 'transparent',
   px: 2,
-  py: 4,
+  py: 2,
   label: {
     textAlign: 'center',
     fontWeight: 'bold',
@@ -15,25 +15,19 @@ const baseButton = {
 
 const inputBase = {
   borderRadius: 8,
-  borderWidth: 1.5,
+  borderWidth: 1,
   color: 'white',
-  borderColor: 'primary',
+  borderColor: 'gray',
 };
 
-const DEFAULT_FONT = 'HelveticaNeueCyr';
+const DEFAULT_FONT = 'opensans';
 
-export default makeTheme({
+const DripsyTheme = makeTheme({
   customFonts: {
     [DEFAULT_FONT]: {
-      bold: 'HelveticaNeueCyrMedium',
-      default: 'HelveticaNeueCyrUltraLigth',
-      normal: 'HelveticaNeueCyrUltraLigth',
-      400: 'HelveticaNeueCyrThin',
-      500: 'HelveticaNeueCyrMedium',
-      600: 'HelveticaNeueCyrMedium',
-      700: 'HelveticaNeueCyrMedium',
-      800: 'HelveticaNeueCyrMedium',
-      900: 'HelveticaNeueCyrRoman',
+      bold: 'OpenSans-Bold',
+      default: 'OpenSans-Regular',
+      normal: 'OpenSans-Regular',
     },
   },
   fonts: {
@@ -43,9 +37,11 @@ export default makeTheme({
     background: '#24222f',
     card: '#24222f',
     text: '#fff',
-    primary: '#f08bc3',
+    primary: '#1D71B8',
     secondary: '#cba2d9',
-    accent: '#9bec8f',
+    accent: '#8bd480',
+    gray: '#e5e0de',
+    grayDisabled: '#999',
   },
   spacing: {
     xs: 4,
@@ -74,7 +70,7 @@ export default makeTheme({
       ...baseButton,
       bg: 'primary',
       label: {
-        color: 'black',
+        color: 'white',
         ...baseButton.label,
       },
       disabled: {
@@ -106,7 +102,7 @@ export default makeTheme({
       color: 'text',
     },
     p: {
-      color: 'text',
+      color: 'gray',
     },
   },
   forms: {
@@ -120,3 +116,11 @@ export default makeTheme({
     },
   },
 });
+
+type MyTheme = typeof DripsyTheme;
+declare module 'dripsy' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DripsyCustomTheme extends MyTheme {}
+}
+
+export default DripsyTheme;
