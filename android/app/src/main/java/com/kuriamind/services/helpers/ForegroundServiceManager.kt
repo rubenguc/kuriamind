@@ -10,9 +10,9 @@ import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.os.Build
 import android.util.Log
-import com.kuriamaindo.repositories.BlockRepository
 import com.kuriamind.MainActivity
 import com.kuriamind.R
+import com.kuriamind.repositories.BlockRepository
 
 class ForegroundServiceManager(private val service: Service) {
 
@@ -44,17 +44,21 @@ class ForegroundServiceManager(private val service: Service) {
     }
 
     fun checkAndUpdateServiceState() {
-        val activeBlocks = BlockRepository.getActiveAppBlockingBlocks()
-        val shouldBeForeground = activeBlocks.isNotEmpty()
-        Log.d(
-                TAG,
-                "Check State: shouldBeForeground=$shouldBeForeground, isForeground=$isForeground"
-        )
+        try {
+            val activeBlocks = BlockRepository.getActiveAppBlockingBlocks()
+            val shouldBeForeground = activeBlocks.isNotEmpty()
+            Log.d(
+                    TAG,
+                    "Check State: shouldBeForeground=$shouldBeForeground, isForeground=$isForeground"
+            )
 
-        if (shouldBeForeground && !isForeground) {
-            startForeground()
-        } else if (!shouldBeForeground && isForeground) {
-            stopForeground()
+            if (shouldBeForeground && !isForeground) {
+                startForeground()
+            } else if (!shouldBeForeground && isForeground) {
+                stopForeground()
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error checking and updating service state", e)
         }
     }
 

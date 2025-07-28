@@ -12,8 +12,9 @@ import com.facebook.react.defaults.DefaultReactNativeHost
 import com.kuriamind.modules.blocks.BlockPackage
 import com.kuriamind.modules.installedApps.InstalledAppsPackage
 import com.kuriamind.modules.permissions.PermissionsPackage
-import com.kuriamind.modules.settings.SettingsPackage
 import com.kuriamind.modules.stats.StatsPackage
+import com.kuriamind.repositories.BlockRepository
+import com.nativelocalstorage.NativeLocalStoragePackage
 
 class MainApplication : Application(), ReactApplication {
 
@@ -24,8 +25,8 @@ class MainApplication : Application(), ReactApplication {
                             add(BlockPackage())
                             add(InstalledAppsPackage())
                             add(PermissionsPackage())
-                            add(SettingsPackage())
                             add(StatsPackage())
+                            add(NativeLocalStoragePackage())
                         }
 
                 override fun getJSMainModuleName(): String = "index"
@@ -42,5 +43,7 @@ class MainApplication : Application(), ReactApplication {
     override fun onCreate() {
         super.onCreate()
         loadReactNative(this)
+        // Initialize BlockRepository as early as possible
+        BlockRepository.initialize(this)
     }
 }
