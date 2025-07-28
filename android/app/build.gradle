@@ -82,8 +82,8 @@ android {
         applicationId "com.kuriamind"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 8
-        versionName "0.4.2"
+        versionCode 9
+        versionName "1.0.0"
     }
     signingConfigs {
         debug {
