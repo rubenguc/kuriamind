@@ -33,7 +33,7 @@ export const CheckPermissionsModal = () => {
   const showModal = isInit && allPermissionsChecked && !allPermissionsGranted;
 
   return (
-    <Modal transparent visible={showModal}>
+    <Modal animationType="slide" transparent visible={showModal}>
       <View
         sx={{
           flex: 1,
