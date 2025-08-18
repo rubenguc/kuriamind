@@ -60,6 +60,7 @@ export const Actionsheet: FC<ActionsheetProps> = ({
                 isText
                 sx={{
                   width: '45%',
+                  py: 5,
                 }}>
                 {cancelButtonText}
               </Button>
@@ -71,6 +72,7 @@ export const Actionsheet: FC<ActionsheetProps> = ({
                 isText
                 sx={{
                   width: '45%',
+                  py: 5,
                 }}>
                 {acceptButtonText}
               </Button>

@@ -28,7 +28,8 @@
     "displayPopup": {
       "title": "Display over other apps",
       "description": "This permission is required to show the block screen"
-    }
+    },
+    "check_permissions_missing": "Some permissions are missing"
   },
   "shared": {
     "error_loading_apps": "Error loading apps"

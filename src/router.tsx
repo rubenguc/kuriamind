@@ -10,6 +10,7 @@ import {Block} from './screens/block';
 import {useDripsyTheme} from 'dripsy';
 import {Stats} from './screens/stats';
 import NativeLocalStorage from '@/specs/NativeLocalStorage';
+import {CheckPermissionsModal} from './components/shared/CheckPermissionsModal';
 
 const BottomStack = createBottomTabNavigator<BottomStackParamList>();
 
@@ -18,63 +19,66 @@ export const BottomStackNavigation = () => {
   const {theme} = useDripsyTheme();
 
   return (
-    <BottomStack.Navigator
-      screenOptions={{
-        tabBarStyle: {
-          borderColor: '#222',
-        },
-        headerStyle: {
-          height: 40,
-          elevation: 0,
-          shadowOpacity: 0,
-          borderBottomWidth: 0.5,
-          borderBottomColor: '#222',
-        },
-        headerTintColor: theme.colors.gray,
-        tabBarInactiveTintColor: theme.colors.grayDisabled,
-        tabBarShowLabel: false,
-      }}>
-      <BottomStack.Screen
-        name="Blocks"
-        component={Blocks}
-        options={{
-          // eslint-disable-next-line react/no-unstable-nested-components
-          tabBarIcon: ({color, focused}) => (
-            <House color={focused ? theme.colors.primary : color} size={26} />
-          ),
-          title: t('blocks'),
-        }}
-      />
+    <>
+      <CheckPermissionsModal />
+      <BottomStack.Navigator
+        screenOptions={{
+          tabBarStyle: {
+            borderColor: '#222',
+          },
+          headerStyle: {
+            height: 40,
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0.5,
+            borderBottomColor: '#222',
+          },
+          headerTintColor: theme.colors.gray,
+          tabBarInactiveTintColor: theme.colors.grayDisabled,
+          tabBarShowLabel: false,
+        }}>
+        <BottomStack.Screen
+          name="Blocks"
+          component={Blocks}
+          options={{
+            // eslint-disable-next-line react/no-unstable-nested-components
+            tabBarIcon: ({color, focused}) => (
+              <House color={focused ? theme.colors.primary : color} size={26} />
+            ),
+            title: t('blocks'),
+          }}
+        />
 
-      <BottomStack.Screen
-        name="Stats"
-        component={Stats}
-        options={{
-          // eslint-disable-next-line react/no-unstable-nested-components
-          tabBarIcon: ({color, focused}) => (
-            <ChartNoAxesCombined
-              color={focused ? theme.colors.primary : color}
-              size={26}
-            />
-          ),
-          title: t('stats'),
-        }}
-      />
+        <BottomStack.Screen
+          name="Stats"
+          component={Stats}
+          options={{
+            // eslint-disable-next-line react/no-unstable-nested-components
+            tabBarIcon: ({color, focused}) => (
+              <ChartNoAxesCombined
+                color={focused ? theme.colors.primary : color}
+                size={26}
+              />
+            ),
+            title: t('stats'),
+          }}
+        />
 
-      <BottomStack.Screen
-        name={t('settings') as 'Settings'}
-        component={Settings}
-        options={{
-          // eslint-disable-next-line react/no-unstable-nested-components
-          tabBarIcon: ({color, focused}) => (
-            <SettingsIcon
-              color={focused ? theme.colors.primary : color}
-              size={26}
-            />
-          ),
-        }}
-      />
-    </BottomStack.Navigator>
+        <BottomStack.Screen
+          name={t('settings') as 'Settings'}
+          component={Settings}
+          options={{
+            // eslint-disable-next-line react/no-unstable-nested-components
+            tabBarIcon: ({color, focused}) => (
+              <SettingsIcon
+                color={focused ? theme.colors.primary : color}
+                size={26}
+              />
+            ),
+          }}
+        />
+      </BottomStack.Navigator>
+    </>
   );
 };
 
