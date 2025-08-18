@@ -5,16 +5,25 @@ export const useRequestAndroidPermission = ({
   permission,
   title,
   message,
+  disabledCheck = false,
 }: {
   permission: Permission;
   title: string;
   message: string;
-}): [boolean, () => void] => {
+  disabledCheck?: boolean;
+}): [boolean, () => void, boolean] => {
   const [isPermissionGranted, setIsPermissionGranted] = useState(false);
+  const [isPermissionChecked, setIsPermissionChecked] = useState(false);
 
   useEffect(() => {
     (async () => {
       try {
+        if (disabledCheck) {
+          setIsPermissionGranted(true);
+          setIsPermissionChecked(true);
+          return;
+        }
+
         if (permission === PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS) {
           const androidVersionIsUnder13 = Number(Platform.Version) < 33;
 
@@ -28,6 +37,7 @@ export const useRequestAndroidPermission = ({
       } catch (e) {
         console.log(e);
       }
+      setIsPermissionChecked(true);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -46,5 +56,5 @@ export const useRequestAndroidPermission = ({
     }
   };
 
-  return [isPermissionGranted, requestPermission];
+  return [isPermissionGranted, requestPermission, isPermissionChecked];
 };

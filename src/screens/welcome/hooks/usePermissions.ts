@@ -10,39 +10,65 @@ import {
   openDisplayPopupPermissionSettings,
 } from '@/native-modules/permissions-module';
 
-export const usePermissions = () => {
-  const [isNotificationPermissionGranted, requestNotificationPermission] =
-    useRequestAndroidPermission({
-      permission: PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
-      title: 'Notification Permission',
-      message: 'We need your permission to send notifications.',
-    });
+interface UsePermissionsProps {
+  disabledCheck: boolean;
+}
+
+export const usePermissions = (
+  {disabledCheck}: UsePermissionsProps = {disabledCheck: false},
+) => {
+  const [
+    isNotificationPermissionGranted,
+    requestNotificationPermission,
+    isNotificationPermissionChecked,
+  ] = useRequestAndroidPermission({
+    permission: PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
+    title: 'Notification Permission',
+    message: 'We need your permission to send notifications.',
+    disabledCheck,
+  });
 
   const [
     isNotificationListenerServiceEnabled,
     requestNotificationListenerPermission,
+    isNotificationListenerServiceChecked,
   ] = useRequestNativePermissions({
     checkPermission: checkNotificationListenerServiceEnabled,
     requestPermission: openNotificationListenerSettings,
+    disabledCheck,
   });
 
-  const [isAccessibilityServiceEnabled, requestAccessibilityPermission] =
-    useRequestNativePermissions({
-      checkPermission: checkAccessibilityServiceEnabled,
-      requestPermission: openAccessibilitySettings,
-    });
+  const [
+    isAccessibilityServiceEnabled,
+    requestAccessibilityPermission,
+    isAccessibilityServiceChecked,
+  ] = useRequestNativePermissions({
+    checkPermission: checkAccessibilityServiceEnabled,
+    requestPermission: openAccessibilitySettings,
+    disabledCheck,
+  });
 
-  const [isDisplayPopupEnabled, requestDisplayPopupEnabled] =
-    useRequestNativePermissions({
-      checkPermission: checkDisplayPopupPermission,
-      requestPermission: openDisplayPopupPermissionSettings,
-    });
+  const [
+    isDisplayPopupEnabled,
+    requestDisplayPopupEnabled,
+    isDisplayPopupChecked,
+  ] = useRequestNativePermissions({
+    checkPermission: checkDisplayPopupPermission,
+    requestPermission: openDisplayPopupPermissionSettings,
+    disabledCheck,
+  });
 
   const allPermissionsGranted =
     isNotificationPermissionGranted &&
     isNotificationListenerServiceEnabled &&
     isAccessibilityServiceEnabled &&
     isDisplayPopupEnabled;
+
+  const allPermissionsChecked =
+    isNotificationPermissionChecked &&
+    isNotificationListenerServiceChecked &&
+    isAccessibilityServiceChecked &&
+    isDisplayPopupChecked;
 
   return {
     isNotificationPermissionGranted,
@@ -54,5 +80,6 @@ export const usePermissions = () => {
     allPermissionsGranted,
     isDisplayPopupEnabled,
     requestDisplayPopupEnabled,
+    allPermissionsChecked,
   };
 };

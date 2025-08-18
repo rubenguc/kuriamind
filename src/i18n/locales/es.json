@@ -28,7 +28,8 @@
     "displayPopup": {
       "title": "Mostrar sobre otras aplicaciones",
       "description": "Este permiso es necesario para mostrar la pantalla del bloque"
-    }
+    },
+    "check_permissions_missing": "Algunos permisos están faltando"
   },
   "shared": {
     "error_loading_apps": "Error cargando aplicaciones"

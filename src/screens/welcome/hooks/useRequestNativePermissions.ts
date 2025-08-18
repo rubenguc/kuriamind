@@ -5,21 +5,27 @@ import {useFocusEffect} from '@react-navigation/native';
 interface useRequestNativePermissionsProps {
   checkPermission: () => Promise<boolean>;
   requestPermission: () => void;
+  disabledCheck?: boolean;
 }
 
 export const useRequestNativePermissions = ({
   checkPermission,
   requestPermission,
-}: useRequestNativePermissionsProps): [boolean, () => void] => {
+  disabledCheck = false,
+}: useRequestNativePermissionsProps): [boolean, () => void, boolean] => {
   const [isPermissionGranted, setIsPermissionGranted] = useState(false);
+  const [isPermissionChecked, setIsPermissionChecked] = useState(false);
 
   const check = async () => {
     try {
-      const isGranted = await checkPermission();
-      setIsPermissionGranted(isGranted);
+      if (!disabledCheck) {
+        const isGranted = await checkPermission();
+        setIsPermissionGranted(isGranted);
+      }
     } catch (error) {
       console.error(error);
     }
+    setIsPermissionChecked(true);
   };
 
   useFocusEffect(
@@ -37,5 +43,5 @@ export const useRequestNativePermissions = ({
     }, []),
   );
 
-  return [isPermissionGranted, requestPermission];
+  return [isPermissionGranted, requestPermission, isPermissionChecked];
 };
