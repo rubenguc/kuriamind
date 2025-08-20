@@ -26,7 +26,7 @@
       "description": "Esta permiso es requerido para monitorizar notificaciones y cerrarlas"
     },
     "displayPopup": {
-      "title": "Mostrar sobre otras aplicaciones",
+      "title": "Mostrar sobre otras apps",
       "description": "Este permiso es necesario para mostrar la pantalla del bloque"
     },
     "check_permissions_missing": "Algunos permisos están faltando"
