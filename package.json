@@ -2,6 +2,8 @@
   "name": "kuria-mind",
   "version": "1.0.1",
   "private": true,
+  "author": "Rubén Gutiérrez",
+  "license": "MIT",
   "scripts": {
     "android": "react-native run-android",
     "android-release": "react-native run-android --mode release",
