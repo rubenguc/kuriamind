@@ -1,18 +1,16 @@
 package com.kuriamind
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.compose.rememberNavController
+import com.kuriamind.navigation.AppNavGraph
+import com.kuriamind.navigation.Main
+import com.kuriamind.navigation.Welcome
 import com.kuriamind.ui.theme.KuriamindTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,29 +19,24 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             KuriamindTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.background(Color.Magenta).padding(innerPadding)
-                    )
-                }
+                KuriamindNavHost()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "kike $name!",
-        modifier = modifier
-    )
-}
+private fun KuriamindNavHost() {
+    val prefs = LocalContext.current
+        .getSharedPreferences("kuriamind_prefs", Context.MODE_PRIVATE)
 
-@Preview(showBackground = false)
-@Composable
-fun GreetingPreview() {
-    KuriamindTheme {
-        Greeting("Android")
-    }
+    val isFirstTime = prefs.getBoolean("is_first_time", true)
+    val startDestination: Any = if (isFirstTime) Welcome else Main
+
+    val navController = rememberNavController()
+
+    AppNavGraph(
+        navController = navController,
+        startDestination = startDestination,
+    )
 }

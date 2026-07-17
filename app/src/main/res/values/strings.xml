@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">kuriamind</string>
+
+    <!-- Welcome Screen -->
+    <string name="app_icon_description">App icon</string>
+    <string name="welcome_to">Welcome to</string>
+    <string name="kuria_mind">Kuria Mind</string>
+    <string name="welcome_description_1">Create custom blocks to disable app access and notifications, so you can keep distractions at bay.</string>
+    <string name="welcome_description_2">Boost your productivity by limiting interruptions. Stay focused on your tasks and achieve your goals with a distraction-free space.</string>
+    <string name="permissions_message">We only need a few permissions to monitor apps and their notifications in order to close any unnecessary background processes. Your privacy is important and this app does NOT collect or share any personal data.</string>
+    <string name="permission_post_notifications_title">Post Notifications</string>
+    <string name="permission_post_notifications_description">Allow apps to post notifications in order to keep you informed about apps blocked</string>
+    <string name="permission_notification_listener_title">Notification Listener</string>
+    <string name="permission_notification_listener_description">This permission is required to monitor notifications in order to close them</string>
+    <string name="permission_accessibility_title">Accessibility Services</string>
+    <string name="permission_accessibility_description">This permission is required to monitor apps in order to close them</string>
+    <string name="permission_display_overlay_title">Display over other apps</string>
+    <string name="permission_display_overlay_description">This permission is required to show the block screen</string>
+    <string name="next">Next</string>
+    <string name="start_app">Start App</string>
 </resources>
