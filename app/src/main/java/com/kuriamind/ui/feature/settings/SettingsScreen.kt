@@ -3,7 +3,6 @@ package com.kuriamind.ui.feature.settings
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -19,10 +18,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -153,35 +148,77 @@ fun SettingsScreen() {
         Spacer(Modifier.height(24.dp))
 
         // ── Theme section ─────────────────────────────────────────
-        Text(
-            text = "Appearance",
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.SemiBold,
-            color = Color.White,
-        )
-        Spacer(Modifier.height(12.dp))
-
-        val themeModes = listOf(
-            "system" to "System default",
-            "light" to "Light",
-            "dark" to "Dark",
-        )
-        val currentTheme = KuriamindApplication.loadAppTheme(context)
-        var selectedTheme by remember { mutableStateOf(currentTheme) }
-
-        themeModes.forEach { (mode, label) ->
-            ThemeOption(
-                label = label,
-                selected = selectedTheme == mode,
-                onClick = {
-                    if (selectedTheme != mode) {
-                        selectedTheme = mode
-                        KuriamindApplication.setAppTheme(context, mode)
-                        recreateApp(context)
-                    }
-                },
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                text = "Appearance",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold,
+                color = Color.White,
+                modifier = Modifier.weight(1f),
             )
-            Spacer(Modifier.height(8.dp))
+
+            val themeModes = listOf(
+                "system" to "System default",
+                "light" to "Light",
+                "dark" to "Dark",
+            )
+            val currentTheme = KuriamindApplication.loadAppTheme(context)
+            var selectedTheme by remember { mutableStateOf(currentTheme) }
+            var themeExpanded by remember { mutableStateOf(false) }
+
+            ExposedDropdownMenuBox(
+                expanded = themeExpanded,
+                onExpandedChange = { themeExpanded = !themeExpanded },
+            ) {
+                OutlinedTextField(
+                    value = themeModes.first { it.first == selectedTheme }.second,
+                    onValueChange = {},
+                    readOnly = true,
+                    singleLine = true,
+                    textStyle = MaterialTheme.typography.bodyMedium,
+                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(themeExpanded) },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedTextColor = Color.White,
+                        unfocusedTextColor = Color.White,
+                        focusedBorderColor = Color(0xFF58A6FF),
+                        unfocusedBorderColor = Color(0xFF444444),
+                        cursorColor = Color.White,
+                        focusedContainerColor = Color(0xFF1A1A1A),
+                        unfocusedContainerColor = Color(0xFF1A1A1A),
+                    ),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier
+                        .menuAnchor()
+                        .width(160.dp),
+                )
+                ExposedDropdownMenu(
+                    expanded = themeExpanded,
+                    onDismissRequest = { themeExpanded = false },
+                ) {
+                    themeModes.forEach { (mode, label) ->
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    text = label,
+                                    color = if (mode == selectedTheme) Color(0xFF58A6FF) else Color.White,
+                                    fontWeight = if (mode == selectedTheme) FontWeight.SemiBold else FontWeight.Normal,
+                                )
+                            },
+                            onClick = {
+                                themeExpanded = false
+                                if (selectedTheme != mode) {
+                                    selectedTheme = mode
+                                    KuriamindApplication.setAppTheme(context, mode)
+                                    recreateApp(context)
+                                }
+                            },
+                        )
+                    }
+                }
+            }
         }
 
         Spacer(Modifier.height(32.dp))
@@ -268,47 +305,6 @@ fun SettingsScreen() {
         }
 
         Spacer(Modifier.height(32.dp))
-    }
-}
-
-@Composable
-private fun ThemeOption(
-    label: String,
-    selected: Boolean,
-    onClick: () -> Unit,
-) {
-    val bgColor = if (selected) Color(0xFF1D71B8).copy(alpha = 0.1f) else Color(0xFF1A1A1A)
-    val borderColor = if (selected) Color(0xFF58A6FF) else Color(0xFF333333)
-
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick),
-        shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = bgColor),
-        border = BorderStroke(1.dp, borderColor),
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 14.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                text = label,
-                style = MaterialTheme.typography.bodyLarge,
-                color = Color.White,
-                modifier = Modifier.weight(1f),
-            )
-            if (selected) {
-                Icon(
-                    imageVector = Icons.Filled.CheckCircle,
-                    contentDescription = null,
-                    tint = Color(0xFF58A6FF),
-                    modifier = Modifier.size(20.dp),
-                )
-            }
-        }
     }
 }
 
