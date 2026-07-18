@@ -32,8 +32,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        val themeMode = KuriamindApplication.loadAppTheme(this)
         setContent {
-            KuriamindTheme {
+            KuriamindTheme(themeMode = themeMode) {
                 KuriamindNavHost()
             }
         }

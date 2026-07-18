@@ -3,6 +3,7 @@ package com.kuriamind.ui.feature.settings
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -12,16 +13,22 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -143,6 +150,40 @@ fun SettingsScreen() {
             }
         }
 
+        Spacer(Modifier.height(24.dp))
+
+        // ── Theme section ─────────────────────────────────────────
+        Text(
+            text = "Appearance",
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.SemiBold,
+            color = Color.White,
+        )
+        Spacer(Modifier.height(12.dp))
+
+        val themeModes = listOf(
+            "system" to "System default",
+            "light" to "Light",
+            "dark" to "Dark",
+        )
+        val currentTheme = KuriamindApplication.loadAppTheme(context)
+        var selectedTheme by remember { mutableStateOf(currentTheme) }
+
+        themeModes.forEach { (mode, label) ->
+            ThemeOption(
+                label = label,
+                selected = selectedTheme == mode,
+                onClick = {
+                    if (selectedTheme != mode) {
+                        selectedTheme = mode
+                        KuriamindApplication.setAppTheme(context, mode)
+                        recreateApp(context)
+                    }
+                },
+            )
+            Spacer(Modifier.height(8.dp))
+        }
+
         Spacer(Modifier.height(32.dp))
 
         // ── Divider ───────────────────────────────────────────────
@@ -227,6 +268,47 @@ fun SettingsScreen() {
         }
 
         Spacer(Modifier.height(32.dp))
+    }
+}
+
+@Composable
+private fun ThemeOption(
+    label: String,
+    selected: Boolean,
+    onClick: () -> Unit,
+) {
+    val bgColor = if (selected) Color(0xFF1D71B8).copy(alpha = 0.1f) else Color(0xFF1A1A1A)
+    val borderColor = if (selected) Color(0xFF58A6FF) else Color(0xFF333333)
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
+        shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(containerColor = bgColor),
+        border = BorderStroke(1.dp, borderColor),
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 14.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                text = label,
+                style = MaterialTheme.typography.bodyLarge,
+                color = Color.White,
+                modifier = Modifier.weight(1f),
+            )
+            if (selected) {
+                Icon(
+                    imageVector = Icons.Filled.CheckCircle,
+                    contentDescription = null,
+                    tint = Color(0xFF58A6FF),
+                    modifier = Modifier.size(20.dp),
+                )
+            }
+        }
     }
 }
 
