@@ -31,17 +31,26 @@ class AppMonitorService : AccessibilityService() {
         val packageName = event.packageName?.toString() ?: return
         if (packageName == this.packageName) return
 
+        Log.d(TAG, "Window changed to: $packageName")
+
         scope.launch {
             val activeBlocks = repository.observeAll().first()
-            val shouldBlock = activeBlocks.any { block ->
-                block.isActive
+            Log.d(TAG, "Found ${activeBlocks.size} active block(s) in DB")
+
+            val matchingBlock = activeBlocks.firstOrNull { block ->
+                val isMatch = block.isActive
                         && block.blockApps
                         && packageName in block.blockedApps
                         && isTimeInRange(block.startTime, block.endTime)
+                Log.d(TAG, "  Check block '${block.name}': isActive=${block.isActive}, blockApps=${block.blockApps}, inList=${packageName in block.blockedApps}, inTimeRange=${isTimeInRange(block.startTime, block.endTime)} -> ${if (isMatch) "MATCH" else "skip"}")
+                isMatch
             }
-            if (shouldBlock) {
-                Log.d(TAG, "Blocking $packageName")
+
+            if (matchingBlock != null) {
+                Log.d(TAG, "BLOCKING $packageName (matched block: '${matchingBlock.name}')")
                 performGlobalAction(GLOBAL_ACTION_BACK)
+            } else {
+                Log.d(TAG, "No block matches $packageName, allowing")
             }
         }
     }

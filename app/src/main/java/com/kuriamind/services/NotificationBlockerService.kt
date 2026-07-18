@@ -30,17 +30,26 @@ class NotificationBlockerService : NotificationListenerService() {
         val packageName = sbn.packageName
         if (packageName == this.packageName) return
 
+        Log.d(TAG, "Notification posted from: $packageName — ${sbn.notification.tickerText ?: sbn.notification.extras.getString("android.title")}")
+
         scope.launch {
             val activeBlocks = repository.observeAll().first()
-            val shouldBlock = activeBlocks.any { block ->
-                block.isActive
+            Log.d(TAG, "Found ${activeBlocks.size} active block(s) in DB")
+
+            val matchingBlock = activeBlocks.firstOrNull { block ->
+                val isMatch = block.isActive
                         && block.blockNotifications
                         && packageName in block.blockedApps
                         && isTimeInRange(block.startTime, block.endTime)
+                Log.d(TAG, "  Check block '${block.name}': isActive=${block.isActive}, blockNotifs=${block.blockNotifications}, inList=${packageName in block.blockedApps}, inTimeRange=${isTimeInRange(block.startTime, block.endTime)} -> ${if (isMatch) "MATCH" else "skip"}")
+                isMatch
             }
-            if (shouldBlock) {
-                Log.d(TAG, "Blocking notification from $packageName")
+
+            if (matchingBlock != null) {
+                Log.d(TAG, "CANCELLING notification from $packageName (matched block: '${matchingBlock.name}')")
                 cancelNotification(sbn.key)
+            } else {
+                Log.d(TAG, "No block matches $packageName notification, allowing")
             }
         }
     }
