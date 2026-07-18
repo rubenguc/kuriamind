@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -78,60 +79,66 @@ fun SettingsScreen() {
         Spacer(Modifier.height(28.dp))
 
         // ── Language section ──────────────────────────────────────
-        Text(
-            text = "Language",
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.SemiBold,
-            color = Color.White,
-        )
-        Spacer(Modifier.height(12.dp))
-
-        ExposedDropdownMenuBox(
-            expanded = expanded,
-            onExpandedChange = { expanded = !expanded },
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            OutlinedTextField(
-                value = languages.first { it.first == selectedLang }.second,
-                onValueChange = {},
-                readOnly = true,
-                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded) },
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedTextColor = Color.White,
-                    unfocusedTextColor = Color.White,
-                    disabledTextColor = Color.White,
-                    focusedBorderColor = Color(0xFF58A6FF),
-                    unfocusedBorderColor = Color(0xFF444444),
-                    cursorColor = Color.White,
-                    focusedContainerColor = Color(0xFF1A1A1A),
-                    unfocusedContainerColor = Color(0xFF1A1A1A),
-                ),
-                shape = RoundedCornerShape(12.dp),
-                modifier = Modifier
-                    .menuAnchor()
-                    .fillMaxWidth(),
+            Text(
+                text = "Language",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold,
+                color = Color.White,
+                modifier = Modifier.weight(1f),
             )
-            ExposedDropdownMenu(
+
+            ExposedDropdownMenuBox(
                 expanded = expanded,
-                onDismissRequest = { expanded = false },
+                onExpandedChange = { expanded = !expanded },
             ) {
-                languages.forEach { (code, label) ->
-                    DropdownMenuItem(
-                        text = {
-                            Text(
-                                text = label,
-                                color = if (code == selectedLang) Color(0xFF58A6FF) else Color.White,
-                                fontWeight = if (code == selectedLang) FontWeight.SemiBold else FontWeight.Normal,
-                            )
-                        },
-                        onClick = {
-                            expanded = false
-                            if (selectedLang != code) {
-                                selectedLang = code
-                                KuriamindApplication.setAppLanguage(context, code)
-                                recreateApp(context)
-                            }
-                        },
-                    )
+                OutlinedTextField(
+                    value = languages.first { it.first == selectedLang }.second,
+                    onValueChange = {},
+                    readOnly = true,
+                    singleLine = true,
+                    textStyle = MaterialTheme.typography.bodyMedium,
+                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded) },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedTextColor = Color.White,
+                        unfocusedTextColor = Color.White,
+                        focusedBorderColor = Color(0xFF58A6FF),
+                        unfocusedBorderColor = Color(0xFF444444),
+                        cursorColor = Color.White,
+                        focusedContainerColor = Color(0xFF1A1A1A),
+                        unfocusedContainerColor = Color(0xFF1A1A1A),
+                    ),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier
+                        .menuAnchor()
+                        .width(140.dp),
+                )
+                ExposedDropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false },
+                ) {
+                    languages.forEach { (code, label) ->
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    text = label,
+                                    color = if (code == selectedLang) Color(0xFF58A6FF) else Color.White,
+                                    fontWeight = if (code == selectedLang) FontWeight.SemiBold else FontWeight.Normal,
+                                )
+                            },
+                            onClick = {
+                                expanded = false
+                                if (selectedLang != code) {
+                                    selectedLang = code
+                                    KuriamindApplication.setAppLanguage(context, code)
+                                    recreateApp(context)
+                                }
+                            },
+                        )
+                    }
                 }
             }
         }
@@ -205,13 +212,13 @@ fun SettingsScreen() {
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/migueldelcarpio_25/"))
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/migsstudio_19"))
                     context.startActivity(intent)
                 },
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = "@migueldelcarpio_25",
+                text = "@migsstudio_19",
                 style = MaterialTheme.typography.bodyMedium.copy(
                     textDecoration = TextDecoration.Underline,
                 ),
