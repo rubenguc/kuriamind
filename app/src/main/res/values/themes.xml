@@ -2,12 +2,4 @@
 <resources>
 
     <style name="Theme.Kuriamind" parent="android:Theme.Material.Light.NoActionBar" />
-
-    <style name="Theme.Kuriamind.Dialog" parent="Theme.Kuriamind">
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
-    </style>
 </resources>

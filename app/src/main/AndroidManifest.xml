@@ -40,14 +40,6 @@
             </intent-filter>
         </service>
 
-        <activity
-            android:name=".services.BlockedAppDialogActivity"
-            android:theme="@style/Theme.Kuriamind.Dialog"
-            android:excludeFromRecents="true"
-            android:taskAffinity=""
-            android:launchMode="singleInstance">
-        </activity>
-
         <service
             android:name=".services.AppMonitorService"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"

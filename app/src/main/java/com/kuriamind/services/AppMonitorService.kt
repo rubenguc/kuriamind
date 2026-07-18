@@ -1,9 +1,10 @@
 package com.kuriamind.services
 
 import android.accessibilityservice.AccessibilityService
-import android.content.Intent
+import android.os.SystemClock
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
+import android.widget.Toast
 import com.kuriamind.domain.repository.BlockRepository
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -12,6 +13,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -20,6 +22,8 @@ class AppMonitorService : AccessibilityService() {
     @Inject lateinit var repository: BlockRepository
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    private var lastBlockedPackage = ""
+    private var lastBlockedAt = 0L
 
     override fun onCreate() {
         super.onCreate()
@@ -30,42 +34,37 @@ class AppMonitorService : AccessibilityService() {
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
         if (event?.eventType != AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) return
         val packageName = event.packageName?.toString() ?: return
-        if (packageName == this.packageName) return
 
-        Log.d(TAG, "Window changed to: $packageName")
+        if (packageName == this.packageName) return
+        if (packageName == lastBlockedPackage && SystemClock.uptimeMillis() - lastBlockedAt < CASCADE_GUARD_MS) return
 
         scope.launch {
-            val activeBlocks = repository.observeAll().first()
-            Log.d(TAG, "Found ${activeBlocks.size} active block(s) in DB")
+            val activeBlocks = withContext(Dispatchers.IO) {
+                repository.observeAll().first()
+            }
 
             val matchingBlock = activeBlocks.firstOrNull { block ->
-                val isMatch = block.isActive
+                block.isActive
                         && block.blockApps
                         && packageName in block.blockedApps
                         && isTimeInRange(block.startTime, block.endTime)
-                Log.d(TAG, "  Check block '${block.name}': isActive=${block.isActive}, blockApps=${block.blockApps}, inList=${packageName in block.blockedApps}, inTimeRange=${isTimeInRange(block.startTime, block.endTime)} -> ${if (isMatch) "MATCH" else "skip"}")
-                isMatch
-            }
+            } ?: return@launch
 
-            if (matchingBlock != null) {
-                Log.d(TAG, "BLOCKING $packageName (matched block: '${matchingBlock.name}')")
-                performGlobalAction(GLOBAL_ACTION_BACK)
+            Log.d(TAG, "BLOCKING $packageName (block: '${matchingBlock.name}')")
+            lastBlockedPackage = packageName
+            lastBlockedAt = SystemClock.uptimeMillis()
 
-                // Show dialog explaining the block
-                showBlockedDialog(packageName)
-            } else {
-                Log.d(TAG, "No block matches $packageName, allowing")
+            withContext(Dispatchers.Main) {
+                performGlobalAction(GLOBAL_ACTION_HOME)
+                Toast
+                    .makeText(
+                        this@AppMonitorService,
+                        "\"${matchingBlock.name}\" blocked this app",
+                        Toast.LENGTH_SHORT,
+                    )
+                    .show()
             }
         }
-    }
-
-    private fun showBlockedDialog(packageName: String) {
-        val intent = Intent(this, BlockedAppDialogActivity::class.java).apply {
-            putExtra(BlockedAppDialogActivity.EXTRA_PACKAGE_NAME, packageName)
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        }
-        Log.d(TAG, "Launching blocked dialog for $packageName")
-        startActivity(intent)
     }
 
     override fun onInterrupt() {
@@ -79,5 +78,7 @@ class AppMonitorService : AccessibilityService() {
 
     private companion object {
         private const val TAG = "AppMonitorService"
+        /** Prevents cascade: ignores the same package within this window. */
+        private const val CASCADE_GUARD_MS = 300L
     }
 }
