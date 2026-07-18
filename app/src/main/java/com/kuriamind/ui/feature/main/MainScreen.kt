@@ -37,11 +37,13 @@ import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -148,28 +150,63 @@ fun MainScreen(
     Scaffold(
         bottomBar = {
             NavigationBar(
-                containerColor = Color(0xFF1a1a1a),
+                containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
+                tonalElevation = NavigationBarDefaults.Elevation,
+                windowInsets = NavigationBarDefaults.windowInsets,
             ) {
                 NavigationBarItem(
                     selected = selectedTab == 0,
                     onClick = { selectedTab = 0 },
-                    icon = { Icon(Icons.Filled.Home, "Blocks") },
-                    label = { Text("Blocks") },
-                    colors = bottomNavColors(),
+                    icon = {
+                        Icon(
+                            Icons.Filled.Home,
+                            contentDescription = "Blocks",
+                            modifier = Modifier.size(20.dp),
+                        )
+                    },
+                    label = {
+                        if (selectedTab == 0) Text(
+                            "Blocks", style = MaterialTheme.typography.labelSmall,
+                        )
+                    },
+                    alwaysShowLabel = false,
+                    colors = bottomNavItemColors(),
                 )
                 NavigationBarItem(
                     selected = selectedTab == 1,
                     onClick = { selectedTab = 1 },
-                    icon = { Icon(Icons.Filled.BarChart, "Stats") },
-                    label = { Text("Stats") },
-                    colors = bottomNavColors(),
+                    icon = {
+                        Icon(
+                            Icons.Filled.BarChart,
+                            contentDescription = "Stats",
+                            modifier = Modifier.size(20.dp),
+                        )
+                    },
+                    label = {
+                        if (selectedTab == 1) Text(
+                            "Stats", style = MaterialTheme.typography.labelSmall,
+                        )
+                    },
+                    alwaysShowLabel = false,
+                    colors = bottomNavItemColors(),
                 )
                 NavigationBarItem(
                     selected = selectedTab == 2,
                     onClick = { selectedTab = 2 },
-                    icon = { Icon(Icons.Filled.Settings, "Settings") },
-                    label = { Text("Settings") },
-                    colors = bottomNavColors(),
+                    icon = {
+                        Icon(
+                            Icons.Filled.Settings,
+                            contentDescription = "Settings",
+                            modifier = Modifier.size(20.dp),
+                        )
+                    },
+                    label = {
+                        if (selectedTab == 2) Text(
+                            "Settings", style = MaterialTheme.typography.labelSmall,
+                        )
+                    },
+                    alwaysShowLabel = false,
+                    colors = bottomNavItemColors(),
                 )
             }
         },
@@ -391,10 +428,10 @@ private fun checkMissingPermissions(
 // ─── Bottom nav colors ─────────────────────────────────────────────
 
 @Composable
-private fun bottomNavColors() = NavigationBarItemDefaults.colors(
-    selectedIconColor = Color(0xFF1D71B8),
-    selectedTextColor = Color(0xFF1D71B8),
-    unselectedIconColor = Color.Gray,
-    unselectedTextColor = Color.Gray,
-    indicatorColor = Color.Transparent,
+private fun bottomNavItemColors() = NavigationBarItemDefaults.colors(
+    selectedIconColor = MaterialTheme.colorScheme.primary,
+    selectedTextColor = MaterialTheme.colorScheme.primary,
+    unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+    unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+    indicatorColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.4f),
 )
