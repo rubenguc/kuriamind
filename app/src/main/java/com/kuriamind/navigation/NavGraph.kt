@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import com.kuriamind.ui.feature.blocks.BlockScreen
 import com.kuriamind.ui.feature.main.MainScreen
 import com.kuriamind.ui.feature.welcome.WelcomeScreen
 
@@ -37,12 +38,17 @@ fun AppNavGraph(
         }
 
         composable<Main> {
-            MainScreen()
+            MainScreen(
+                onNavigateToBlock = { blockId ->
+                    navController.navigate(Block(blockId = blockId ?: ""))
+                },
+            )
         }
 
-        composable<Block> { backStackEntry ->
-            val args = backStackEntry.toRoute<Block>()
-            // TODO: Block detail screen using args.blockId
+        composable<Block> {
+            BlockScreen(
+                onNavigateBack = { navController.popBackStack() },
+            )
         }
     }
 }

@@ -12,7 +12,9 @@ import com.kuriamind.navigation.AppNavGraph
 import com.kuriamind.navigation.Main
 import com.kuriamind.navigation.Welcome
 import com.kuriamind.ui.theme.KuriamindTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,5 +1,8 @@
 package com.kuriamind.ui.feature.main
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.Home
@@ -15,13 +18,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.kuriamind.ui.feature.blocks.BlocksScreen
 import com.kuriamind.ui.feature.settings.SettingsScreen
 import com.kuriamind.ui.feature.stats.StatsScreen
 
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    onNavigateToBlock: (blockId: String?) -> Unit = {},
+) {
     var selectedTab by rememberSaveable { mutableIntStateOf(0) }
 
     Scaffold(
@@ -52,11 +58,16 @@ fun MainScreen() {
                 )
             }
         },
-    ) {
-        when (selectedTab) {
-            0 -> BlocksScreen()
-            1 -> StatsScreen()
-            2 -> SettingsScreen()
+    ) { innerPadding ->
+        Box(modifier = Modifier.fillMaxSize().padding(innerPadding)) {
+            when (selectedTab) {
+                0 -> BlocksScreen(
+                    onAddBlock = { onNavigateToBlock(null) },
+                    onEditBlock = { blockId -> onNavigateToBlock(blockId) },
+                )
+                1 -> StatsScreen()
+                2 -> SettingsScreen()
+            }
         }
     }
 }
