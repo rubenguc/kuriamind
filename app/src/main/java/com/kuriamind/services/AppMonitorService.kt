@@ -1,6 +1,7 @@
 package com.kuriamind.services
 
 import android.accessibilityservice.AccessibilityService
+import android.content.Intent
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import com.kuriamind.domain.repository.BlockRepository
@@ -49,10 +50,22 @@ class AppMonitorService : AccessibilityService() {
             if (matchingBlock != null) {
                 Log.d(TAG, "BLOCKING $packageName (matched block: '${matchingBlock.name}')")
                 performGlobalAction(GLOBAL_ACTION_BACK)
+
+                // Show dialog explaining the block
+                showBlockedDialog(packageName)
             } else {
                 Log.d(TAG, "No block matches $packageName, allowing")
             }
         }
+    }
+
+    private fun showBlockedDialog(packageName: String) {
+        val intent = Intent(this, BlockedAppDialogActivity::class.java).apply {
+            putExtra(BlockedAppDialogActivity.EXTRA_PACKAGE_NAME, packageName)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        }
+        Log.d(TAG, "Launching blocked dialog for $packageName")
+        startActivity(intent)
     }
 
     override fun onInterrupt() {

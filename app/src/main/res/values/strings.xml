@@ -19,4 +19,9 @@
     <string name="accessibility_service_description">Kuria Mind uses Accessibility Service to monitor and close blocked apps, protecting your focus.</string>
     <string name="next">Next</string>
     <string name="start_app">Start App</string>
+
+    <!-- Blocked App Dialog -->
+    <string name="blocked_dialog_title">App Blocked</string>
+    <string name="blocked_dialog_message">%s was blocked because it\'s being monitored by Kuria Mind.</string>
+    <string name="blocked_dialog_accept">Accept</string>
 </resources>

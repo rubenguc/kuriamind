@@ -16,6 +16,12 @@
     <string name="permission_accessibility_description">Este permiso es necesario para monitorear apps y poder cerrarlas</string>
     <string name="permission_display_overlay_title">Superponerse sobre otras apps</string>
     <string name="permission_display_overlay_description">Este permiso es necesario para mostrar la pantalla de bloqueo</string>
+    <string name="accessibility_service_description">Kuria Mind utiliza el Servicio de Accesibilidad para monitorear y cerrar apps bloqueadas, protegiendo tu concentración.</string>
     <string name="next">Siguiente</string>
     <string name="start_app">Iniciar app</string>
+
+    <!-- Blocked App Dialog -->
+    <string name="blocked_dialog_title">App Bloqueada</string>
+    <string name="blocked_dialog_message">%s fue bloqueada porque está siendo monitoreada por Kuria Mind.</string>
+    <string name="blocked_dialog_accept">Aceptar</string>
 </resources>
