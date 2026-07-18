@@ -3,7 +3,6 @@ package com.kuriamind.ui.feature.settings
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -13,18 +12,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -41,11 +40,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kuriamind.KuriamindApplication
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen() {
     val context = LocalContext.current
     val currentLang = KuriamindApplication.loadAppLanguage(context)
     var selectedLang by remember { mutableStateOf(currentLang) }
+    var expanded by remember { mutableStateOf(false) }
+
+    val languages = listOf(
+        "en" to "English",
+        "es" to "Español",
+    )
 
     Column(
         modifier = Modifier
@@ -80,29 +86,55 @@ fun SettingsScreen() {
         )
         Spacer(Modifier.height(12.dp))
 
-        LanguageOption(
-            label = "English",
-            selected = selectedLang == "en",
-            onClick = {
-                if (selectedLang != "en") {
-                    selectedLang = "en"
-                    KuriamindApplication.setAppLanguage(context, "en")
-                    recreateApp(context)
+        ExposedDropdownMenuBox(
+            expanded = expanded,
+            onExpandedChange = { expanded = !expanded },
+        ) {
+            OutlinedTextField(
+                value = languages.first { it.first == selectedLang }.second,
+                onValueChange = {},
+                readOnly = true,
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded) },
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedTextColor = Color.White,
+                    unfocusedTextColor = Color.White,
+                    disabledTextColor = Color.White,
+                    focusedBorderColor = Color(0xFF58A6FF),
+                    unfocusedBorderColor = Color(0xFF444444),
+                    cursorColor = Color.White,
+                    focusedContainerColor = Color(0xFF1A1A1A),
+                    unfocusedContainerColor = Color(0xFF1A1A1A),
+                ),
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier
+                    .menuAnchor()
+                    .fillMaxWidth(),
+            )
+            ExposedDropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+            ) {
+                languages.forEach { (code, label) ->
+                    DropdownMenuItem(
+                        text = {
+                            Text(
+                                text = label,
+                                color = if (code == selectedLang) Color(0xFF58A6FF) else Color.White,
+                                fontWeight = if (code == selectedLang) FontWeight.SemiBold else FontWeight.Normal,
+                            )
+                        },
+                        onClick = {
+                            expanded = false
+                            if (selectedLang != code) {
+                                selectedLang = code
+                                KuriamindApplication.setAppLanguage(context, code)
+                                recreateApp(context)
+                            }
+                        },
+                    )
                 }
-            },
-        )
-        Spacer(Modifier.height(8.dp))
-        LanguageOption(
-            label = "Español",
-            selected = selectedLang == "es",
-            onClick = {
-                if (selectedLang != "es") {
-                    selectedLang = "es"
-                    KuriamindApplication.setAppLanguage(context, "es")
-                    recreateApp(context)
-                }
-            },
-        )
+            }
+        }
 
         Spacer(Modifier.height(32.dp))
 
@@ -188,47 +220,6 @@ fun SettingsScreen() {
         }
 
         Spacer(Modifier.height(32.dp))
-    }
-}
-
-@Composable
-private fun LanguageOption(
-    label: String,
-    selected: Boolean,
-    onClick: () -> Unit,
-) {
-    val borderColor = if (selected) Color(0xFF58A6FF) else Color(0xFF333333)
-    val bgColor = if (selected) Color(0xFF1D71B8).copy(alpha = 0.1f) else Color(0xFF1A1A1A)
-
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick),
-        shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = bgColor),
-        border = BorderStroke(1.dp, borderColor),
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 14.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                text = label,
-                style = MaterialTheme.typography.bodyLarge,
-                color = Color.White,
-                modifier = Modifier.weight(1f),
-            )
-            if (selected) {
-                Icon(
-                    imageVector = Icons.Filled.CheckCircle,
-                    contentDescription = null,
-                    tint = Color(0xFF58A6FF),
-                    modifier = Modifier.size(20.dp),
-                )
-            }
-        }
     }
 }
 
