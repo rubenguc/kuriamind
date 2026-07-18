@@ -43,7 +43,6 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -150,9 +149,9 @@ fun MainScreen(
     Scaffold(
         bottomBar = {
             NavigationBar(
-                containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
+                modifier = Modifier.height(120.dp),
+                containerColor = MaterialTheme.colorScheme.surface,
                 tonalElevation = NavigationBarDefaults.Elevation,
-                windowInsets = NavigationBarDefaults.windowInsets,
             ) {
                 NavigationBarItem(
                     selected = selectedTab == 0,
@@ -164,12 +163,7 @@ fun MainScreen(
                             modifier = Modifier.size(20.dp),
                         )
                     },
-                    label = {
-                        if (selectedTab == 0) Text(
-                            "Blocks", style = MaterialTheme.typography.labelSmall,
-                        )
-                    },
-                    alwaysShowLabel = false,
+                    label = { Text("Blocks") },
                     colors = bottomNavItemColors(),
                 )
                 NavigationBarItem(
@@ -182,12 +176,7 @@ fun MainScreen(
                             modifier = Modifier.size(20.dp),
                         )
                     },
-                    label = {
-                        if (selectedTab == 1) Text(
-                            "Stats", style = MaterialTheme.typography.labelSmall,
-                        )
-                    },
-                    alwaysShowLabel = false,
+                    label = { Text("Stats") },
                     colors = bottomNavItemColors(),
                 )
                 NavigationBarItem(
@@ -200,12 +189,7 @@ fun MainScreen(
                             modifier = Modifier.size(20.dp),
                         )
                     },
-                    label = {
-                        if (selectedTab == 2) Text(
-                            "Settings", style = MaterialTheme.typography.labelSmall,
-                        )
-                    },
-                    alwaysShowLabel = false,
+                    label = { Text("Settings") },
                     colors = bottomNavItemColors(),
                 )
             }
