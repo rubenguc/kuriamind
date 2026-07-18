@@ -14,9 +14,11 @@
     <string name="permission_notification_listener_description">Este permiso es necesario para monitorear notificaciones y poder cerrarlas</string>
     <string name="permission_accessibility_title">Servicios de accesibilidad</string>
     <string name="permission_accessibility_description">Este permiso es necesario para monitorear apps y poder cerrarlas</string>
-    <string name="permission_display_overlay_title">Superponerse sobre otras apps</string>
-    <string name="permission_display_overlay_description">Este permiso es necesario para mostrar la pantalla de bloqueo</string>
     <string name="accessibility_service_description">Kuria Mind utiliza el Servicio de Accesibilidad para monitorear y cerrar apps bloqueadas, protegiendo tu concentración.</string>
+    <string name="accessibility_privacy_title">Nota sobre privacidad</string>
+    <string name="accessibility_privacy_body">Al habilitar el servicio de accesibilidad, aceptas que Focus: Kuria Mind pueda monitorear qué aplicaciones abres para bloquear las seleccionadas y registrar su uso localmente. Además, accederá a interfaces del sistema para proporcionar funcionalidades como el modo estricto.\n\nTe aseguramos que nunca accederemos ni compartiremos tus datos personales durante este proceso.</string>
+    <string name="accessibility_privacy_agree">Aceptar</string>
+    <string name="accessibility_privacy_cancel">Cancelar</string>
     <string name="next">Siguiente</string>
     <string name="start_app">Iniciar app</string>
 

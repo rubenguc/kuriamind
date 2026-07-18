@@ -243,14 +243,6 @@ private fun PermissionsContent(
                 isChecked = permissions.accessibility.isChecked,
                 onClick = { onRequestPermission(PERMISSION_ACCESSIBILITY) },
             )
-            PermissionCard(
-                icon = Icons.Filled.Shield,
-                title = stringResource(R.string.permission_display_overlay_title),
-                description = stringResource(R.string.permission_display_overlay_description),
-                isActive = permissions.displayOverlay.isGranted,
-                isChecked = permissions.displayOverlay.isChecked,
-                onClick = { onRequestPermission(PERMISSION_DISPLAY_OVERLAY) },
-            )
         }
 
         Spacer(modifier = Modifier.height(80.dp))

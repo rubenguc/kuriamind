@@ -3,16 +3,23 @@ package com.kuriamind.ui.feature.welcome
 import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.core.app.NotificationManagerCompat
+import com.kuriamind.R
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 
@@ -24,23 +31,13 @@ fun WelcomeScreen(
     val context = LocalContext.current
     val step by viewModel.step.collectAsStateWithLifecycle()
     val permissions by viewModel.permissions.collectAsStateWithLifecycle()
+    var showAccessibilityPrivacyDialog by remember { mutableStateOf(false) }
 
     // POST_NOTIFICATIONS (API 33+)
     val notificationPermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission(),
         onResult = { granted ->
             viewModel.updatePermission(PERMISSION_POST_NOTIFICATIONS, granted)
-        },
-    )
-
-    // SYSTEM_ALERT_WINDOW
-    val overlayLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.StartActivityForResult(),
-        onResult = {
-            viewModel.updatePermission(
-                PERMISSION_DISPLAY_OVERLAY,
-                Settings.canDrawOverlays(context),
-            )
         },
     )
 
@@ -73,6 +70,30 @@ fun WelcomeScreen(
         }
     }
 
+    // Accessibility privacy dialog (Play Store policy)
+    if (showAccessibilityPrivacyDialog) {
+        AlertDialog(
+            onDismissRequest = { showAccessibilityPrivacyDialog = false },
+            title = { Text(stringResource(R.string.accessibility_privacy_title)) },
+            text = { Text(stringResource(R.string.accessibility_privacy_body)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    showAccessibilityPrivacyDialog = false
+                    accessibilityLauncher.launch(
+                        Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS),
+                    )
+                }) {
+                    Text(stringResource(R.string.accessibility_privacy_agree))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showAccessibilityPrivacyDialog = false }) {
+                    Text(stringResource(R.string.accessibility_privacy_cancel))
+                }
+            },
+        )
+    }
+
     WelcomeScreenContent(
         step = step,
         permissions = permissions,
@@ -88,22 +109,13 @@ fun WelcomeScreen(
                 PERMISSION_POST_NOTIFICATIONS -> {
                     notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
                 }
-                PERMISSION_DISPLAY_OVERLAY -> {
-                    val intent = Intent(
-                        Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                        Uri.parse("package:${context.packageName}"),
-                    )
-                    overlayLauncher.launch(intent)
-                }
                 PERMISSION_NOTIFICATION_LISTENER -> {
                     notificationListenerLauncher.launch(
                         Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS),
                     )
                 }
                 PERMISSION_ACCESSIBILITY -> {
-                    accessibilityLauncher.launch(
-                        Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS),
-                    )
+                    showAccessibilityPrivacyDialog = true
                 }
             }
         },
@@ -120,12 +132,6 @@ private fun checkAllPermissions(context: Context, viewModel: WelcomeViewModel) {
         viewModel.updatePermission(PERMISSION_POST_NOTIFICATIONS, true)
     }
 
-    // SYSTEM_ALERT_WINDOW
-    viewModel.updatePermission(
-        PERMISSION_DISPLAY_OVERLAY,
-        Settings.canDrawOverlays(context),
-    )
-
     // NOTIFICATION_LISTENER
     viewModel.updatePermission(
         PERMISSION_NOTIFICATION_LISTENER,
@@ -141,7 +147,7 @@ private fun checkAllPermissions(context: Context, viewModel: WelcomeViewModel) {
 
 private fun isNotificationListenerServiceEnabled(context: Context): Boolean {
     val packageName = context.packageName
-    val enabledPackages = NotificationManagerCompat.getEnabledListenerPackages(context)
+    val enabledPackages =  NotificationManagerCompat.getEnabledListenerPackages(context)
     return enabledPackages.contains(packageName)
 }
 

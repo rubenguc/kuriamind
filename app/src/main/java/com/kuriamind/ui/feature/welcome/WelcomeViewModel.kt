@@ -20,19 +20,16 @@ data class PermissionsState(
     val postNotifications: PermissionItem = PermissionItem(),
     val notificationListener: PermissionItem = PermissionItem(),
     val accessibility: PermissionItem = PermissionItem(),
-    val displayOverlay: PermissionItem = PermissionItem(),
 ) {
     val allGranted: Boolean
         get() = postNotifications.isGranted
                 && notificationListener.isGranted
                 && accessibility.isGranted
-                && displayOverlay.isGranted
 
     val allChecked: Boolean
         get() = postNotifications.isChecked
                 && notificationListener.isChecked
                 && accessibility.isChecked
-                && displayOverlay.isChecked
 }
 
 class WelcomeViewModel : ViewModel() {
@@ -60,7 +57,6 @@ class WelcomeViewModel : ViewModel() {
                 PERMISSION_POST_NOTIFICATIONS -> state.copy(postNotifications = item)
                 PERMISSION_NOTIFICATION_LISTENER -> state.copy(notificationListener = item)
                 PERMISSION_ACCESSIBILITY -> state.copy(accessibility = item)
-                PERMISSION_DISPLAY_OVERLAY -> state.copy(displayOverlay = item)
                 else -> state
             }
         }
@@ -70,4 +66,3 @@ class WelcomeViewModel : ViewModel() {
 const val PERMISSION_POST_NOTIFICATIONS = "post_notifications"
 const val PERMISSION_NOTIFICATION_LISTENER = "notification_listener"
 const val PERMISSION_ACCESSIBILITY = "accessibility"
-const val PERMISSION_DISPLAY_OVERLAY = "display_overlay"
