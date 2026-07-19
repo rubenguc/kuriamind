@@ -117,5 +117,5 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
           packageName: com.kuriamind
           releaseFiles: artifacts/kuriamind-aab-${{ steps.gradle_versions.outputs.version_name }}.aab
-          track: internal
+          tracks: internal
           status: draft
