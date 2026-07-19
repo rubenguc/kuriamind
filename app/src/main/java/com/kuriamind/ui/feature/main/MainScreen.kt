@@ -19,13 +19,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Accessibility
-import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Settings
@@ -68,7 +66,6 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
 import com.kuriamind.ui.feature.blocks.BlocksScreen
 import com.kuriamind.ui.feature.settings.SettingsScreen
-import com.kuriamind.ui.feature.stats.StatsScreen
 import com.kuriamind.ui.theme.DarkSurfaceContainer
 
 @Composable
@@ -172,19 +169,6 @@ fun MainScreen(
                     onClick = { selectedTab = 1 },
                     icon = {
                         Icon(
-                            Icons.Filled.BarChart,
-                            contentDescription = "Stats",
-                            modifier = Modifier.size(20.dp),
-                        )
-                    },
-                    label = { Text("Stats") },
-                    colors = bottomNavItemColors(),
-                )
-                NavigationBarItem(
-                    selected = selectedTab == 2,
-                    onClick = { selectedTab = 2 },
-                    icon = {
-                        Icon(
                             Icons.Filled.Settings,
                             contentDescription = "Settings",
                             modifier = Modifier.size(20.dp),
@@ -202,8 +186,7 @@ fun MainScreen(
                     onAddBlock = { onNavigateToBlock(null) },
                     onEditBlock = { blockId -> onNavigateToBlock(blockId) },
                 )
-                1 -> StatsScreen()
-                2 -> SettingsScreen()
+                1 -> SettingsScreen()
             }
         }
     }
