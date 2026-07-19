@@ -99,7 +99,6 @@ fun BlockScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .systemBarsPadding()
                 .padding(horizontal = 20.dp),
         ) {
             // Scrollable content
@@ -242,7 +241,8 @@ fun BlockScreen(
                 enabled = formState.name.isNotBlank() && formState.blockedApps.isNotEmpty() && !isSaving,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(52.dp),
+                    .height(52.dp)
+                    .padding(bottom = 8.dp),
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
@@ -254,8 +254,7 @@ fun BlockScreen(
                     fontWeight = FontWeight.SemiBold,
                 )
             }
-
-            Spacer(Modifier.height(24.dp))
+            
         }
     }
 
