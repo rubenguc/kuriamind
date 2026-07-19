@@ -134,7 +134,7 @@ fun BlockScreen(
                         onClick = { showAppSheet = true },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(12.dp),
-                        border = ButtonDefaults.outlinedButtonBorder.copy(
+                        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                             brush = androidx.compose.ui.graphics.SolidColor(MaterialTheme.colorScheme.outline),
                         ),
                     ) {
@@ -323,7 +323,7 @@ private fun TimeField(
         },
         modifier = modifier,
         shape = RoundedCornerShape(12.dp),
-        border = ButtonDefaults.outlinedButtonBorder.copy(
+        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
             brush = androidx.compose.ui.graphics.SolidColor(MaterialTheme.colorScheme.outline),
         ),
     ) {

@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
 
     override fun attachBaseContext(newBase: Context) {
         val lang = KuriamindApplication.loadAppLanguage(newBase)
-        val locale = Locale(lang)
+        val locale = Locale.Builder().setLanguage(lang).build()
         Locale.setDefault(locale)
         val config = Configuration(newBase.resources.configuration).apply {
             setLocale(locale)
