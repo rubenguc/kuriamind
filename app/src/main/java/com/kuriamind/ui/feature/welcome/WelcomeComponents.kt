@@ -51,7 +51,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kuriamind.R
-import com.kuriamind.ui.theme.DarkSurfaceContainer
 import com.kuriamind.ui.theme.StatusGreen
 
 @Composable
@@ -103,7 +102,7 @@ fun WelcomeScreenContent(
                         .padding(vertical = 10.dp),
                     colors = ButtonDefaults.filledTonalButtonColors(
                         containerColor = MaterialTheme.colorScheme.primary,
-                        contentColor = Color.White,
+                        contentColor = MaterialTheme.colorScheme.onPrimary,
                     ),
                 ) {
                     Text(
@@ -150,7 +149,7 @@ private fun WelcomeContent() {
             Text(
                 text = stringResource(R.string.welcome_to),
                 style = MaterialTheme.typography.titleMedium,
-                color = Color.Gray,
+                color = Color.LightGray,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
             )
@@ -171,7 +170,7 @@ private fun WelcomeContent() {
             Text(
                 text = stringResource(R.string.welcome_description_1),
                 style = MaterialTheme.typography.bodyLarge,
-                color = Color.Gray,
+                color = Color.LightGray,
                 lineHeight = 24.sp,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -182,7 +181,7 @@ private fun WelcomeContent() {
             Text(
                 text = stringResource(R.string.welcome_description_2),
                 style = MaterialTheme.typography.bodyLarge,
-                color = Color.Gray,
+                color = Color.LightGray,
                 lineHeight = 24.sp,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Start,
@@ -269,7 +268,7 @@ private fun PermissionCard(
             .clip(RoundedCornerShape(12.dp))
             .clickable(enabled = !isActive, onClick = onClick),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = DarkSurfaceContainer),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
         border = BorderStroke(2.dp, borderColor),
     ) {
         Row(
@@ -281,7 +280,7 @@ private fun PermissionCard(
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                tint = Color.White,
+                tint = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.size(22.dp),
             )
 
@@ -304,7 +303,7 @@ private fun PermissionCard(
                     Text(
                         text = title,
                         style = MaterialTheme.typography.bodyLarge,
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Medium,
                     )
                 }
@@ -312,7 +311,7 @@ private fun PermissionCard(
                 Text(
                     text = description,
                     style = MaterialTheme.typography.bodySmall,
-                    color = Color.Gray,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     lineHeight = 20.sp,
                 )
             }

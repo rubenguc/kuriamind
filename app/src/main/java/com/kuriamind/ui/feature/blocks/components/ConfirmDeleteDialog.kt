@@ -36,7 +36,7 @@ fun ConfirmDeleteDialog(
                 if (isLoading) {
                     CircularProgressIndicator(
                         strokeWidth = 2.dp,
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.size(16.dp),
                     )
                 } else {

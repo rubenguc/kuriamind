@@ -69,7 +69,7 @@ fun SettingsScreen() {
             text = "Settings",
             style = MaterialTheme.typography.headlineLarge,
             fontWeight = FontWeight.Bold,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onBackground,
         )
         Spacer(Modifier.height(4.dp))
         Text(
@@ -89,7 +89,7 @@ fun SettingsScreen() {
                 text = "Language",
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.weight(1f),
             )
 
@@ -105,11 +105,11 @@ fun SettingsScreen() {
                     textStyle = MaterialTheme.typography.bodyMedium,
                     trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded) },
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedTextColor = Color.White,
-                        unfocusedTextColor = Color.White,
+                        focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                        unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
                         focusedBorderColor = MaterialTheme.colorScheme.primary,
                         unfocusedBorderColor = MaterialTheme.colorScheme.outline,
-                        cursorColor = Color.White,
+                        cursorColor = MaterialTheme.colorScheme.primary,
                         focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
                         unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
                     ),
@@ -127,7 +127,7 @@ fun SettingsScreen() {
                             text = {
                                 Text(
                                     text = label,
-                                    color = if (code == selectedLang) MaterialTheme.colorScheme.primary else Color.White,
+                                    color = if (code == selectedLang) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
                                     fontWeight = if (code == selectedLang) FontWeight.SemiBold else FontWeight.Normal,
                                 )
                             },
@@ -156,7 +156,7 @@ fun SettingsScreen() {
                 text = "Appearance",
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.weight(1f),
             )
 
@@ -181,11 +181,11 @@ fun SettingsScreen() {
                     textStyle = MaterialTheme.typography.bodyMedium,
                     trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(themeExpanded) },
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedTextColor = Color.White,
-                        unfocusedTextColor = Color.White,
+                        focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                        unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
                         focusedBorderColor = MaterialTheme.colorScheme.primary,
                         unfocusedBorderColor = MaterialTheme.colorScheme.outline,
-                        cursorColor = Color.White,
+                        cursorColor = MaterialTheme.colorScheme.primary,
                         focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
                         unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
                     ),
@@ -203,7 +203,7 @@ fun SettingsScreen() {
                             text = {
                                 Text(
                                     text = label,
-                                    color = if (mode == selectedTheme) MaterialTheme.colorScheme.primary else Color.White,
+                                    color = if (mode == selectedTheme) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
                                     fontWeight = if (mode == selectedTheme) FontWeight.SemiBold else FontWeight.Normal,
                                 )
                             },
@@ -236,7 +236,7 @@ fun SettingsScreen() {
             text = "About this project",
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.SemiBold,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onBackground,
         )
         Spacer(Modifier.height(12.dp))
 
@@ -275,7 +275,7 @@ fun SettingsScreen() {
             text = "Credits",
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.SemiBold,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onBackground,
         )
         Spacer(Modifier.height(8.dp))
 

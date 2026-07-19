@@ -62,7 +62,7 @@ fun BlocksScreen(
                 text = "Blocks",
                 style = MaterialTheme.typography.headlineLarge,
                 fontWeight = FontWeight.Bold,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 24.dp, bottom = 8.dp),
             )
 
@@ -120,7 +120,7 @@ fun BlocksScreen(
                 .align(Alignment.BottomEnd)
                 .padding(20.dp),
             containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = Color.White
+            contentColor = MaterialTheme.colorScheme.onPrimary
         ) {
             Icon(Icons.Filled.Add, contentDescription = "Add block")
         }

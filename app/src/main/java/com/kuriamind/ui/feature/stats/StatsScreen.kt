@@ -28,7 +28,7 @@ fun StatsScreen() {
             text = "📊 Stats",
             style = MaterialTheme.typography.headlineLarge,
             fontWeight = FontWeight.Bold,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onBackground,
         )
         Spacer(Modifier.height(4.dp))
         Text(

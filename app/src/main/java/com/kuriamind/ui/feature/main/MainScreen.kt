@@ -262,7 +262,7 @@ private fun MissingPermissionsDialog(
                 .fillMaxWidth()
                 .padding(24.dp),
             shape = RoundedCornerShape(24.dp),
-            colors = CardDefaults.cardColors(containerColor = com.kuriamind.ui.theme.DarkSurfaceContainer),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
             border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
         ) {
             Column(
@@ -275,7 +275,7 @@ private fun MissingPermissionsDialog(
                     text = "Permissions Required",
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.Bold,
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onSurface,
                 )
 
                 Spacer(Modifier.height(8.dp))
@@ -283,7 +283,7 @@ private fun MissingPermissionsDialog(
                 Text(
                     text = "Some permissions needed for blocking apps are disabled. Please enable them to keep Kuria Mind working correctly.",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = Color.Gray,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     lineHeight = 20.sp,
                 )
 
@@ -354,13 +354,13 @@ private fun PermissionCard(
                 Text(
                     text = title,
                     style = MaterialTheme.typography.bodyLarge,
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Medium,
                 )
                 Text(
                     text = description,
                     style = MaterialTheme.typography.bodySmall,
-                    color = Color.Gray,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     lineHeight = 20.sp,
                 )
             }

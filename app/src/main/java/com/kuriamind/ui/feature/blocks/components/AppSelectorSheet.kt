@@ -93,7 +93,7 @@ fun AppSelectorSheet(
                     text = "Select apps",
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.weight(1f),
                 )
                 IconButton(onClick = onDismiss) {
@@ -122,11 +122,11 @@ fun AppSelectorSheet(
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedTextColor = Color.White,
-                    unfocusedTextColor = Color.White,
+                    focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                    unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
                     focusedBorderColor = MaterialTheme.colorScheme.primary,
                     unfocusedBorderColor = MaterialTheme.colorScheme.outline,
-                    cursorColor = Color.White,
+                    cursorColor = MaterialTheme.colorScheme.primary,
                 ),
                 shape = RoundedCornerShape(12.dp),
             )
@@ -165,7 +165,7 @@ fun AppSelectorSheet(
                             colors = CheckboxDefaults.colors(
                                 checkedColor = MaterialTheme.colorScheme.primary,
                                 uncheckedColor = MaterialTheme.colorScheme.outline,
-                                checkmarkColor = Color.White,
+                                checkmarkColor = MaterialTheme.colorScheme.onPrimary,
                             ),
                         )
 
@@ -180,7 +180,7 @@ fun AppSelectorSheet(
                             Text(
                                 text = app.appName,
                                 style = MaterialTheme.typography.bodyMedium,
-                                color = Color.White,
+                                color = MaterialTheme.colorScheme.onSurface,
                                 fontWeight = FontWeight.Medium,
                             )
                             Text(
@@ -209,7 +209,7 @@ fun AppSelectorSheet(
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = Color.White,
+                    contentColor = MaterialTheme.colorScheme.onPrimary,
                 ),
             ) {
                 Text(

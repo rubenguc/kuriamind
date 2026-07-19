@@ -88,8 +88,8 @@ fun BlockScreen(
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background,
-                    titleContentColor = Color.White,
-                    navigationIconContentColor = Color.White,
+                    titleContentColor = MaterialTheme.colorScheme.onBackground,
+                    navigationIconContentColor = MaterialTheme.colorScheme.onBackground,
                 ),
             )
         },
@@ -119,13 +119,13 @@ fun BlockScreen(
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedTextColor = Color.White,
-                        unfocusedTextColor = Color.White,
+                        focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                        unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
                         focusedLabelColor = MaterialTheme.colorScheme.primary,
                         unfocusedLabelColor = Color.Gray,
                         focusedBorderColor = MaterialTheme.colorScheme.primary,
                         unfocusedBorderColor = MaterialTheme.colorScheme.outline,
-                        cursorColor = Color.White,
+                        cursorColor = MaterialTheme.colorScheme.primary,
                     ),
                     shape = RoundedCornerShape(12.dp),
                 )
@@ -143,10 +143,10 @@ fun BlockScreen(
                         Icon(
                             imageVector = Icons.Filled.Add,
                             contentDescription = null,
-                            tint = Color.White,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.padding(end = 8.dp),
                         )
-                        Text("Select apps to block", color = Color.White)
+                        Text("Select apps to block", color = MaterialTheme.colorScheme.onSurface)
                     }
 
                     if (formState.blockedApps.isNotEmpty()) {
@@ -197,7 +197,7 @@ fun BlockScreen(
                         Text(
                             text = "Timer",
                             style = MaterialTheme.typography.bodyLarge,
-                            color = Color.White,
+                            color = MaterialTheme.colorScheme.onSurface,
                             modifier = Modifier.weight(1f),
                         )
                         Switch(
@@ -246,7 +246,7 @@ fun BlockScreen(
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = Color.White,
+                    contentColor = MaterialTheme.colorScheme.onPrimary,
                 ),
             ) {
                 Text(
@@ -291,13 +291,13 @@ private fun ToggleRow(
             colors = CheckboxDefaults.colors(
                 checkedColor = MaterialTheme.colorScheme.primary,
                 uncheckedColor = MaterialTheme.colorScheme.outline,
-                checkmarkColor = Color.White,
+                checkmarkColor = MaterialTheme.colorScheme.onPrimary,
             ),
         )
         Text(
             text = label,
             style = MaterialTheme.typography.bodyLarge,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onSurface,
         )
     }
 }
@@ -331,7 +331,7 @@ private fun TimeField(
     ) {
         Text(text = label, color = Color.Gray)
         Spacer(Modifier.width(4.dp))
-        Text(text = displayText, color = Color.White)
+        Text(text = displayText, color = MaterialTheme.colorScheme.onSurface)
     }
 }
 
