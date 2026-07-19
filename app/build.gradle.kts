@@ -24,8 +24,21 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    val keystorePath = project.findProperty("MYAPP_UPLOAD_STORE_FILE") as? String ?: "my-upload-key.keystore"
+    if (file(keystorePath).exists()) {
+        signingConfigs {
+            create("release") {
+                storeFile = file(keystorePath)
+                storePassword = project.findProperty("MYAPP_UPLOAD_STORE_PASSWORD") as? String ?: ""
+                keyAlias = project.findProperty("MYAPP_UPLOAD_KEY_ALIAS") as? String ?: ""
+                keyPassword = project.findProperty("MYAPP_UPLOAD_KEY_PASSWORD") as? String ?: ""
+            }
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig = signingConfigs.findByName("release")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
