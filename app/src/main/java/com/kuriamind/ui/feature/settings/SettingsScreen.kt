@@ -59,7 +59,7 @@ fun SettingsScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF0D1117))
+            .background(MaterialTheme.colorScheme.background)
             .systemBarsPadding()
             .padding(horizontal = 24.dp, vertical = 16.dp)
             .verticalScroll(rememberScrollState()),
@@ -107,11 +107,11 @@ fun SettingsScreen() {
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedTextColor = Color.White,
                         unfocusedTextColor = Color.White,
-                        focusedBorderColor = Color(0xFF58A6FF),
-                        unfocusedBorderColor = Color(0xFF444444),
+                        focusedBorderColor = MaterialTheme.colorScheme.primary,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outline,
                         cursorColor = Color.White,
-                        focusedContainerColor = Color(0xFF1A1A1A),
-                        unfocusedContainerColor = Color(0xFF1A1A1A),
+                        focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
                     ),
                     shape = RoundedCornerShape(12.dp),
                     modifier = Modifier
@@ -127,7 +127,7 @@ fun SettingsScreen() {
                             text = {
                                 Text(
                                     text = label,
-                                    color = if (code == selectedLang) Color(0xFF58A6FF) else Color.White,
+                                    color = if (code == selectedLang) MaterialTheme.colorScheme.primary else Color.White,
                                     fontWeight = if (code == selectedLang) FontWeight.SemiBold else FontWeight.Normal,
                                 )
                             },
@@ -183,11 +183,11 @@ fun SettingsScreen() {
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedTextColor = Color.White,
                         unfocusedTextColor = Color.White,
-                        focusedBorderColor = Color(0xFF58A6FF),
-                        unfocusedBorderColor = Color(0xFF444444),
+                        focusedBorderColor = MaterialTheme.colorScheme.primary,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outline,
                         cursorColor = Color.White,
-                        focusedContainerColor = Color(0xFF1A1A1A),
-                        unfocusedContainerColor = Color(0xFF1A1A1A),
+                        focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
                     ),
                     shape = RoundedCornerShape(12.dp),
                     modifier = Modifier
@@ -203,7 +203,7 @@ fun SettingsScreen() {
                             text = {
                                 Text(
                                     text = label,
-                                    color = if (mode == selectedTheme) Color(0xFF58A6FF) else Color.White,
+                                    color = if (mode == selectedTheme) MaterialTheme.colorScheme.primary else Color.White,
                                     fontWeight = if (mode == selectedTheme) FontWeight.SemiBold else FontWeight.Normal,
                                 )
                             },
@@ -225,7 +225,7 @@ fun SettingsScreen() {
 
         // ── Divider ───────────────────────────────────────────────
         HorizontalDivider(
-            color = Color(0xFF2D2D2D),
+            color = MaterialTheme.colorScheme.outlineVariant,
             thickness = 1.dp,
         )
 
@@ -243,7 +243,7 @@ fun SettingsScreen() {
         Text(
             text = "This is a personal open-source project. I built it because I got tired of apps that offer similar functionality but require a subscription or too many steps to set up. Kuria Mind is free, no ads, and always will be.",
             style = MaterialTheme.typography.bodyMedium,
-            color = Color(0xFFCCCCCC),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             lineHeight = 22.sp,
         )
 
@@ -264,7 +264,7 @@ fun SettingsScreen() {
                 style = MaterialTheme.typography.bodyMedium.copy(
                     textDecoration = TextDecoration.Underline,
                 ),
-                color = Color(0xFF58A6FF),
+                color = MaterialTheme.colorScheme.primary,
             )
         }
 
@@ -282,7 +282,7 @@ fun SettingsScreen() {
         Text(
             text = "Logo and design by",
             style = MaterialTheme.typography.bodyMedium,
-            color = Color(0xFFCCCCCC),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
         Spacer(Modifier.height(4.dp))
 
@@ -300,7 +300,7 @@ fun SettingsScreen() {
                 style = MaterialTheme.typography.bodyMedium.copy(
                     textDecoration = TextDecoration.Underline,
                 ),
-                color = Color(0xFF58A6FF),
+                color = MaterialTheme.colorScheme.primary,
             )
         }
 

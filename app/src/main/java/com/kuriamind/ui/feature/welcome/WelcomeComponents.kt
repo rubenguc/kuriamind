@@ -51,6 +51,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kuriamind.R
+import com.kuriamind.ui.theme.DarkSurfaceContainer
+import com.kuriamind.ui.theme.StatusGreen
 
 @Composable
 fun WelcomeScreenContent(
@@ -64,7 +66,7 @@ fun WelcomeScreenContent(
             .fillMaxSize()
             .background(
                 brush = Brush.verticalGradient(
-                    colors = listOf(Color(0xFF1D71B8), Color.Black),
+                    colors = listOf(MaterialTheme.colorScheme.primary, Color.Black),
                 ),
             ),
     ) {
@@ -100,7 +102,7 @@ fun WelcomeScreenContent(
                         .fillMaxWidth()
                         .padding(vertical = 10.dp),
                     colors = ButtonDefaults.filledTonalButtonColors(
-                        containerColor = Color(0xFF1D71B8),
+                        containerColor = MaterialTheme.colorScheme.primary,
                         contentColor = Color.White,
                     ),
                 ) {
@@ -258,8 +260,8 @@ private fun PermissionCard(
     isChecked: Boolean,
     onClick: () -> Unit,
 ) {
-    val borderColor = if (isActive) Color(0xFF9BEC8F) else Color(0xFF444444)
-    val checkTint = if (isActive) Color(0xFF9BEC8F) else Color(0xFF444444)
+    val borderColor = if (isActive) StatusGreen else MaterialTheme.colorScheme.outline
+    val checkTint = if (isActive) StatusGreen else MaterialTheme.colorScheme.outline
 
     Card(
         modifier = Modifier
@@ -267,7 +269,7 @@ private fun PermissionCard(
             .clip(RoundedCornerShape(12.dp))
             .clickable(enabled = !isActive, onClick = onClick),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFF111111)),
+        colors = CardDefaults.cardColors(containerColor = DarkSurfaceContainer),
         border = BorderStroke(2.dp, borderColor),
     ) {
         Row(

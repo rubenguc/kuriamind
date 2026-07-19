@@ -87,13 +87,13 @@ fun BlockScreen(
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(0xFF0D1117),
+                    containerColor = MaterialTheme.colorScheme.background,
                     titleContentColor = Color.White,
                     navigationIconContentColor = Color.White,
                 ),
             )
         },
-        containerColor = Color(0xFF0D1117),
+        containerColor = MaterialTheme.colorScheme.background,
     ) { padding ->
         Column(
             modifier = Modifier
@@ -121,10 +121,10 @@ fun BlockScreen(
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedTextColor = Color.White,
                         unfocusedTextColor = Color.White,
-                        focusedLabelColor = Color(0xFF1D71B8),
+                        focusedLabelColor = MaterialTheme.colorScheme.primary,
                         unfocusedLabelColor = Color.Gray,
-                        focusedBorderColor = Color(0xFF1D71B8),
-                        unfocusedBorderColor = Color(0xFF444444),
+                        focusedBorderColor = MaterialTheme.colorScheme.primary,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outline,
                         cursorColor = Color.White,
                     ),
                     shape = RoundedCornerShape(12.dp),
@@ -137,7 +137,7 @@ fun BlockScreen(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(12.dp),
                         border = ButtonDefaults.outlinedButtonBorder.copy(
-                            brush = androidx.compose.ui.graphics.SolidColor(Color(0xFF444444)),
+                            brush = androidx.compose.ui.graphics.SolidColor(MaterialTheme.colorScheme.outline),
                         ),
                     ) {
                         Icon(
@@ -164,7 +164,7 @@ fun BlockScreen(
                             Text(
                                 text = selectedNames.joinToString(", "),
                                 style = MaterialTheme.typography.bodySmall,
-                                color = Color(0xFF888888),
+                                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
                                 maxLines = 3,
                             )
                         }
@@ -204,10 +204,10 @@ fun BlockScreen(
                             checked = formState.addTimer,
                             onCheckedChange = { viewModel.toggleTimer() },
                             colors = SwitchDefaults.colors(
-                                checkedThumbColor = Color(0xFF1D71B8),
-                                checkedTrackColor = Color(0xFF1D71B8).copy(alpha = 0.4f),
+                                checkedThumbColor = MaterialTheme.colorScheme.primary,
+                                checkedTrackColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.4f),
                                 uncheckedThumbColor = Color.Gray,
-                                uncheckedTrackColor = Color(0xFF444444),
+                                uncheckedTrackColor = MaterialTheme.colorScheme.outline,
                             ),
                         )
                     }
@@ -245,7 +245,7 @@ fun BlockScreen(
                     .height(52.dp),
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF1D71B8),
+                    containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = Color.White,
                 ),
             ) {
@@ -289,8 +289,8 @@ private fun ToggleRow(
             checked = checked,
             onCheckedChange = { onToggle() },
             colors = CheckboxDefaults.colors(
-                checkedColor = Color(0xFF1D71B8),
-                uncheckedColor = Color(0xFF444444),
+                checkedColor = MaterialTheme.colorScheme.primary,
+                uncheckedColor = MaterialTheme.colorScheme.outline,
                 checkmarkColor = Color.White,
             ),
         )
@@ -326,7 +326,7 @@ private fun TimeField(
         modifier = modifier,
         shape = RoundedCornerShape(12.dp),
         border = ButtonDefaults.outlinedButtonBorder.copy(
-            brush = androidx.compose.ui.graphics.SolidColor(Color(0xFF444444)),
+            brush = androidx.compose.ui.graphics.SolidColor(MaterialTheme.colorScheme.outline),
         ),
     ) {
         Text(text = label, color = Color.Gray)

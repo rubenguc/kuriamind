@@ -20,7 +20,7 @@ fun StatsScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF0D1117))
+            .background(MaterialTheme.colorScheme.background)
             .systemBarsPadding()
             .padding(horizontal = 24.dp, vertical = 16.dp),
     ) {
@@ -40,7 +40,7 @@ fun StatsScreen() {
         Text(
             text = "This is the Stats screen. Here you can see how many times apps were blocked, notifications suppressed, and your focus trends over time.",
             style = MaterialTheme.typography.bodyLarge,
-            color = Color(0xFFCCCCCC),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             lineHeight = androidx.compose.ui.unit.TextUnit(24f, androidx.compose.ui.unit.TextUnitType.Sp),
         )
     }

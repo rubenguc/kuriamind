@@ -75,7 +75,7 @@ fun AppSelectorSheet(
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
-        containerColor = Color(0xFF1A1A2E),
+        containerColor = MaterialTheme.colorScheme.surface,
         dragHandle = null,
     ) {
         Column(
@@ -124,8 +124,8 @@ fun AppSelectorSheet(
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedTextColor = Color.White,
                     unfocusedTextColor = Color.White,
-                    focusedBorderColor = Color(0xFF1D71B8),
-                    unfocusedBorderColor = Color(0xFF444444),
+                    focusedBorderColor = MaterialTheme.colorScheme.primary,
+                    unfocusedBorderColor = MaterialTheme.colorScheme.outline,
                     cursorColor = Color.White,
                 ),
                 shape = RoundedCornerShape(12.dp),
@@ -163,8 +163,8 @@ fun AppSelectorSheet(
                                 else selected + app.packageName
                             },
                             colors = CheckboxDefaults.colors(
-                                checkedColor = Color(0xFF1D71B8),
-                                uncheckedColor = Color(0xFF444444),
+                                checkedColor = MaterialTheme.colorScheme.primary,
+                                uncheckedColor = MaterialTheme.colorScheme.outline,
                                 checkmarkColor = Color.White,
                             ),
                         )
@@ -193,7 +193,7 @@ fun AppSelectorSheet(
                     }
 
                     HorizontalDivider(
-                        color = Color(0xFF333333),
+                        color = MaterialTheme.colorScheme.outline,
                         thickness = 0.5.dp,
                     )
                 }
@@ -208,7 +208,7 @@ fun AppSelectorSheet(
                     .height(52.dp),
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF1D71B8),
+                    containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = Color.White,
                 ),
             ) {

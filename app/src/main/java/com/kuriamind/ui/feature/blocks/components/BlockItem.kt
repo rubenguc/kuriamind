@@ -48,6 +48,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kuriamind.domain.model.Block
 import com.kuriamind.ui.feature.blocks.InstalledAppItem
+import com.kuriamind.ui.theme.StatusGreen
 
 @Composable
 fun BlockItem(
@@ -60,7 +61,7 @@ fun BlockItem(
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFF161B22)),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
     ) {
         Row(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
@@ -71,7 +72,7 @@ fun BlockItem(
                     .fillMaxHeight()
                     .padding(vertical = 12.dp)
                     .clip(RoundedCornerShape(4.dp))
-                    .background(if (block.isActive) Color(0xFF2EA043) else Color(0xFF30363D)),
+                    .background(if (block.isActive) StatusGreen else MaterialTheme.colorScheme.outlineVariant),
             )
 
             Column(modifier = Modifier.padding(16.dp).weight(1f)) {
@@ -96,9 +97,9 @@ fun BlockItem(
                     Surface(
                         shape = CircleShape,
                         color = if (block.isActive)
-                            Color(0xFF2EA043).copy(alpha = 0.15f)
+                            StatusGreen.copy(alpha = 0.15f)
                         else
-                            Color(0xFF30363D),
+                            MaterialTheme.colorScheme.outlineVariant,
                     ) {
                         Row(
                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
@@ -108,14 +109,14 @@ fun BlockItem(
                                 modifier = Modifier
                                     .size(6.dp)
                                     .clip(CircleShape)
-                                    .background(if (block.isActive) Color(0xFF2EA043) else Color(0xFF848D97)),
+                                    .background(if (block.isActive) StatusGreen else MaterialTheme.colorScheme.onSurfaceVariant),
                             )
                             Spacer(Modifier.width(5.dp))
                             Text(
                                 text = if (block.isActive) "Active" else "Inactive",
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.Medium,
-                                color = if (block.isActive) Color(0xFF2EA043) else Color(0xFF848D97),
+                                color = if (block.isActive) StatusGreen else MaterialTheme.colorScheme.onSurfaceVariant,
                             )
                         }
                     }
@@ -169,7 +170,7 @@ fun BlockItem(
                         Text(
                             text = "+${block.blockedApps.size - 5} more",
                             style = MaterialTheme.typography.bodySmall,
-                            color = Color(0xFF848D97),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 11.sp,
                         )
                     }
@@ -196,7 +197,7 @@ private fun AppIconChip(app: InstalledAppItem) {
             modifier = Modifier
                 .size(24.dp)
                 .clip(CircleShape)
-                .background(Color(0xFF30363D)),
+                .background(MaterialTheme.colorScheme.outlineVariant),
         )
     }
 }
@@ -208,7 +209,7 @@ private fun FeatureChip(
 ) {
     Surface(
         shape = RoundedCornerShape(8.dp),
-        color = Color(0xFF1D71B8).copy(alpha = 0.15f),
+        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
     ) {
         Row(
             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
@@ -218,7 +219,7 @@ private fun FeatureChip(
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
-                    tint = Color(0xFF58A6FF),
+                    tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(12.dp),
                 )
                 Spacer(Modifier.width(4.dp))
@@ -227,7 +228,7 @@ private fun FeatureChip(
                 text = text,
                 fontSize = 11.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = Color(0xFF58A6FF),
+                color = MaterialTheme.colorScheme.primary,
             )
         }
     }
@@ -246,21 +247,21 @@ private fun BlockMoreMenu(
         Icon(
             imageVector = Icons.Filled.MoreVert,
             contentDescription = "More options",
-            tint = Color(0xFF848D97),
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
         )
     }
 
     DropdownMenu(
         expanded = expanded,
         onDismissRequest = { expanded = false },
-        containerColor = Color(0xFF21262D),
+        containerColor = MaterialTheme.colorScheme.surfaceVariant,
         shape = RoundedCornerShape(12.dp),
     ) {
         DropdownMenuItem(
             text = {
                 Text(
                     if (isActive) "Deactivate" else "Activate",
-                    color = Color(0xFFE6EDF3),
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 14.sp,
                 )
             },
@@ -271,7 +272,7 @@ private fun BlockMoreMenu(
         )
         DropdownMenuItem(
             text = {
-                Text("Edit", color = Color(0xFFE6EDF3), fontSize = 14.sp)
+                Text("Edit", color = MaterialTheme.colorScheme.onSurface, fontSize = 14.sp)
             },
             onClick = {
                 expanded = false
@@ -280,7 +281,7 @@ private fun BlockMoreMenu(
         )
         DropdownMenuItem(
             text = {
-                Text("Delete", color = Color(0xFFE53935), fontSize = 14.sp)
+                Text("Delete", color = MaterialTheme.colorScheme.error, fontSize = 14.sp)
             },
             onClick = {
                 expanded = false

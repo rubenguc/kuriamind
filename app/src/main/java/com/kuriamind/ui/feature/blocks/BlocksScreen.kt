@@ -55,7 +55,7 @@ fun BlocksScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFF0D1117)),
+                .background(MaterialTheme.colorScheme.background),
         ) {
             // Header
             Text(
@@ -75,21 +75,21 @@ fun BlocksScreen(
                         Icon(
                             imageVector = Icons.Outlined.Inbox,
                             contentDescription = null,
-                            tint = Color(0xFF444444),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
                             modifier = Modifier.size(64.dp),
                         )
                         Spacer(Modifier.height(16.dp))
                         Text(
                             text = "No blocks yet",
                             style = MaterialTheme.typography.titleMedium,
-                            color = Color(0xFF666666),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontWeight = FontWeight.SemiBold,
                         )
                         Spacer(Modifier.height(6.dp))
                         Text(
                             text = "Tap + to create your first focus block",
                             style = MaterialTheme.typography.bodyMedium,
-                            color = Color(0xFF444444),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }
                 }
@@ -119,7 +119,7 @@ fun BlocksScreen(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(20.dp),
-            containerColor = Color(0xFF1D71B8),
+            containerColor = MaterialTheme.colorScheme.primary,
             contentColor = Color.White
         ) {
             Icon(Icons.Filled.Add, contentDescription = "Add block")

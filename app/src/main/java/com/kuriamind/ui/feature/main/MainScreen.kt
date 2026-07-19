@@ -69,6 +69,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.kuriamind.ui.feature.blocks.BlocksScreen
 import com.kuriamind.ui.feature.settings.SettingsScreen
 import com.kuriamind.ui.feature.stats.StatsScreen
+import com.kuriamind.ui.theme.DarkSurfaceContainer
 
 @Composable
 fun MainScreen(
@@ -261,8 +262,8 @@ private fun MissingPermissionsDialog(
                 .fillMaxWidth()
                 .padding(24.dp),
             shape = RoundedCornerShape(24.dp),
-            colors = CardDefaults.cardColors(containerColor = Color(0xFF111111)),
-            border = BorderStroke(1.dp, Color(0xFF333333)),
+            colors = CardDefaults.cardColors(containerColor = com.kuriamind.ui.theme.DarkSurfaceContainer),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
         ) {
             Column(
                 modifier = Modifier
@@ -305,8 +306,8 @@ private fun MissingPermissionsDialog(
                     onClick = onDismiss,
                     modifier = Modifier.fillMaxWidth().height(48.dp),
                     colors = ButtonDefaults.filledTonalButtonColors(
-                        containerColor = Color(0xFF2D2D2D),
-                        contentColor = Color(0xFFCCCCCC),
+                        containerColor = MaterialTheme.colorScheme.outlineVariant,
+                        contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
                     ),
                 ) {
                     Text("Maybe Later", fontWeight = FontWeight.Medium)
@@ -329,8 +330,8 @@ private fun PermissionCard(
             .clip(RoundedCornerShape(12.dp))
             .clickable(onClick = onClick),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFF1A1A1A)),
-        border = BorderStroke(1.dp, Color(0xFF333333)),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
     ) {
         Row(
             modifier = Modifier
@@ -341,7 +342,7 @@ private fun PermissionCard(
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                tint = Color(0xFF58A6FF),
+                tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.size(22.dp),
             )
             Column(
@@ -365,7 +366,7 @@ private fun PermissionCard(
             }
             Text(
                 text = "Enable",
-                color = Color(0xFF58A6FF),
+                color = MaterialTheme.colorScheme.primary,
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Medium,
             )
