@@ -20,6 +20,7 @@ import javax.inject.Inject
 class AppMonitorService : AccessibilityService() {
 
     @Inject lateinit var repository: BlockRepository
+    @Inject lateinit var blockedEventCounter: BlockedEventCounter
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     private var lastBlockedPackage = ""
@@ -53,6 +54,7 @@ class AppMonitorService : AccessibilityService() {
             Log.d(TAG, "BLOCKING $packageName (block: '${matchingBlock.name}')")
             lastBlockedPackage = packageName
             lastBlockedAt = SystemClock.uptimeMillis()
+            blockedEventCounter.increment()
 
             withContext(Dispatchers.Main) {
                 performGlobalAction(GLOBAL_ACTION_HOME)
