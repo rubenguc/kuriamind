@@ -2,10 +2,17 @@ package com.kuriamind
 
 import android.app.Application
 import android.content.Context
+import com.kuriamind.services.MonitoringService
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class KuriamindApplication : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+        MonitoringService.start(this)
+    }
+
 
     companion object {
         private const val PREFS_NAME = "kuriamind_prefs"
