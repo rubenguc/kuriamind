@@ -17,6 +17,7 @@ import javax.inject.Inject
 class NotificationBlockerService : NotificationListenerService() {
 
     @Inject lateinit var repository: BlockRepository
+    @Inject lateinit var blockedEventCounter: BlockedEventCounter
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
@@ -48,6 +49,7 @@ class NotificationBlockerService : NotificationListenerService() {
             if (matchingBlock != null) {
                 Log.d(TAG, "CANCELLING notification from $packageName (matched block: '${matchingBlock.name}')")
                 cancelNotification(sbn.key)
+                blockedEventCounter.increment()
             } else {
                 Log.d(TAG, "No block matches $packageName notification, allowing")
             }
