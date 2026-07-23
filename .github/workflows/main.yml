@@ -21,7 +21,7 @@ jobs:
         id: gradle_versions
         run: |
           VERSION_NAME=$(grep 'versionName' app/build.gradle.kts | awk -F'"' '{print $2}')
-          VERSION_CODE=$(grep 'versionCode' app/build.gradle.kts | awk '{print $2}')
+          VERSION_CODE=$(grep 'versionCode' app/build.gradle.kts | awk -F'=' '{print $2}' | tr -d ' ')
           echo "version_name=$VERSION_NAME" >> $GITHUB_OUTPUT
           echo "version_code=$VERSION_CODE" >> $GITHUB_OUTPUT
 
@@ -67,7 +67,7 @@ jobs:
         id: gradle_versions
         run: |
           VERSION_NAME=$(grep 'versionName' app/build.gradle.kts | awk -F'"' '{print $2}')
-          VERSION_CODE=$(grep 'versionCode' app/build.gradle.kts | awk '{print $2}')
+          VERSION_CODE=$(grep 'versionCode' app/build.gradle.kts | awk -F'=' '{print $2}' | tr -d ' ')
           echo "version_name=$VERSION_NAME" >> $GITHUB_OUTPUT
           echo "version_code=$VERSION_CODE" >> $GITHUB_OUTPUT
 
@@ -117,5 +117,5 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
           packageName: com.kuriamind
           releaseFiles: artifacts/kuriamind-aab-${{ steps.gradle_versions.outputs.version_name }}.aab
-          track: internal
+          tracks: internal
           status: draft
